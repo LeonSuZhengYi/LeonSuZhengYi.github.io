@@ -62,6 +62,28 @@ The core of the chapter is the Riesz representation theorem on a locally compact
 
 The resulting measure has regularity properties. Outer regularity comes directly from the construction. Inner regularity is first obtained for sets of finite measure; when the ambient space is \(\sigma\)-compact, it holds for all measurable sets.
 
+There is also a useful reverse-engineering way to see why Rudin's construction has the form it does. Suppose in advance that
+
+\[
+\Lambda(f)=\int_X f\,d\mu.
+\]
+
+For an open set \(V\), every continuous soft indicator satisfying \(0\le f\le 1\) and \(\operatorname{supp}f\subset V\) must satisfy \(\Lambda(f)\le\mu(V)\). Conversely, Urysohn's lemma lets such functions equal \(1\) on compact subsets of \(V\), so if the representing measure is to exist, one is naturally led to define
+
+\[
+\mu(V)
+=
+\sup\bigl\{\Lambda(f): f\in C_c(X),\ 0\le f\le1,\ \operatorname{supp}f\subset V\bigr\}.
+\]
+
+Rudin writes this using his notation \(f\prec V\). For an arbitrary set \(E\), one then defines the outer regularization
+
+\[
+\mu(E)=\inf_{V\supset E,\;V\text{ open}}\mu(V).
+\]
+
+So the proof is not really guessing a measure out of nowhere. It starts from the formula a representing measure *would have to satisfy* on open sets, with Urysohn functions playing the role of continuous characteristic functions. This also explains why outer regularity is built into the measure from the beginning rather than added afterward.
+
 ### 3. Three constructions of Lebesgue measure
 
 At this point we have seen three constructions of Lebesgue measure on \(\mathbb R^n\):
@@ -139,6 +161,8 @@ Rudin then briefly discusses the existence of orthonormal bases in arbitrary Hil
 
 Finally Rudin quickly reviews Fourier series on \(\mathbb T\). In proving that the trigonometric system is an orthonormal basis, he chooses a different good kernel from the one used in *Baby Rudin*.
 
+After finishing the chapter, I think the conceptual center is really **Riesz–Fischer**. The abstract Hilbert-space theory says that an orthonormal basis gives coordinates; Riesz–Fischer says that for \(L^2(\mathbb T)\), the Fourier coefficients are exactly such coordinates, with no gap between an abstract square-summable coefficient sequence and an actual \(L^2\)-function. In that sense, \(L^2\) Fourier analysis is Hilbert-space coordinate theory.
+
 The final picture is
 
 \[
@@ -153,9 +177,9 @@ This chapter is very rich. It looks like a chapter about Baire's category theore
 
 ### 1. Banach–Steinhaus
 
-Rudin gives a version of the uniform boundedness principle with a stronger dichotomy flavor than the statement in many textbooks. He then uses it to derive negative results for Fourier series on \(\mathbb T\).
+Rudin gives a version of the uniform boundedness principle with a stronger dichotomy flavor than the statement in many textbooks. Schematically, for a family of bounded operators, either the operator norms are uniformly bounded, or pointwise blow-up occurs on a dense \(G_\delta\)-set. There is no intermediate picture in which unboundedness is confined to just a few exceptional points.
 
-One strong result is roughly: given any countable dense set \(A\subset\mathbb T\), there are uncountably many continuous functions whose Fourier series diverge at every point of \(A\).
+One strong Fourier consequence is roughly: given any countable dense set \(A\subset\mathbb T\), there are uncountably many continuous functions whose Fourier series diverge at every point of \(A\).
 
 ### 2. The open mapping theorem
 
@@ -172,6 +196,14 @@ but it is not onto. In other words, there are elements of \(c_0\) that are not t
 \[
 L^2(\mathbb T)\cong \ell^2.
 \]
+
+The proof is a good example of how the open mapping theorem converts an algebraic surjectivity claim into a quantitative inequality. If the coefficient map were onto, open mapping would force an estimate of the form
+
+\[
+\|f\|_1\le C\|\widehat f\|_\infty.
+\]
+
+But the Dirichlet kernels have uniformly bounded Fourier coefficients while their \(L^1\)-norms tend to infinity. So the hypothetical surjectivity immediately contradicts a concrete Fourier example.
 
 For the more general \(L^p\)-\(\ell^{p'}\) picture, Hausdorff–Young gives one-sided results. Roughly, for \(1\le p\le2\), Fourier coefficients map \(L^p\) into \(\ell^{p'}\), but \(\ell^{p'}\) is larger than the image; for \(2\le p\le\infty\), coefficient synthesis maps \(\ell^{p'}\) into \(L^p\), but \(L^p\) is again larger.
 
@@ -302,11 +334,90 @@ Rudin's Poisson-kernel construction in Chapter 5 is one example. His \(L^p\)-dua
 
 The same pattern appears in the proof of Dunford–Pettis and in parts of Hardy-space theory (I no longer remember exactly which theorem I had in mind when I wrote this note). The representation of functionals by measures also extends naturally in distribution theory, from order zero to positive order. Elliptic PDE theory often follows a broadly similar route.
 
-### 5. The complex Riesz representation theorem
+### 5. The complex Riesz representation theorem: reverse-engineering the proof
 
-Finally, using \(L^p\)-duality, Rudin gets the bounded complex-linear-functional version of the Riesz representation theorem on LCH spaces.
+Finally, using \(L^p\)-duality, Rudin gets the bounded complex-linear-functional version of the Riesz representation theorem on LCH spaces:
 
-The proof still follows the same “magnitude first, phase later” program. Define the modulus of the functional, use the positive Riesz theorem to represent it by a positive measure, and then regard the original functional as a dual element relative to that measure. This gives a complex \(L^1\)-density and finishes the representation.
+\[
+C_0(X)^*\cong M(X),
+\qquad
+\Phi(f)=\int_X f\,d\mu,
+\qquad
+\|\Phi\|=|\mu|(X).
+\]
+
+We discussed this proof for a while, and I think the most illuminating way to read it is again to **reverse engineer the missing magnitude**. A general complex functional \(\Phi\) has no positivity, so Chapter 2 cannot be applied directly. But if \(\Phi\) really came from a complex measure \(\mu\), then before recovering the phase of \(\mu\) one should first be able to recover something analogous to its total variation \(|\mu|\).
+
+Normalize \(\|\Phi\|=1\). For \(f\in C_c(X)\), \(f\ge0\), Rudin defines
+
+\[
+\Lambda(f)
+=
+\sup\bigl\{|\Phi(h)|:\ h\in C_c(X),\ |h|\le f\bigr\}.
+\]
+
+This is the functional analogue of taking total variation: \(\Lambda\) is the smallest positive envelope that dominates the magnitude of \(\Phi\). The nontrivial point is additivity. One direction comes from aligning the complex phases of near-maximizers for \(f\) and \(g\); the other comes from taking any \(h\) with \(|h|\le f+g\) and splitting it continuously as
+
+\[
+h=h_1+h_2,
+\qquad
+h_1=\frac{f}{f+g}h,
+\qquad
+h_2=\frac{g}{f+g}h
+\]
+
+on the set where \(f+g>0\), with both pieces extended by \(0\) outside. Thus \(\Lambda\) becomes a positive linear functional.
+
+Now Chapter 2 can finally be invoked:
+
+\[
+\Lambda(f)=\int_X f\,d\lambda
+\]
+
+for a positive regular Borel measure \(\lambda\). Since
+
+\[
+|\Phi(f)|
+\le \Lambda(|f|)
+=\int_X |f|\,d\lambda
+=\|f\|_{L^1(\lambda)},
+\]
+
+we may reinterpret \(\Phi\) as a bounded functional on \(L^1(\lambda)\). The \(L^p\)-duality theorem already proved in this chapter then gives some \(g\in L^\infty(\lambda)\), \(|g|\le1\), such that
+
+\[
+\Phi(f)=\int_X f g\,d\lambda.
+\]
+
+Set
+
+\[
+d\mu=g\,d\lambda.
+\]
+
+At this point we have a complex representing measure, but we have not yet shown that \(\lambda\) is really its magnitude. The norm identity finishes the job: because \(\|\Phi\|=1\), while \(\lambda(X)\le1\) and \(|g|\le1\), all the inequalities must actually be equalities. Hence
+
+\[
+|g|=1\quad \lambda\text{-a.e.},
+\qquad
+|\mu|=\lambda,
+\qquad
+|\mu|(X)=\|\Phi\|.
+\]
+
+So the whole proof follows exactly the same program as the earlier polar decomposition of complex measures:
+
+\[
+\boxed{
+\text{complex object}
+\longrightarrow
+\text{positive magnitude}
+\longrightarrow
+\text{recover the phase}
+}.
+\]
+
+What I especially like is that several earlier chapters close into one loop here. Chapter 2 represents the positive envelope \(\Lambda\) by \(\lambda\); Chapter 3 gives density of \(C_c(X)\) in \(L^1(\lambda)\); Chapter 6 supplies \(L^1\)-duality and polar decomposition. The final theorem is therefore not an isolated representation result but a synthesis of the machinery built so far.
 
 ---
 
@@ -317,6 +428,8 @@ This chapter is rich and can be divided into three parts:
 1. local fine properties of measures;
 2. a measure-theoretic reconstruction of the fundamental theorem of calculus;
 3. a measure-theoretic reconstruction of change of variables.
+
+There is a broader way I ended up viewing the chapter. Classical calculus studies functions through a local operation, differentiation, and a global/averaging operation, integration. Here the same architecture is rebuilt at the level of measures: first understand their local fine behavior, then use that information to reconstruct the classical calculus theorems under nearly minimal hypotheses.
 
 ### 1. Local fine properties of measures
 
@@ -371,6 +484,8 @@ holds? Rudin shows that the answer is **absolute continuity**. Lusin's \(N\)-pro
 Rudin also gives a Cantor-type function on \([0,1]\) showing that a continuous monotone function may have an \(L^1\) derivative and still fail the FTC.
 
 There is another measure-theoretic way to view this example. One can take absolutely continuous probability measures that converge weakly while concentrating onto a singular limit. The limit has no atoms, so the distribution function is continuous and monotone; but the singularity implies that its derivative is zero almost everywhere. One way to formalize this route uses Prokhorov + Portmanteau. A byproduct is another proof that the Cantor set is uncountable: a nonatomic probability measure cannot live on a countable set.
+
+This also made me notice a useful general picture for sequences of measures: many pathologies come from either **concentration** or **escape of mass**. The Cantor construction is a clean example of concentration producing a singular limit; tightness/Prokhorov-type arguments are precisely what prevent the other failure mode, escape to infinity.
 
 ### 3. Change of variables
 
@@ -457,6 +572,8 @@ For other local averaging kernels, such as the Poisson kernel or heat kernel, on
 
 This is, roughly, the classical Hardy–Littlewood side of harmonic analysis: study local averaging operators through their kernels and maximal functions.
 
+A mental model I found useful after this chapter is that a large part of **classical harmonic analysis** studies operators generated by kernels and asks for quantitative control of the corresponding averages or oscillations. Fourier partial sums are convolution with the Dirichlet kernel; Poisson and heat extensions use much better-behaved kernels; Hardy–Littlewood theory studies local ball averages. This is certainly not a definition of all modern harmonic analysis, but it explains why convolution, maximal functions, singular integrals, and Fourier analysis keep appearing in the same subject.
+
 ---
 
 ## Chapter 9 — Fourier Transforms
@@ -536,6 +653,10 @@ A\tau_y=\tau_yA
 
 Examples include convolution operators, translation operators, and the projection above. There are also unbounded versions: differentiation and the Laplacian become multiplication by \(i\xi_j\) and \(|\xi|^2\), respectively.
 
+A finite-dimensional model makes the statement almost obvious. On \(\mathbb C^N\), let \(S\) be the cyclic shift. The operators commuting with \(S\) are the circulant matrices, and the discrete Fourier transform diagonalizes all of them simultaneously. The multiplier theorem on \(L^2(\mathbb R^n)\) is the continuous analogue of exactly this picture.
+
+This also clarified for me why **commuting with all translations is much stronger than mere normality**. Normality tells us that some unitary spectral representation exists. Translation commutation already tells us which commuting family the operator belongs to and therefore essentially specifies the diagonalizing unitary: the Fourier transform.
+
 This is an extremely beautiful unification. It makes it much less surprising that harmonic analysis, operator algebras, spectral theory, and PDE are so closely connected.
 
 ### 4. \(L^1\) as a Banach algebra
@@ -552,7 +673,27 @@ Its complex homomorphisms are exactly Fourier-transform evaluations,
 \varphi_t(f)=\widehat f(t).
 \]
 
-So the Fourier transform can be generated by all multiplicative linear functionals on the convolution algebra. Later this is exactly the viewpoint of the **Gelfand transform**.
+The proof is also conceptually nice. Starting from a nonzero multiplicative functional \(\varphi\), Rudin first represents it in the form
+
+\[
+\varphi(f)=\int_{\mathbb R} f(x)p(x)\,dx
+\]
+
+with bounded \(p\). Multiplicativity and translation then force
+
+\[
+p(x+y)=p(x)p(y).
+\]
+
+After modifying on a null set, \(p\) is continuous; the functional equation then implies \(p(x)=e^{\lambda x}\), and boundedness forces \(\lambda=-it\) for some real \(t\). Hence
+
+\[
+\varphi(f)=\int f(x)e^{-itx}\,dx=\widehat f(t)
+\]
+
+(up to the normalization convention). So the same exponential characters that diagonalize translations are also the characters of the convolution algebra.
+
+Thus the Fourier transform can be generated by all multiplicative linear functionals on the convolution algebra. Later this is exactly the viewpoint of the **Gelfand transform**.
 
 A final parallel: Fourier series and Fourier transforms have more in common than just discrete versus continuous spectrum.
 
