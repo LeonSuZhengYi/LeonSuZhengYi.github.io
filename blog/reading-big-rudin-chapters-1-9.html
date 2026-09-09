@@ -21,7 +21,7 @@
         <time datetime="2026-09-09">September 9, 2026</time>
       </header>
       <div class="post-body">
-<p>This is an English version of the chapter-by-chapter notes I wrote while reading Chapters 1–9 of <em>Real and Complex Analysis</em>. I have kept the original structure and comments as much as possible, and only added formulas where they make the notes easier to read.</p>
+<p>This is an English version of the chapter-by-chapter notes I wrote while reading Chapters 1–9 of <em>Real and Complex Analysis</em>. I only add formulas where they make the notes easier to read.</p>
 <hr>
 <h2>Chapter 1 — Abstract Integration</h2>
 <p>This chapter first introduces two basic set-theoretic structures that real analysis cares about: <strong>topology</strong> and <strong>\(\sigma\)-algebra</strong>. They lead respectively to continuous functions and measurable functions, so in general they are relatively independent. Of course, once we generate the Borel sets from a topology, the measurable structure becomes dependent on the topology.</p>
@@ -215,7 +215,6 @@ d\mu=\theta\,d|\mu|,
 \left|\int_X g\,d\mu\right|
 }.
 \]</p>
-<p>This formula changed how I think about total variation. It says that \(|\mu|\) is not merely a positive measure manufactured from partitions: it is the <strong>modulus of the action of \(\mu\)</strong>. Given a pointwise budget \(f\), \(\int f\,d|\mu|\) is exactly the largest absolute value that integration against \(\mu\) can produce under that budget.</p>
 <p>This dual characterization is also the key to reverse-engineering the complex Riesz representation theorem later in the chapter.</p>
 <h3>3. Radon–Nikodym and von Neumann&#39;s trick</h3>
 <p>A more general question is: given measures \(\alpha\) and \(\beta\), when can \(\beta\) be represented by a density with respect to \(\alpha\)? This is Radon–Nikodym:</p>
@@ -267,7 +266,7 @@ d\mu=\theta\,d|\mu|,
 \]</p>
 <p>The farther left, the more abstract and structurally weak the object is, and usually the easier it is to construct. The farther right, the more concrete and regular it is, and the harder it is to obtain.</p>
 <p>Rudin&#39;s Poisson-kernel construction in Chapter 5 is one example. His \(L^p\)-duality theorem is another: first get a measure from a functional, then use Radon–Nikodym to get a function, and finally show that the function belongs to the correct \(L^q\)-class.</p>
-<p>The same pattern appears in the proof of Dunford–Pettis and in parts of Hardy-space theory (I no longer remember exactly which theorem I had in mind when I wrote this note). The representation of functionals by measures also extends naturally in distribution theory, from order zero to positive order. Elliptic PDE theory often follows a broadly similar route.</p>
+<p>The same pattern appears in the proof of Dunford–Pettis and in parts of Hardy-space theory. The representation of functionals by measures also extends naturally in distribution theory, from order zero to positive order. Elliptic PDE theory often follows a broadly similar route.</p>
 <h3>5. The complex Riesz representation theorem: reverse-engineering from total variation</h3>
 <p>Finally Rudin proves the complex version of Riesz representation:</p>
 <p>\[
@@ -386,7 +385,7 @@ F(x)-F(a)=\int_a^x F'(t)\,dt
 <p>holds? Rudin shows that the answer is <strong>absolute continuity</strong>. Lusin&#39;s \(N\)-property is the bridge in the sufficiency direction.</p>
 <p>Rudin also gives a Cantor-type function on \([0,1]\) showing that a continuous monotone function may have an \(L^1\) derivative and still fail the FTC.</p>
 <p>There is another measure-theoretic way to view this example. One can take absolutely continuous probability measures that converge weakly while concentrating onto a singular limit. The limit has no atoms, so the distribution function is continuous and monotone; but the singularity implies that its derivative is zero almost everywhere. One way to formalize this route uses Prokhorov + Portmanteau. A byproduct is another proof that the Cantor set is uncountable: a nonatomic probability measure cannot live on a countable set.</p>
-<p>This also made me notice a useful general picture for sequences of measures: many pathologies come from either <strong>concentration</strong> or <strong>escape of mass</strong>. The Cantor construction is a clean example of concentration producing a singular limit; tightness/Prokhorov-type arguments are precisely what prevent the other failure mode, escape to infinity.</p>
+<p>This also made me notice a useful general picture for sequences of measures: many pathologies come from either <strong>concentration</strong> or <strong>escape of mass</strong>. The Cantor construction is a clean example of concentration producing a singular limit.</p>
 <h3>3. Change of variables</h3>
 <p>This is the most technical and clever part of the chapter.</p>
 <p>Rudin shows that the Jacobian in classical calculus can be interpreted as the limiting <strong>ratio of transformed volume to original volume</strong>. For a sufficiently good transformation \(T\), one defines an image-volume measure \(\nu\), and its derivative is the Jacobian:</p>
@@ -404,7 +403,7 @@ F(x)-F(a)=\int_a^x F'(t)\,dt
 <h3>2. Tonelli–Fubini</h3>
 <p>For me, the starting question is more important than the final theorem:</p>
 <blockquote>
-<p>On a product space, which sets have an ``area&#39;&#39; that does not depend on the order in which we measure the two coordinates?</p>
+<p>On a product space, which sets have an ''area&#39;&#39; that does not depend on the order in which we measure the two coordinates?</p>
 </blockquote>
 <p>It is easy to verify this for elementary sets. The class of sets with this property is a monotone class, so we immediately get the characteristic-function version of Tonelli. Passing to limits gives Tonelli for nonnegative functions, and then controlling signs gives Fubini.</p>
 <p>For \(f\ge0\),</p>
@@ -437,7 +436,7 @@ F(x)-F(a)=\int_a^x F'(t)\,dt
 <p>which is extremely important in classical harmonic analysis because it lets us turn weak-type estimates into norm estimates.</p>
 <p>As an application, Rudin uses a Marcinkiewicz interpolation argument to upgrade the weak \(L^1\) estimate and prove \(L^p\)-boundedness of the maximal operator for \(p&gt;1\). Hence the maximal function of an \(L^p\)-function is finite almost everywhere.</p>
 <h3>4. Ball averages and the entrance to harmonic analysis</h3>
-<p>Looking back, the local theory of real analysis has already moved very close to harmonic analysis. Ball averages give the Lebesgue differentiation theorem and the maximal-function theory. A ball average is itself the most basic prototype of an <strong>approximation of the identity</strong>—a ``good kernel&#39;&#39; in Stein&#39;s terminology.</p>
+<p>Looking back, the local theory of real analysis has already moved very close to harmonic analysis. Ball averages give the Lebesgue differentiation theorem and the maximal-function theory. A ball average is itself the most basic prototype of an <strong>approximation of the identity</strong>—a ''good kernel&#39;&#39; in Stein&#39;s terminology.</p>
 <p>For other local averaging kernels, such as the Poisson kernel or heat kernel, one can compare their maximal operators with the Hardy–Littlewood maximal operator for ball averages and then obtain corresponding pointwise recovery results.</p>
 <p>This is, roughly, the classical Hardy–Littlewood side of harmonic analysis: study local averaging operators through their kernels and maximal functions.</p>
 <p>A mental model I found useful after this chapter is that a large part of <strong>classical harmonic analysis</strong> studies operators generated by kernels and asks for quantitative control of the corresponding averages or oscillations. Fourier partial sums are convolution with the Dirichlet kernel; Poisson and heat extensions use much better-behaved kernels; Hardy–Littlewood theory studies local ball averages. This is certainly not a definition of all modern harmonic analysis, but it explains why convolution, maximal functions, singular integrals, and Fourier analysis keep appearing in the same subject.</p>
@@ -484,7 +483,7 @@ F(x)-F(a)=\int_a^x F'(t)\,dt
 \]</p>
 <p>for some measurable set \(E\).</p>
 <p>This is already a very specific infinite-dimensional spectral theorem: the unitary operator diagonalizing the projection is explicitly \(\mathcal F\).</p>
-<p>Knapp proves the more general statement: every bounded linear operator \(A\) on \(L^2(\mathbb R^n)\) that commutes with every translation becomes an \(L^\infty\)-multiplier on the Fourier side,</p>
+<p>Knapp in his book proves the more general statement: every bounded linear operator \(A\) on \(L^2(\mathbb R^n)\) that commutes with every translation becomes an \(L^\infty\)-multiplier on the Fourier side,</p>
 <p>\[
 A\tau_y=\tau_yA
 \quad\Longrightarrow\quad
@@ -533,10 +532,10 @@ p(x+y)=p(x)p(y).
 </ul>
 <p>Under the natural normalizations, both operator norms are at most \(1\).</p>
 <hr>
-<h2>A stopping point</h2>
+<!-- <h2>A stopping point</h2>
 <p>Chapter 9 is a natural boundary in Rudin: Chapter 10 begins the complex-analysis half of the book.</p>
-<p>So I will stop here for now—and go study IELTS for a while.</p>
-<hr>
+<p>So I will stop here for now—and go study IELTS for a while.</p> -->
+<!-- <hr> -->
 <h3>References</h3>
 <ul>
 <li>Walter Rudin, <em>Real and Complex Analysis</em>, 3rd ed.</li>
