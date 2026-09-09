@@ -1,0 +1,55 @@
+:root{
+  --ink:#172b3a;
+  --body:#283d49;
+  --muted:#687985;
+  --line:#d8e0e3;
+  --link:#176478;
+  --accent:#ad573d;
+  --label:#426c63;
+  --paper:#ffffff;
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html{color-scheme:light;scroll-padding-top:24px}
+body{margin:0;background:var(--paper);color:var(--body);font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none;text-underline-offset:3px}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--link);outline-offset:5px}
+.skip-link{position:absolute;left:16px;top:-80px;background:white;padding:8px;z-index:2}
+.skip-link:focus{top:8px}
+.topbar{border-top:3px solid var(--accent);border-bottom:1px solid var(--line)}
+.topbar nav{max-width:var(--max);margin:auto;display:flex;justify-content:flex-end;gap:26px;padding:13px 28px;font:600 14px/1.6 "Avenir Next",Avenir,"Segoe UI",sans-serif;letter-spacing:.02em}
+nav a{color:#334955;padding:4px 0}
+nav a[aria-current=page]{color:var(--accent)}
+.layout{max-width:var(--max);margin:auto;display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px;padding:54px 28px 72px}
+.profile{align-self:start}
+.portrait{display:block;width:100%;height:auto;object-fit:contain;border-radius:3px;box-shadow:0 12px 32px rgba(23,43,58,.12)}
+.profile h1,.profile .name{font-size:27px;line-height:1.15;letter-spacing:-.02em;margin:20px 0 4px;font-weight:600;color:var(--ink)}
+.profile .cn{font-size:18px;color:var(--muted);margin:0 0 21px}
+.profile .affiliation{font-size:16px;color:#425763;margin:0 0 6px;line-height:1.5}
+main{min-width:0}
+.bio{padding-top:4px;color:var(--body);font-size:19px;max-width:790px}
+.bio p{margin:0 0 14px}
+.section{margin-top:31px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:8px;position:relative}
+.section-head::after{content:"";position:absolute;left:0;bottom:-1px;width:48px;height:2px;background:var(--accent)}
+h2,.page-title{font-size:22px;line-height:1.35;margin:0;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.section-head>a{font:600 14px/1.5 "Avenir Next",Avenir,"Segoe UI",sans-serif;white-space:nowrap}
+.news-list,.paper-list{list-style:none;margin:0;padding:0}
+.news-item,.paper-item{display:grid;grid-template-columns:100px minmax(0,1fr);gap:22px;padding:20px 0;border-bottom:1px solid #e3e9eb}
+.date,.venue-label{font:650 13px/1.5 "Avenir Next",Avenir,"Segoe UI",sans-serif;padding-top:4px;letter-spacing:.035em}
+.date{color:var(--accent)}
+.venue-label{color:var(--label)}
+.news-item p{margin:0}
+.papers-section{margin-top:36px}
+.paper-title{font-size:20px;line-height:1.35;margin:0 0 5px;overflow-wrap:anywhere;font-weight:600;letter-spacing:-.01em}
+.paper-title a{color:var(--ink)}
+.authors,.publication{margin:0;color:var(--muted);font-size:16px;line-height:1.55}
+.authors strong{font-weight:500;color:#344b57;text-decoration:underline;text-decoration-color:#9caab0;text-underline-offset:3px}
+.paper-links{display:flex;gap:17px;margin-top:7px;font:600 14px/1.6 "Avenir Next",Avenir,"Segoe UI",sans-serif}
+.papers-page .page-title{font-size:29px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+.year{font-size:19px;margin:23px 0 0;color:#46515d}
+@media(max-width:820px){body{font-size:17px}.layout{grid-template-columns:170px minmax(0,1fr);gap:32px;padding:38px 24px 52px}.profile h1,.profile .name{font-size:24px}.news-item,.paper-item{grid-template-columns:1fr;gap:6px}.profile .affiliation{font-size:15px}.bio{font-size:18px}.paper-title{font-size:19px}}
+@media(max-width:580px){.topbar nav{padding:10px 22px}.layout{display:block;padding-top:30px}.profile{display:grid;grid-template-columns:130px minmax(0,1fr);gap:22px;margin-bottom:32px;align-items:start}.profile h1,.profile .name{margin-top:1px}.profile .cn{margin-bottom:12px}.profile .affiliation{font-size:15px;line-height:1.4}.bio{padding-top:0}.section{margin-top:27px}.news-item,.paper-item{padding:18px 0}.papers-section{margin-top:31px}}
+@media(max-width:350px){.profile{grid-template-columns:100px minmax(0,1fr);gap:15px}.layout{padding-inline:16px}.profile h1,.profile .name{font-size:21px}}
+@media print{.topbar,.skip-link{display:none}.layout{padding:0;grid-template-columns:150px minmax(0,1fr);gap:25px}.paper-item{break-inside:avoid}}
