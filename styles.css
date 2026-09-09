@@ -68,6 +68,7 @@ h2,.page-title{font-size:22px;line-height:1.35;margin:0;font-weight:600;color:va
 .post-body{font-size:18px;line-height:1.72;color:#263b47}
 .post-body h2{font-size:29px;margin:2.5em 0 .7em;padding-bottom:.22em;border-bottom:1px solid var(--line)}
 .post-body h3{font-size:22px;margin:1.9em 0 .55em;color:var(--ink)}
+.post-body h4{font-size:19px;margin:1.55em 0 .5em;color:var(--ink)}
 .post-body p{margin:0 0 1.15em}
 .post-body ul,.post-body ol{padding-left:1.4em;margin:0 0 1.2em}
 .post-body li{padding-left:.18em;margin:.3em 0}

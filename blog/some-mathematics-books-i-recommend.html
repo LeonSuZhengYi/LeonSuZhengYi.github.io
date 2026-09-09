@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Some Mathematics Books I Recommend | Zhengyi Su</title>
+  <meta name="description" content="A personal reading guide to real analysis, functional analysis, PDE, probability, optimization, and related topics.">
+  <link rel="stylesheet" href="../styles.css">
+  <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar"><nav aria-label="Main navigation"><a href="../">Home</a><a href="../papers.html">Papers</a><a href="../blog.html" aria-current="page">Blog</a></nav></header>
+  <main class="article-layout" id="main">
+    <article>
+      <header class="post-header">
+        <a class="back-link" href="../blog.html">← Blog</a>
+        <h1>Some Mathematics Books I Recommend</h1>
+        <p class="post-subtitle">A personal reading guide to real analysis, functional analysis, PDE, probability, optimization, and related topics.</p>
+        <time datetime="2026-09-09">September 9, 2026</time>
+      </header>
+      <div class="post-body">
+<p>This is a collection of mathematics books that I have found useful and would be happy to recommend.</p>
+<p>It is not intended to be a comprehensive list of the &quot;best textbooks&quot; in every subject. The selection is inevitably biased toward my own interests, especially <strong>analysis, probability, PDE, optimization, and dynamics</strong>. More importantly, I care quite a lot about <em>when</em> a book should be read. A book can be excellent and still be a poor first introduction to a subject.</p>
+<p>So, within each section, the books are arranged roughly from more accessible to more advanced. The ordering is not purely by technical difficulty. I have in mind a progression of the form</p>
+<p>\[
+\text{learn the objects and basic machinery}
+\;\longrightarrow\;
+\text{build a coherent picture}
+\;\longrightarrow\;
+\text{read the subject in a more compressed or abstract form}.
+\]</p>
+<p>Some books appear implicitly in more than one subject. This is unavoidable: good analysis books tend not to respect artificial boundaries between real analysis, functional analysis, Fourier analysis, probability, and PDE.</p>
+<hr>
+<h2>Real Analysis</h2>
+<p>My preferred route through real analysis is roughly</p>
+<p>\[
+\text{Axler}
+\longrightarrow
+\text{Royden / Knapp}
+\longrightarrow
+\text{Rudin}.
+\]</p>
+<p>The important point is that I would <strong>not</strong> recommend starting with Rudin.</p>
+<h3>Sheldon Axler — <em>Measure, Integration &amp; Real Analysis</em></h3>
+<p><a href="https://measure.axler.net/">Book website</a></p>
+<p>This is probably the book I would recommend most strongly for a first systematic encounter with measure-theoretic real analysis.</p>
+<p>The exposition is unusually transparent. Definitions are motivated carefully, proofs contain enough detail that one rarely needs to reverse-engineer what the author was thinking, and the book develops a surprisingly large part of the standard graduate analysis toolkit.</p>
+<p>Besides measure and integration, it includes \(L^p\) spaces, Hilbert and Banach spaces, Fourier analysis, probability measures, and related topics.</p>
+<p>For someone learning modern real analysis for the first time, this would be my default recommendation.</p>
+<h3>H. L. Royden and Patrick Fitzpatrick — <em>Real Analysis</em></h3>
+<p>Royden is a more traditional and systematic graduate real analysis textbook.</p>
+<p>I would recommend it after one already has some familiarity with measure and integration. It is particularly useful for consolidating the classical framework of real analysis and filling in details that may remain scattered after a first exposure.</p>
+<p>Compared with Axler, it feels closer to the traditional graduate real analysis curriculum.</p>
+<h3>Anthony W. Knapp — <em>Basic Real Analysis</em> and <em>Advanced Real Analysis</em></h3>
+<p><a href="https://www.math.stonybrook.edu/~aknapp/">Anthony Knapp&#39;s books</a></p>
+<p>These two volumes are much broader than their titles suggest.</p>
+<p><em>Basic Real Analysis</em> moves from classical calculus and metric spaces through measure theory, differentiation, Fourier analysis, \(L^p\) spaces, topology, integration on locally compact spaces, and Hilbert and Banach spaces.</p>
+<p><em>Advanced Real Analysis</em> continues toward distributions, Euclidean Fourier analysis, functional analysis, PDE, manifolds, probability, wavelets, and related subjects.</p>
+<p>Together, the two books provide something close to a <strong>map of modern analysis</strong>.</p>
+<p>This is why I especially like Knapp after the basic measure-theoretic machinery is already familiar: the point is no longer merely to learn another theorem, but to see where real analysis leads next.</p>
+<h3>Walter Rudin — <em>Principles of Mathematical Analysis</em> and <em>Real and Complex Analysis</em></h3>
+<p>I would recommend reading Rudin relatively late.</p>
+<p>Both books are famous for their concision, and this is precisely why I do not think they are always ideal for encountering an idea for the first time. Much of what makes Rudin exceptional becomes visible only after one already knows the surrounding theory.</p>
+<p>Once the reader has a sufficiently clear mental picture of analysis, however, Rudin becomes extremely rewarding.</p>
+<p>The proofs are compressed without being careless. The theorem statements are often stronger and cleaner than one first expects. Seemingly separate parts of analysis are organized into a remarkably coherent structure.</p>
+<p>For me, Rudin is therefore less an introduction than a <strong>synthesis</strong>:</p>
+<p>\[
+\boxed{
+\text{first learn the subject, then read Rudin to see its structure}.
+}
+\]</p>
+<hr>
+<h2>Functional Analysis</h2>
+<p>Real analysis books such as Axler, Royden, Knapp, and Rudin already contain a substantial amount of functional analysis. Nevertheless, I think it is worth studying functional analysis again as a subject in its own right.</p>
+<p>A useful way to think about the progression is</p>
+<p>\[
+\text{Hilbert spaces}
+\longrightarrow
+\text{Banach spaces}
+\longrightarrow
+\text{weak and weak-* topologies}
+\longrightarrow
+\text{locally convex spaces}
+\longrightarrow
+\text{topological vector spaces}.
+\]</p>
+<p>As the subject develops, we gradually give up structure.</p>
+<p>We begin with inner products and norms. We then discover that norm convergence is often too strong and pass to weak topologies. Eventually, even the existence of a useful single norm is abandoned.</p>
+<h3>James C. Robinson — <em>An Introduction to Functional Analysis</em></h3>
+<p>This is the book I would recommend for a first dedicated course in functional analysis.</p>
+<p>It begins close to the familiar geometry of Hilbert and Banach spaces and develops the classical results without introducing excessive abstraction too early.</p>
+<p>If the functional analysis appearing inside a real analysis course still feels like a collection of disconnected tools, this is a good place to turn those tools into a coherent theory.</p>
+<h3>Haim Brezis — <em>Functional Analysis, Sobolev Spaces and Partial Differential Equations</em></h3>
+<p>Brezis is the book I would recommend once basic Banach and Hilbert space theory is familiar.</p>
+<p>One of its main strengths is that the abstract theory is constantly connected to applications. Hahn–Banach, uniform boundedness, weak topology, compactness, \(L^p\) spaces, and operator theory eventually lead naturally to Sobolev spaces and PDE.</p>
+<p>This is also where weak topology starts to feel genuinely necessary rather than merely abstract.</p>
+<p>In infinite-dimensional analysis, strong convergence is often too much to hope for. Weak convergence gives access to compactness and limiting arguments that would otherwise be unavailable.</p>
+<h3>M. Scott Osborne — <em>Locally Convex Spaces</em></h3>
+<p>After Banach space theory, a natural question is:</p>
+<blockquote>
+<p>How much of functional analysis actually depends on having a norm?</p>
+</blockquote>
+<p>Locally convex spaces replace a single norm with a family of seminorms. This allows many of the central ideas of functional analysis to survive in substantially more general spaces.</p>
+<p>Osborne is useful for making the transition from normed spaces to locally convex and topological vector spaces explicit.</p>
+<p>This becomes particularly important once one encounters spaces of smooth functions and distributions.</p>
+<h3>Anthony W. Knapp — <em>Advanced Real Analysis</em>, Functional Analysis Chapters</h3>
+<p>Knapp provides another route from Banach spaces toward general topological vector spaces.</p>
+<p>The functional analysis chapters are especially useful because the abstraction remains closely connected with Fourier analysis, distributions, operator theory, and PDE.</p>
+<p>The progression</p>
+<p>\[
+\text{Banach spaces}
+\longrightarrow
+\text{Fréchet / locally convex spaces}
+\longrightarrow
+\text{distributions}
+\]</p>
+<p>therefore feels mathematically motivated rather than merely formal.</p>
+<h3>J. J. Duistermaat and J. A. C. Kolk — <em>Distributions: Theory and Applications</em></h3>
+<p>Distributions are one of the clearest places where the theory of topological vector spaces becomes concrete.</p>
+<p>The basic idea is to replace an ordinary function by its action on test functions,</p>
+<p>\[
+T:\varphi\mapsto \langle T,\varphi\rangle.
+\]</p>
+<p>Differentiation can then be defined by duality:</p>
+<p>\[
+\langle \partial^\alpha T,\varphi\rangle
+=
+(-1)^{|\alpha|}
+\langle T,\partial^\alpha\varphi\rangle.
+\]</p>
+<p>A dedicated book on distributions is worthwhile because the subject is not merely about manipulating the Dirac delta. The real structure lies in spaces such as</p>
+<p>\[
+\mathcal D(\Omega),\qquad
+\mathcal D'(\Omega),\qquad
+\mathcal S(\mathbb R^n),\qquad
+\mathcal S'(\mathbb R^n),
+\]</p>
+<p>together with the topologies and dualities that make them work.</p>
+<p>Distributions form an important bridge:</p>
+<p>\[
+\boxed{
+\text{functional analysis}
+\longrightarrow
+\text{Fourier analysis}
+\longrightarrow
+\text{PDE}.
+}
+\]</p>
+<h3>Walter Rudin — <em>Functional Analysis</em></h3>
+<p>As with Rudin&#39;s real analysis books, I would read this relatively late.</p>
+<p>Rudin does not organize functional analysis merely as the theory of Banach spaces. The book works naturally at the level of topological vector spaces and develops convexity, duality, weak topologies, distributions, operator theory, Banach algebras, and spectral theory in a highly compressed framework.</p>
+<p>Conceptually, one gradually moves from</p>
+<p>\[
+\text{norm}
+\rightsquigarrow
+\text{families of seminorms}
+\rightsquigarrow
+\text{topology}.
+\]</p>
+<p>Many of the fundamental principles survive.</p>
+<p>For me, this is one of the central ideas of functional analysis:</p>
+<p>\[
+\boxed{
+\text{linearity}+\text{topology}+\text{convexity}.
+}
+\]</p>
+<p>A rough reading route is therefore</p>
+<p>\[
+\text{Robinson}
+\longrightarrow
+\text{Brezis}
+\longrightarrow
+\text{Osborne / Knapp}
+\longrightarrow
+\text{Duistermaat–Kolk}
+\longrightarrow
+\text{Rudin}.
+\]</p>
+<hr>
+<h2>Complex Analysis</h2>
+<p>For complex analysis, my recommended progression is much shorter:</p>
+<p>\[
+\text{Perera–Agarwal–Pinelas}
+\longrightarrow
+\text{Stein–Shakarchi}.
+\]</p>
+<h3>Kanishka Perera, Ravi P. Agarwal, and Sandra Pinelas — <em>An Introduction to Complex Analysis</em></h3>
+<p>This is the book I would recommend for a first serious course in complex analysis.</p>
+<p>It develops the classical theory in a relatively gentle and systematic way: analytic functions, contour integration, Cauchy&#39;s theorem, power and Laurent series, residues, conformal mappings, harmonic functions, and related topics.</p>
+<p>Its main strength is pedagogical clarity.</p>
+<p>It is a good book for becoming comfortable with the basic techniques of one complex variable before moving to a more structural treatment.</p>
+<h3>Elias M. Stein and Rami Shakarchi — <em>Complex Analysis</em></h3>
+<p>I would read this after the classical theory is already familiar.</p>
+<p>Like the other volumes of the <em>Princeton Lectures in Analysis</em>, the book is valuable not merely because of the theorems it contains, but because it connects complex analysis with the rest of mathematics.</p>
+<p>Fourier analysis, entire functions, the Gamma and zeta functions, elliptic functions, theta functions, and number theory all begin to interact.</p>
+<p>The progression is roughly</p>
+<p>\[
+\boxed{
+\text{learn classical complex analysis}
+\longrightarrow
+\text{see what complex analysis is connected to}.
+}
+\]</p>
+<hr>
+<h2>Fourier Analysis</h2>
+<p>Several of the real analysis books above already contain substantial Fourier analysis. Axler&#39;s <em>MIRA</em>, Knapp&#39;s <em>Basic Real Analysis</em>, and Rudin&#39;s <em>Real and Complex Analysis</em> all provide useful introductions.</p>
+<p>For a first book devoted specifically to Fourier analysis, however, I would recommend:</p>
+<h3>Elias M. Stein and Rami Shakarchi — <em>Fourier Analysis: An Introduction</em></h3>
+<p>This is an excellent first dedicated book on the subject.</p>
+<p>The basic progression is</p>
+<p>\[
+\text{Fourier series}
+\longrightarrow
+\text{Fourier transform}
+\longrightarrow
+\text{convolution and kernels}
+\longrightarrow
+\text{applications}.
+\]</p>
+<p>The book begins with Fourier series and questions of convergence and summability, then moves to the Fourier transform on \(\mathbb R\) and \(\mathbb R^d\), with applications to PDE, number theory, and other areas.</p>
+<p>What I particularly like is that Fourier analysis is presented as a way of thinking about functions and operators, rather than merely as a collection of transform formulas.</p>
+<p>For a first systematic encounter with Fourier analysis as an independent subject, this would be my default recommendation.</p>
+<hr>
+<h2>Partial Differential Equations</h2>
+<p>For PDE, I would suggest</p>
+<p>\[
+\text{Jost}
+\longrightarrow
+\text{Gallouët–Herbin}
+\longrightarrow
+\text{Evans}.
+\]</p>
+<p>Conceptually, the progression is</p>
+<p>\[
+\boxed{
+\text{classical PDE}
+\longrightarrow
+\text{weak formulations}
+\longrightarrow
+\text{modern PDE theory}.
+}
+\]</p>
+<h3>Jürgen Jost — <em>Partial Differential Equations</em></h3>
+<p>This is the most accessible PDE book among those listed here.</p>
+<p>It introduces the fundamental model equations and many standard methods without requiring the full machinery of modern functional analysis from the very beginning.</p>
+<p>The Laplace equation, maximum principles, heat and wave equations, variational ideas, Sobolev spaces, and regularity theory all appear naturally.</p>
+<p>I would recommend it for acquiring a first coherent picture of what PDE theory is trying to do.</p>
+<h3>Raphaèle Herbin and Thierry Gallouët — <em>Weak Solutions of Partial Differential Equations</em></h3>
+<p>This is a natural next step once some functional analysis and elementary PDE are familiar.</p>
+<p>The central organizing idea is the notion of a <strong>weak solution</strong>.</p>
+<p>Instead of requiring a sufficiently smooth function to satisfy</p>
+<p>\[
+Lu=f
+\]</p>
+<p>pointwise, one reformulates the equation through integration against test functions and searches for a solution in an appropriate function space.</p>
+<p>The core toolkit becomes</p>
+<p>\[
+\text{Sobolev spaces}
++
+\text{weak convergence}
++
+\text{compactness}
++
+\text{energy estimates}.
+\]</p>
+<p>This is precisely the point where functional analysis becomes part of the basic language of PDE.</p>
+<h3>Lawrence C. Evans — <em>Partial Differential Equations</em></h3>
+<p>Evans is the standard graduate PDE book I would recommend once the necessary background in real analysis, functional analysis, and Sobolev spaces is already in place.</p>
+<p>At this stage, the subject is no longer primarily about explicitly solving individual differential equations.</p>
+<p>The central questions become</p>
+<p>\[
+\boxed{
+\text{existence}
++
+\text{uniqueness}
++
+\text{regularity}
++
+\text{qualitative behavior}.
+}
+\]</p>
+<p>Energy methods, compactness, variational methods, weak convergence, and regularity estimates begin to form a reusable PDE toolkit.</p>
+<p>For someone who wants to continue toward modern analysis or PDE research, Evans is a natural book to know well.</p>
+<hr>
+<h2>Probability and Stochastic Analysis</h2>
+<p>I find it useful to separate this subject into three directions:</p>
+<ol>
+<li>foundations of probability;</li>
+<li>stochastic analysis;</li>
+<li>modern analysis on spaces of probability measures.</li>
+</ol>
+<h3>Probability Foundations</h3>
+<h4>Zikun Wang — <em>Foundations of Probability Theory and Its Applications</em></h4>
+<p>This is one of the Chinese-language mathematics books that I would particularly recommend.</p>
+<p>Although it is an older book, I think it remains an excellent introduction to probability theory. The presentation has a distinctly mathematical flavor: probability is developed as a coherent theory rather than as a collection of formulas for calculating distributions and expectations.</p>
+<p>For a Chinese-speaking reader encountering probability seriously for the first time, this book is still very much worth reading.</p>
+<h4>Jean-François Le Gall — <em>Measure Theory, Probability, and Stochastic Processes</em></h4>
+<p>This is the probability book I would recommend to someone who already has some real analysis and wants a clean measure-theoretic development.</p>
+<p>The progression is particularly natural:</p>
+<p>\[
+\text{measure theory}
+\longrightarrow
+\text{probability}
+\longrightarrow
+\text{conditional expectation}
+\longrightarrow
+\text{martingales}
+\longrightarrow
+\text{stochastic processes}.
+\]</p>
+<p>Measure theory is not treated as preliminary machinery to be forgotten once probability begins. It remains the language in which the subject is formulated.</p>
+<hr>
+<h3>Stochastic Analysis</h3>
+<p>Once the foundations of probability are familiar, the character of the subject changes.</p>
+<p>We begin to study random processes dynamically, introduce filtrations and stopping times, integrate with respect to random processes, and solve differential equations driven by noise.</p>
+<p>The basic route is</p>
+<p>\[
+\text{Brownian motion}
+\longrightarrow
+\text{martingales}
+\longrightarrow
+\text{stochastic integration}
+\longrightarrow
+\text{Itô calculus}
+\longrightarrow
+\text{SDEs}.
+\]</p>
+<h4>Jean-François Le Gall — <em>Brownian Motion, Martingales, and Stochastic Calculus</em></h4>
+<p>This is a concise and rigorous introduction to stochastic calculus.</p>
+<p>One eventually reaches the fundamental change from ordinary calculus to Itô calculus. For example, instead of simply writing</p>
+<p>\[
+df(X_t)=f'(X_t)\,dX_t,
+\]</p>
+<p>quadratic variation produces a second-order contribution:</p>
+<p>\[
+df(X_t)
+=
+f'(X_t)\,dX_t
++
+\frac12 f''(X_t)\,d[X]_t.
+\]</p>
+<p>Once this becomes natural, much of stochastic analysis begins to fit together.</p>
+<h4>Andrea Pascucci — <em>Probability Theory II: Stochastic Calculus</em></h4>
+<p>Pascucci provides a broader and somewhat more gradual treatment of stochastic calculus.</p>
+<p>Brownian motion, Markov processes, Poisson processes, stopping times, continuous martingales, finite-variation processes, stochastic integration, Itô&#39;s formula, and changes of measure all appear.</p>
+<p>I view Pascucci and Le Gall as complementary rather than interchangeable. Le Gall gives a particularly clean route through the theory, while Pascucci spends more time developing the surrounding machinery.</p>
+<hr>
+<h3>Probability Measures, Weak Convergence, and Optimal Transport</h3>
+<p>There is another direction that I find particularly interesting: instead of merely using probability measures to describe random variables, one studies the measures themselves as objects carrying topology, geometry, and dynamics.</p>
+<h4>Vladimir I. Bogachev — <em>Weak Convergence of Measures</em></h4>
+<p><a href="https://bookstore.ams.org/surv-234">AMS book page</a></p>
+<p>Weak convergence is one of the fundamental languages of modern probability.</p>
+<p>Instead of asking for strong pointwise convergence, one studies</p>
+<p>\[
+\mu_n\rightharpoonup\mu
+\]</p>
+<p>through convergence against test functions:</p>
+<p>\[
+\int f\,d\mu_n
+\longrightarrow
+\int f\,d\mu.
+\]</p>
+<p>This framework underlies convergence in distribution, tightness, Prokhorov-type compactness arguments, and many limiting procedures throughout probability and analysis.</p>
+<p>Bogachev develops this perspective systematically and also studies the topology of spaces of measures themselves.</p>
+<h4>Filippo Santambrogio — <em>Optimal Transport for Applied Mathematicians: Calculus of Variations, PDEs, and Modeling</em></h4>
+<p>Optimal transport takes the study of probability measures in another direction.</p>
+<p>Given two measures \(\mu\) and \(\nu\), one asks how mass can be transported between them at minimum cost:</p>
+<p>\[
+\inf_{\gamma\in\Pi(\mu,\nu)}
+\int c(x,y)\,d\gamma(x,y).
+\]</p>
+<p>What begins as an optimization problem eventually leads to geometry on spaces of probability measures.</p>
+<p>The Wasserstein distance</p>
+<p>\[
+W_p(\mu,\nu)
+\]</p>
+<p>allows one to speak about curves, variational problems, gradient flows, and PDE on spaces of measures.</p>
+<p>This creates a particularly beautiful interface:</p>
+<p>\[
+\boxed{
+\text{probability}
++
+\text{optimization}
++
+\text{PDE}
++
+\text{geometry}.
+}
+\]</p>
+<hr>
+<h2>Optimization</h2>
+<p>For optimization, I would recommend two books representing two somewhat different generations of the subject:</p>
+<p>\[
+\text{Nocedal–Wright}
+\longrightarrow
+\text{Ryu–Yin}.
+\]</p>
+<p>This is not simply an easy-to-hard progression. The viewpoint itself changes.</p>
+<h3>Jorge Nocedal and Stephen J. Wright — <em>Numerical Optimization</em></h3>
+<p><a href="https://link.springer.com/book/10.1007/978-0-387-40065-5">Springer page</a></p>
+<p>This is the first optimization book I would recommend.</p>
+<p>It develops the classical toolkit of numerical optimization: line searches, trust-region methods, Newton and quasi-Newton methods, conjugate gradients, constrained optimization, penalty methods, interior-point methods, SQP, and related algorithms.</p>
+<p>The basic structure is often</p>
+<p>\[
+\text{construct a local model}
+\longrightarrow
+\text{choose a search direction}
+\longrightarrow
+\text{choose a step}
+\longrightarrow
+\text{prove convergence}.
+\]</p>
+<p>It is an excellent introduction to the classical language of continuous numerical optimization.</p>
+<h3>Ernest K. Ryu and Wotao Yin — <em>Large-Scale Convex Optimization: Algorithms &amp; Analyses Via Monotone Operators</em></h3>
+<p>This book reflects a more modern viewpoint on large-scale convex optimization.</p>
+<p>Many algorithms that initially look unrelated can be unified through monotone operator theory.</p>
+<p>Instead of studying each optimization method separately, one studies inclusions such as</p>
+<p>\[
+0\in A(x)+B(x)
+\]</p>
+<p>and the fixed-point iterations generated by resolvents, averaged operators, and splitting schemes.</p>
+<p>The conceptual progression becomes</p>
+<p>\[
+\text{convex optimization}
+\longrightarrow
+\text{monotone inclusions}
+\longrightarrow
+\text{operator splitting}.
+\]</p>
+<p>This viewpoint is especially useful for proximal methods, splitting algorithms, large-scale optimization, inverse problems, signal processing, machine learning, and distributed computation.</p>
+<p>I think the contrast between the two books is particularly instructive:</p>
+<p>\[
+\boxed{
+\begin{aligned}
+\text{Nocedal–Wright}:&amp;
+\quad \text{classical numerical optimization},\\
+\text{Ryu–Yin}:&amp;
+\quad \text{modern first-order and splitting methods}.
+\end{aligned}
+}
+\]</p>
+<hr>
+<h2>Miscellaneous</h2>
+<p>The following books do not quite justify separate sections here, but I found them useful because they connect naturally with several of the subjects above.</p>
+<h3>Sheldon Axler — <em>Linear Algebra Done Right</em></h3>
+<p><a href="https://linear.axler.net/">Book website</a></p>
+<p>This is the linear algebra book I would recommend after a first computational course.</p>
+<p>Axler emphasizes linear maps, invariant subspaces, eigenvalues, operators, and inner-product spaces rather than matrix manipulation.</p>
+<p>For someone interested in analysis, one particularly attractive feature is that much of the operator theory can be regarded as a finite-dimensional prototype of what later happens in functional analysis.</p>
+<p>For example,</p>
+<p>\[
+\text{finite-dimensional spectral theory}
+\longrightarrow
+\text{spectral theory on Hilbert spaces}.
+\]</p>
+<p>In this sense, many ideas in <em>Linear Algebra Done Right</em> reappear in infinite-dimensional form in Axler&#39;s <em>Measure, Integration &amp; Real Analysis</em>.</p>
+<h3>Gerald Teschl — <em>Ordinary Differential Equations and Dynamical Systems</em></h3>
+<p>This is a very good introduction to ODE from a mathematical rather than purely computational viewpoint.</p>
+<p>I particularly like the idea that an ODE</p>
+<p>\[
+\dot x=f(x)
+\]</p>
+<p>defines a flow</p>
+<p>\[
+x(t)=\Phi_t(x_0),
+\]</p>
+<p>so that differential equations naturally lead to dynamical systems.</p>
+<p>Questions about solutions then become questions about trajectories, equilibria, stability, invariant sets, and long-time behavior.</p>
+<p>Conceptually,</p>
+<p>\[
+\boxed{
+\text{ODE}
+\longrightarrow
+\text{flow}
+\longrightarrow
+\text{dynamical system}.
+}
+\]</p>
+<p>Knapp&#39;s <em>Basic Real Analysis</em> also contains a useful treatment of ODEs.</p>
+<h3>William E. Boyce, Richard C. DiPrima, and Douglas B. Meade — <em>Elementary Differential Equations and Boundary Value Problems</em></h3>
+<p>This is a much more elementary and computational differential equations book, but I think its treatment of boundary-value problems and Sturm–Liouville theory remains very useful.</p>
+<p>A typical Sturm–Liouville problem has the form</p>
+<p>\[
+-\frac{d}{dx}
+\left(
+p(x)\frac{du}{dx}
+\right)
++
+q(x)u
+=
+\lambda w(x)u,
+\]</p>
+<p>together with suitable boundary conditions.</p>
+<p>Even in one dimension, this already contains many of the structures that later reappear in elliptic PDE:</p>
+<p>\[
+\text{differential operator}
++
+\text{boundary conditions}
++
+\text{eigenvalues and eigenfunctions}.
+\]</p>
+<p>The resulting eigenfunctions lead naturally to orthogonal expansions and spectral decompositions.</p>
+<p>I therefore like to think of Sturm–Liouville theory as a one-dimensional prototype of the spectral theory of elliptic operators:</p>
+<p>\[
+\text{Sturm–Liouville}
+\longrightarrow
+\text{self-adjoint operators}
+\longrightarrow
+\text{spectral theory}
+\longrightarrow
+\text{elliptic PDE}.
+\]</p>
+<hr>
+<h2>A Rough Map</h2>
+<p>These subjects are not really independent. Taken together, the books above form something like the following picture:</p>
+<p>\[
+\begin{array}{ccccc}
+&amp; \text{Real Analysis} &amp; &amp; \\
+\swarrow &amp; \downarrow &amp; \searrow &amp; \\
+\text{Fourier Analysis}
+&amp;
+\text{Functional Analysis}
+&amp;
+\text{Probability}
+\\
+\downarrow
+&amp;
+\downarrow
+&amp;
+\downarrow
+\\
+\text{Harmonic / PDE}
+&amp;
+\text{Distributions}
+&amp;
+\text{Stochastic Analysis}
+\\
+\searrow
+&amp;
+\downarrow
+&amp;
+\swarrow
+\\
+&amp;
+\text{PDE / Optimization / Optimal Transport}.
+&amp;
+\end{array}
+\]</p>
+<p>Of course, this is only one possible route through mathematics, and it reflects my own interests very strongly.</p>
+<p>But this is also why I find these books worth recommending together. They do not merely teach isolated subjects. They gradually reveal how much of modern applied analysis is built from a relatively small collection of recurring ideas:</p>
+<p>\[
+\boxed{
+\text{measure}
++
+\text{topology}
++
+\text{linearity}
++
+\text{compactness}
++
+\text{duality}
++
+\text{dynamics}.
+}
+\]</p>
+<p>Once these ideas begin to recur across real analysis, probability, PDE, Fourier analysis, and optimization, the boundaries between the subjects become much less important.</p>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
