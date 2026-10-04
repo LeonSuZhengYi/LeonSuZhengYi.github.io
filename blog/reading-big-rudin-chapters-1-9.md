@@ -780,6 +780,8 @@ So I will stop here for now—and go study IELTS for a while.
 
 ---
 
+Continue with [Chapters 10–20](reading-big-rudin-chapters-10-20.html), from elementary analytic-function theory through Mergelyan's theorem.
+
 ### References
 
 - Walter Rudin, *Real and Complex Analysis*, 3rd ed.
