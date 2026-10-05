@@ -19,7 +19,25 @@ I use the Fourier convention
 \widehat f(\xi)=\int_{\mathbb R}f(x)e^{-2\pi ix\xi}\,dx,
 \]
 
-and identify \(\mathbb T\) with \(\mathbb R/(2\pi\mathbb Z)\), equipped with \(d\theta/(2\pi)\). Convolution on \(\mathbb R\) uses Lebesgue measure; convolution on \(\mathbb T\) uses this normalized measure and is written \(*_{\mathbb T}\). Unless stated otherwise, \(1<p<\infty\) and \(p'=p/(p-1)\).
+and identify \(\mathbb T\) with \(\mathbb R/(2\pi\mathbb Z)\), equipped with \(d\theta/(2\pi)\). Write \(f_{\mathrm{per}}\) for the \(2\pi\)-periodic extension of a function on \(\mathbb T\). For \(K\in L^1(\mathbb T)\) and \(f\in L^p(\mathbb T)\), circular convolution means
+
+\[
+(K*_{\mathbb T}f)(x)
+:=\frac1{2\pi}\int_{-\pi}^{\pi}
+K_{\mathrm{per}}(t)f_{\mathrm{per}}(x-t)\,dt.
+\]
+
+The integral exists a.e., is periodic, and satisfies \(\|K*_{\mathbb T}f\|_p\le\|K\|_1\|f\|_p\), with both norms taken on \(\mathbb T\). Our norms and Fourier coefficients are
+
+\[
+\|f\|_{L^p(\mathbb T)}^p
+=\frac1{2\pi}\int_{-\pi}^{\pi}|f_{\mathrm{per}}(s)|^p\,ds,
+\qquad
+\widehat f(k)
+:=\frac1{2\pi}\int_{-\pi}^{\pi}f_{\mathrm{per}}(s)e^{-iks}\,ds.
+\]
+
+Equivalently, circular convolution is convolution on \(\mathbb R\) of \(f_{\mathrm{per}}\) with the single-period kernel \((2\pi)^{-1}\mathbf1_{[-\pi,\pi)}K_{\mathrm{per}}\). It is *not* an integral over all of \(\mathbb R\) of two periodic functions. This convention will be used for the Poisson, conjugate Poisson, and Dirichlet kernels throughout. Convolution on \(\mathbb R\), written \(*\), uses unnormalized Lebesgue measure. Unless stated otherwise, \(1<p<\infty\) and \(p'=p/(p-1)\).
 
 I assume the usual \(L^p\) inequalities, Plancherel's theorem, the Hardy–Littlewood maximal theorem, Lebesgue differentiation, and the standard Marcinkiewicz interpolation theorem. The argument develops the particular decompositions, identities, and limiting procedures needed here. Two technical complements explain the zero-mean error kernel at the end.
 
@@ -81,7 +99,7 @@ D_n(t)=\sum_{k=-n}^ne^{ikt}
 \qquad S_nf=D_n*_{\mathbb T}f.
 \]
 
-But \(\|D_n\|_1\asymp\log(n+1)\). Young's inequality therefore gives a bound that grows with \(n\), while (1.2) asks for a uniform bound. We need to retain the oscillation in the numerator instead of estimating the kernel only by its absolute value. Near the origin,
+But \(\|D_n\|_1\asymp\log(n+2)\). Young's inequality therefore gives a bound that grows with \(n\), while (1.2) asks for a uniform bound. We need to retain the oscillation in the numerator instead of estimating the kernel only by its absolute value. Near the origin,
 
 \[
 D_n(t)\approx\frac{2\sin((n+\tfrac12)t)}t.
@@ -677,11 +695,11 @@ Together with zero mean, the same majorant implies
 
 \[
 \psi_\varepsilon*f(x)\to0
-\quad\text{at every finite Lebesgue point of }f.
+\quad\text{a.e. for }f\in L^p(\mathbb R).
 \tag{8.4}
 \]
 
-The local part is controlled by the average oscillation of \(f\) around its Lebesgue value; the tail is controlled by the decay of \(\Phi\). Technical Complement B makes this separation explicit. The additional majorant matters: norm convergence of arbitrary zero-mean \(L^1\) dilates is not, by itself, a pointwise convergence theorem.
+Here the proof is a maximal-function argument: convergence on \(C_c^\infty\), together with the bound by \(M\), extends to all \(L^p\) data by density. Technical Complement B supplies the estimate and the extension argument, simultaneously for this zero-mean kernel and for the Poisson kernel. The additional majorant matters: norm convergence of arbitrary zero-mean \(L^1\) dilates is not, by itself, a pointwise convergence theorem.
 
 Since \(Hf\in L^p\), Poisson differentiation also gives
 
@@ -721,171 +739,378 @@ This is the pointwise control that was not supplied by (6.1). Basic, Chapter IX,
 
 ## 9. First application: constructing analytic Hardy functions from traces
 
-### 9.1 The construction and its norm control
+### 9.1 A real-linear bijection between \(L^p(\mathbb R;\mathbb R)\) and \(H^p(\mathbb H^+)\)
 
-Take real-valued \(u_0\in L^p(\mathbb R)\) and define
-
-\[
-F(x+iy)=P_y*(u_0+iHu_0)(x).
-\]
-
-By (8.1), this has the explicit representation
+The precise statement is
 
 \[
+\boxed{
 \begin{aligned}
-F(x+iy)
-&=P_y*u_0(x)+iQ_y*u_0(x)\\
-&=\frac{i}{\pi}\int_{\mathbb R}
-\frac{u_0(t)}{x+iy-t}\,dt.
-\end{aligned}
+\mathcal C:\ L^p(\mathbb R;\mathbb R)&\longrightarrow H^p(\mathbb H^+),\\
+u_0&\longmapsto
+\left[z\longmapsto\frac{i}{\pi}
+\int_{\mathbb R}\frac{u_0(t)}{z-t}\,dt\right].
+\end{aligned}}
 \tag{9.1}
 \]
 
-For fixed \(y>0\), the Cauchy kernel belongs to \(L^{p'}\), so the integral converges absolutely. On compact subsets of \(\mathbb H^+\), its derivative kernels have uniform \(L^{p'}\) bounds. Differentiation under the integral therefore proves that \(F\) is analytic.
-
-Furthermore,
+This map is a bounded real-linear bijection. Its inverse is the real part of the boundary trace:
 
 \[
-\sup_{y>0}\|F(\cdot+iy)\|_p
-\le\|u_0+iHu_0\|_p
-\le(1+A_p)\|u_0\|_p.
+\mathcal C^{-1}F=\operatorname{Re}F^*,
+\qquad
+F^*=\lim_{y\downarrow0}F(\cdot+iy)
+\quad\text{in }L^p\text{ and a.e.}
 \]
 
-Poisson approximation gives
+We prove both directions; the existence of the trace in the converse is part of the assertion, not an assumption.
+
+**Construction.** For \(u_0\in L^p(\mathbb R;\mathbb R)\), the integral in (9.1) converges absolutely: \(t\mapsto(z-t)^{-1}\) belongs to \(L^{p'}\) for every \(z\in\mathbb H^+\). Its derivative kernels have locally uniform \(L^{p'}\) bounds, so differentiation under the integral proves holomorphy. The identity
 
 \[
-F(\cdot+iy)\to u_0+iHu_0
-\quad\text{in }L^p\text{ and a.e. as }y\downarrow0.
+\frac{i}{\pi(x+iy-t)}
+=P_y(x-t)+iQ_y(x-t)
+\]
+
+and (8.1) give
+
+\[
+(\mathcal C u_0)(x+iy)
+=P_y*u_0(x)+iQ_y*u_0(x)
+=P_y*(u_0+iHu_0)(x).
 \tag{9.2}
 \]
 
-In particular, the supremum norm equals the trace norm:
+Thus \(\mathcal C u_0\in H^p\), and Poisson approximation gives the trace \(u_0+iHu_0\). Contraction supplies one inequality for the Hardy norm; norm convergence to the trace supplies the reverse inequality:
 
 \[
-\|F\|_{H^p}=\|u_0+iHu_0\|_p.
+\begin{aligned}
+\|\mathcal C u_0\|_{H^p}
+&=\|u_0+iHu_0\|_p,\\
+\|u_0\|_p
+&\le\|\mathcal C u_0\|_{H^p}
+\le(1+A_p)\|u_0\|_p.
+\end{aligned}
+\tag{9.3}
 \]
 
-Here the pointwise approach to the boundary is vertical. Nontangential boundary convergence requires additional discussion and is not developed in these notes.
+In particular, taking real traces recovers the input, so \(\mathcal C\) is injective.
 
-### 9.2 Why every analytic trace has the required imaginary part
-
-Advanced, Theorem 3.25 first treats the harmonic space: a harmonic function with uniformly bounded horizontal \(L^p\) norms, \(1<p<\infty\), is the Poisson integral of an \(L^p\) boundary function. I write this harmonic space as \(\mathcal H^p\), reserving \(H^p\) for its analytic subspace.
-
-The reverse representation uses bounded slices \(f_j(x)=U(x,1/j)\). A weakly convergent \(L^p\) subsequence gives a candidate \(f_0\); shifted Poisson representation gives
+**Converse.** The needed harmonic representation theorem is Advanced, Theorem 3.25: for \(1<p<\infty\), every harmonic \(U\) on \(\mathbb H^+\) satisfying
 
 \[
-U(x,y+1/j)=P_y*f_j(x).
+B:=\sup_{y>0}\|U(\cdot,y)\|_p<\infty
 \]
 
-Testing the weak limit against \(P_y(x-\cdot)\in L^{p'}\) then proves \(U(x,y)=P_y*f_0(x)\). This produces the trace rather than assuming it in advance. Poisson approximation subsequently supplies norm and a.e. recovery.
+has the form \(U(x,y)=P_y*u_0(x)\) for a unique \(u_0\in L^p(\mathbb R)\). This produces the boundary function before asserting boundary convergence.
 
-Now suppose \(F\in H^p(\mathbb H^+)\). By the harmonic representation, write
+The compactness step in its proof is worth isolating. Choose \(y_j\downarrow0\). Reflexivity gives a subsequence of \(U(\cdot,y_j)\) converging weakly to \(u_0\). For each positive height, shifted Poisson representation gives
 
 \[
-F(x+iy)=P_y*(u_0+iv_0)(x),
-\qquad u_0,v_0\in L^p(\mathbb R;\mathbb R).
+U(x,y+y_j)=P_y*U(\cdot,y_j)(x).
 \]
 
-Construct \(F_u=P_y*(u_0+iHu_0)\) as above. Both functions are analytic and have the same real part. Their difference is analytic and takes values in the imaginary axis; the Cauchy–Riemann equations imply that it is a constant \(ic\).
-
-Every horizontal slice of \(F-F_u\) belongs to \(L^p(\mathbb R)\). Since \(p<\infty\), this excludes a nonzero constant. Thus \(F=F_u\), and taking traces yields
+Testing weak convergence against \(P_y(x-\cdot)\in L^{p'}\) identifies the limit as \(U(x,y)=P_y*u_0(x)\). The shifted representation is justified inside the half-plane: the harmonic mean-value estimate gives
 
 \[
-v_0=Hu_0.
+\sup_x|U(x,s)|\le C_p s^{-1/p}B.
 \]
 
-Consequently, Advanced, Chapter III, Problem 13 gives the real-linear correspondence
+Consequently \(U(x,y_j+y)\) is a bounded harmonic function for \(y\ge0\), with continuous boundary values \(U(x,y_j)\), and bounded harmonic Poisson representation applies. Finally, Poisson approximation recovers \(u_0\) in norm and a.e.; it also proves uniqueness.
+
+Apply this theorem to the real part of an arbitrary \(F\in H^p(\mathbb H^+)\). We obtain real \(u_0\in L^p\) with
 
 \[
-\boxed{u_0\in L^p(\mathbb R;\mathbb R)
-\longleftrightarrow
-F=P_y*(u_0+iHu_0)\in H^p(\mathbb H^+).}
+\operatorname{Re}F(x+iy)=P_y*u_0(x)
+=\operatorname{Re}(\mathcal C u_0)(x+iy).
 \]
 
-For arbitrary complex data, the bounded projection onto analytic traces is
+The holomorphic function \(F-\mathcal C u_0\) has zero real part. The Cauchy–Riemann equations force it to be a constant \(ic\). Its horizontal slices belong to \(L^p(\mathbb R)\), whereas a nonzero constant does not. Hence \(c=0\), proving surjectivity and the full trace identity
 
 \[
-\Pi_+=\frac12(I+iH).
+\boxed{
+F=\mathcal C u_0,\qquad
+F^*=u_0+iHu_0,\qquad
+\operatorname{Im}F^*=H(\operatorname{Re}F^*).
+}
+\tag{9.4}
 \]
 
-Indeed, \(H^2=-I\) extends from \(L^2\) to \(L^p\) by compatibility and density, so \(\Pi_+^2=\Pi_+\). For an analytic trace \(f_0=u_0+iHu_0\), we have \(Hf_0=-if_0\), hence \(\Pi_+f_0=f_0\).
+This is the correspondence in Advanced, Chapter III, Problem 13. It is real-linear: the datum \(u_0\) is the real part of a complex trace, not an arbitrary complex boundary value. Boundary convergence here is vertical; nontangential convergence is not needed for this identification.
 
-In \(L^2\), the frequency condition is explicit:
+### 9.2 Analytic traces as the range of a bounded projection
+
+Now use the complex space \(L^p(\mathbb R;\mathbb C)\). Define its analytic trace subspace by
 
 \[
-\widehat{u_0+iHu_0}(\xi)
-=(1+\operatorname{sgn}\xi)\widehat u_0(\xi).
+\mathcal A^p(\mathbb R)
+:=\{u+iHu:u\in L^p(\mathbb R;\mathbb R)\}.
 \]
 
-Negative frequencies vanish. Conversely, if \(\widehat f_0\) vanishes a.e. on \(( -\infty,0)\), then \(\Pi_+f_0=f_0\), and its Poisson extension is analytic. This is the trace characterization in Advanced, Problem 14.
-
-### 9.3 Returning to the disc for general \(p\)
-
-For smooth periodic functions, the circle Hilbert transform has the kernel formula
+Section 9.1 says that the trace and Poisson extension are inverse complex-linear isometries:
 
 \[
-H_{\mathbb T}f(x)=\operatorname{p.v.}\frac1{2\pi}
-\int_{-\pi}^{\pi}f(x-t)\cot(t/2)\,dt.
+\begin{aligned}
+\operatorname{Tr}:H^p(\mathbb H^+)&\longrightarrow\mathcal A^p(\mathbb R),
+&\operatorname{Tr}F&=F^*,\\
+\mathcal E:\mathcal A^p(\mathbb R)&\longrightarrow H^p(\mathbb H^+),
+&(\mathcal E g)(x+iy)&=P_y*g(x).
+\end{aligned}
+\tag{9.5}
 \]
 
-Evaluating the integral on \(e^{ikx}\) gives the multiplier \(-i\operatorname{sgn}(k)\). To prove its \(L^p\) bound, use
+In particular, \(\operatorname{Tr}\mathcal E=I_{\mathcal A^p}\), \(\mathcal E\operatorname{Tr}=I_{H^p}\), and \(\|\mathcal E g\|_{H^p}=\|g\|_p\). To characterize this subspace without referring to a chosen real part, first extend \(H^2=-I\) from \(L^2\) to \(L^p\). For \(f\in L^2\cap L^p\), compatibility of the two Hilbert transforms gives the identity in both spaces. Boundedness and density then give it for every \(f\in L^p\). Also, \(H\) preserves real-valued functions, since its truncation kernels are real.
+
+Set
+
+\[
+\Pi_+f:=\frac{f+iHf}{2}.
+\]
+
+Then
+
+\[
+\Pi_+^2=\frac14(I+2iH-H^2)=\Pi_+,
+\qquad
+\|\Pi_+f\|_p\le\frac{1+A_p}{2}\|f\|_p,
+\]
+
+and a direct calculation identifies its range:
+
+\[
+\boxed{
+\operatorname{Ran}\Pi_+
+=\{g\in L^p(\mathbb R;\mathbb C):Hg=-ig\}
+=\mathcal A^p(\mathbb R).
+}
+\tag{9.6}
+\]
+
+Indeed, \(H(u+iHu)=Hu-iu=-i(u+iHu)\). Conversely, writing \(g=u+iv\) with real \(u,v\), the equation \(Hg=-ig\) is exactly
+
+\[
+Hu=v,\qquad Hv=-u.
+\]
+
+Thus \(g=u+iHu\). Since the range of a bounded projection is closed, \(\mathcal A^p\) is a closed complex subspace of \(L^p\). For arbitrary complex boundary data, \(\Pi_+f\) is the analytic component; the complementary projection is \(\Pi_-=(I-iH)/2\), and
+
+\[
+f=\Pi_+f+\Pi_-f,\qquad
+H\Pi_+f=-i\Pi_+f,\qquad
+H\Pi_-f=i\Pi_-f.
+\]
+
+The frequency interpretation is literal on \(L^2\cap L^p\):
+
+\[
+\widehat{\Pi_+f}(\xi)
+=\mathbf1_{(0,\infty)}(\xi)\widehat f(\xi)
+\quad\text{a.e.}
+\]
+
+For general \(L^p\) data, \(\Pi_+\) is the bounded extension of this positive-frequency projection; an ordinary pointwise Fourier transform is not being assumed. The eigenvalue condition in (9.6) is valid throughout \(L^p\) and gives a complete trace characterization without that assumption. Notice also that, for real \(u\), its analytic completion has trace \(u+iHu=2\Pi_+u\), not \(\Pi_+u\). The factor \(2\) is needed to retain real part \(u\).
+
+### 9.3 Returning to the disc: Schwarz integrals and the cotangent kernel
+
+The circle analogue is most naturally derived from the *Schwarz integral*. For real \(u_0\in L^p(\mathbb T)\), define
+
+\[
+\mathcal S u_0(z)
+:=\frac1{2\pi}\int_{-\pi}^{\pi}
+\frac{e^{is}+z}{e^{is}-z}\,u_{0,\mathrm{per}}(s)\,ds,
+\qquad |z|<1.
+\tag{9.7}
+\]
+
+The denominator is separated from zero on compact subsets of \(\mathbb D\), so this integral is holomorphic. Expanding its kernel gives
+
+\[
+\frac{e^{is}+z}{e^{is}-z}
+=1+2\sum_{k\ge1}z^ke^{-iks},
+\qquad
+\mathcal S u_0(z)
+=\widehat u_0(0)+2\sum_{k\ge1}\widehat u_0(k)z^k.
+\]
+
+This already explains the one-sided modes in Section 2. To see the spatial kernel, put \(z=re^{ix}\) and \(t=x-s\). The periodic convolution convention fixed at the start gives
+
+\[
+\begin{aligned}
+\frac{1+re^{it}}{1-re^{it}}
+&=P_r^{\mathbb T}(t)+iQ_r^{\mathbb T}(t),\\
+P_r^{\mathbb T}(t)
+&=\frac{1-r^2}{1-2r\cos t+r^2},\\
+Q_r^{\mathbb T}(t)
+&=\frac{2r\sin t}{1-2r\cos t+r^2}.
+\end{aligned}
+\tag{9.8}
+\]
+
+Consequently,
+
+\[
+\begin{aligned}
+\operatorname{Re}\mathcal S u_0(re^{ix})
+&=P_r^{\mathbb T}*_{\mathbb T}u_0(x),\\
+\mathcal S u_0(re^{ix})
+-P_r^{\mathbb T}*_{\mathbb T}u_0(x)
+&=i\,Q_r^{\mathbb T}*_{\mathbb T}u_0(x).
+\end{aligned}
+\]
+
+Subtracting the real Poisson integral leaves the harmonic conjugate. Its boundary kernel is forced by
+
+\[
+Q_r^{\mathbb T}(t)\longrightarrow
+\frac{\sin t}{1-\cos t}
+=\cot(t/2),
+\qquad 0<|t|<\pi.
+\]
+
+This does not yet justify convolution with the limiting singular kernel. Begin with smooth periodic \(u_0\). Oddness gives \(\int_{-\pi}^{\pi}Q_r^{\mathbb T}=0\), so
+
+\[
+Q_r^{\mathbb T}*_{\mathbb T}u_0(x)
+=\frac1{2\pi}\int_{-\pi}^{\pi}
+[u_{0,\mathrm{per}}(x-t)-u_{0,\mathrm{per}}(x)]
+Q_r^{\mathbb T}(t)\,dt.
+\]
+
+For \(0<r<1\) and \(0<|t|\le\pi\), \(|Q_r^{\mathbb T}(t)|\le C/|t|\), while the bracket is bounded by \(\|u_0'\|_\infty|t|\). Dominated convergence therefore gives
+
+\[
+\begin{aligned}
+H_{\mathbb T}u_0(x)
+&=\frac1{2\pi}\int_{-\pi}^{\pi}
+[u_{0,\mathrm{per}}(x-t)-u_{0,\mathrm{per}}(x)]
+\cot(t/2)\,dt\\
+&=\lim_{\delta\downarrow0}\frac1{2\pi}
+\int_{\delta\le|t|<\pi}
+u_{0,\mathrm{per}}(x-t)\cot(t/2)\,dt.
+\end{aligned}
+\tag{9.9}
+\]
+
+The kernel expansion in (9.8) also gives
+
+\[
+\widehat{Q_r^{\mathbb T}}(k)
+=-i\operatorname{sgn}(k)r^{|k|}.
+\]
+
+Thus (9.9) is exactly the \(L^2\) multiplier from Section 2, now derived from Schwarz representation and boundary harmonic conjugation.
+
+**Extending the kernel formula to \(L^p\).** The real-line theory supplies the missing estimate. Write
 
 \[
 \cot(t/2)=\frac2t+\rho(t),
-\qquad \rho\in L^1([-\pi,\pi]).
+\qquad
+\rho(t)=O(t)\ \text{at }0,
+\qquad
+\rho\in L^1(\mathbb T).
 \]
 
-Let \(f_{\mathrm{per}}\) be the periodic extension of \(f\), and define the real-line function
+For \(f\in L^p(\mathbb T)\), fix the real-line extension
 
 \[
-\widetilde f(y)=\mathbf1_{[-3\pi,3\pi]}(y)f_{\mathrm{per}}(y).
+\widetilde f(y):=\mathbf1_{[-3\pi,3\pi]}(y)f_{\mathrm{per}}(y),
+\qquad
+\|\widetilde f\|_{L^p(\mathbb R)}^p
+=3(2\pi)\|f\|_{L^p(\mathbb T)}^p.
+\tag{9.10}
 \]
 
-For \(x\in[-\pi,\pi]\), the truncated singular part satisfies
+For \(x\in[-\pi,\pi]\) and \(|t|<\pi\), the argument \(x-t\) stays in \([-2\pi,2\pi]\); hence the cutoff does not change the single-period integral. If \(0<\delta<\pi\), the circle truncation splits as
 
 \[
-\frac1\pi\int_{\delta\le|t|<\pi}
-\frac{f_{\mathrm{per}}(x-t)}t\,dt
-=H_\delta\widetilde f(x)-H_\pi\widetilde f(x).
+\begin{aligned}
+&\frac1{2\pi}\int_{\delta\le|t|<\pi}
+f_{\mathrm{per}}(x-t)\cot(t/2)\,dt\\
+&\quad=\frac1\pi\int_{|t|\ge\delta}
+\frac{\widetilde f(x-t)}t\,dt
+-\frac1\pi\int_{|t|\ge\pi}
+\frac{\widetilde f(x-t)}t\,dt
++(\rho_\delta*_{\mathbb T}f)(x),
+\end{aligned}
+\tag{9.11}
 \]
 
-The real-line bound controls this difference uniformly in \(\delta\), and Young controls the \(\rho\) term. Letting \(\delta\downarrow0\) gives a bounded \(L^p(\mathbb T)\) operator, agreeing with the \(L^2\) multiplier on the intersection.
-
-Thus, for real-valued \(u_0\in L^p(\mathbb T)\),
+where \(\rho_\delta(t)=\mathbf1_{\{\delta\le|t|<\pi\}}\rho(t)\), extended periodically. The first two integrals are real-line Hilbert truncations; (6.1), restriction to one period, and Young's inequality yield
 
 \[
-F(re^{i\theta})
-=P_r^{\mathbb T}*_{\mathbb T}(u_0+iH_{\mathbb T}u_0)(\theta)
-\in H^p(\mathbb D).
+\left\|
+\frac1{2\pi}\int_{\delta\le|t|<\pi}
+f_{\mathrm{per}}(\,\cdot-t)\cot(t/2)\,dt
+\right\|_{L^p(\mathbb T)}
+\le
+\left(2\,3^{1/p}A_p+\|\rho\|_{L^1(\mathbb T)}\right)
+\|f\|_{L^p(\mathbb T)}.
 \]
 
-More generally, the complete trace space is
+As \(\delta\downarrow0\), the real-line terms converge in \(L^p\) and a.e., and \(\rho_\delta\to\rho\) in \(L^1(\mathbb T)\). The error convolution also converges a.e., by absolute integrability of \(|\rho|*_{\mathbb T}|f|\). Therefore (9.9) defines a bounded \(H_{\mathbb T}\) on all of \(L^p(\mathbb T)\), with both norm and a.e. principal-value convergence. Density of trigonometric polynomials and continuity of each Fourier coefficient give
+
+\[
+\widehat{H_{\mathbb T}f}(k)
+=-i\operatorname{sgn}(k)\widehat f(k),
+\qquad f\in L^p(\mathbb T).
+\]
+
+In particular, equality of Fourier coefficients gives
+
+\[
+Q_r^{\mathbb T}*_{\mathbb T}f
+=P_r^{\mathbb T}*_{\mathbb T}(H_{\mathbb T}f).
+\]
+
+Unlike on the line, every \(L^p(\mathbb T)\) function has ordinary Fourier coefficients, since \(L^p(\mathbb T)\subset L^1(\mathbb T)\).
+
+**The Hardy correspondence on the disc.** Returning to (9.7), we now have
+
+\[
+\mathcal S u_0(re^{ix})
+=P_r^{\mathbb T}*_{\mathbb T}
+(u_0+iH_{\mathbb T}u_0)(x),
+\qquad
+\|\mathcal S u_0\|_{H^p(\mathbb D)}
+=\|u_0+iH_{\mathbb T}u_0\|_p.
+\]
+
+Poisson approximation gives radial recovery of this trace in \(L^p\) and a.e. The full analytic trace space is
 
 \[
 \mathcal A^p(\mathbb T)
-=\{f_0\in L^p(\mathbb T):\widehat f_0(k)=0\text{ for }k<0\}.
+:=\{g\in L^p(\mathbb T;\mathbb C):
+\widehat g(k)=0\text{ for }k<0\}.
 \]
 
-If \(f_0\in\mathcal A^p\), its Poisson extension is analytic: its Fourier series at radius \(r<1\) is the absolutely convergent power series \(\sum_{k\ge0}\widehat f_0(k)z^k\). Contraction and boundary recovery give \(\|F\|_{H^p}=\|f_0\|_p\).
+For \(g\in\mathcal A^p(\mathbb T)\), its Poisson extension is the analytic function \(\sum_{k\ge0}\widehat g(k)z^k\). The series converges absolutely on compact subdiscs because \(|\widehat g(k)|\le\|g\|_1\); contraction and boundary recovery give \(\|F\|_{H^p}=\|g\|_p\).
 
-Conversely, for \(F(z)=\sum_{k\ge0}a_kz^k\in H^p(\mathbb D)\), take a weakly convergent subsequence of bounded radial slices as \(r\uparrow1\). Their Fourier coefficients are \(a_kr^k\) for \(k\ge0\), and zero for \(k<0\). Testing the weak limit against each exponential gives a trace \(f_0\in\mathcal A^p\) with coefficients \(a_k\). Its Poisson extension is \(F\), and hence the entire family of radial slices converges in \(L^p\).
+Conversely, let \(F(z)=\sum_{k\ge0}a_kz^k\in H^p(\mathbb D)\). Reflexivity gives a weakly convergent subsequence of its bounded radial slices as \(r\uparrow1\). Testing against \(e^{-ikx}\) gives a limit \(g\) with Fourier coefficients \(a_k\) for \(k\ge0\) and zero for \(k<0\). Its Poisson extension is \(F\), so the entire family of radial slices recovers \(g\) in norm and a.e. Hence trace and Poisson extension are inverse isometries \(H^p(\mathbb D)\leftrightarrow\mathcal A^p(\mathbb T)\).
 
-The imaginary constant is now allowed because the circle has finite measure. The general completion of a prescribed real trace is
+To parameterize these functions by their *real* traces, one must retain the zero mode:
 
 \[
-F=P_r^{\mathbb T}*_{\mathbb T}(u_0+iH_{\mathbb T}u_0)+ic,
-\qquad c\in\mathbb R.
+\boxed{
+L^p(\mathbb T;\mathbb R)\times\mathbb R
+\longleftrightarrow H^p(\mathbb D),
+\qquad
+(u_0,c)\longmapsto\mathcal S u_0+ic.
+}
+\tag{9.12}
 \]
 
-Correspondingly, the projection retaining nonnegative circle frequencies is
+The inverse is \(F\mapsto(\operatorname{Re}F^*,\operatorname{Im}F(0))\). Indeed, on analytic traces the Fourier multiplier gives \(H_{\mathbb T}(\operatorname{Re}F^*)=\operatorname{Im}F^*-\operatorname{Im}F(0)\). Equivalently, \(\mathcal S\) is a real-linear bijection from \(L^p(\mathbb T;\mathbb R)\) onto \(\{F\in H^p(\mathbb D):\operatorname{Im}F(0)=0\}\).
+
+The corresponding complex-linear projection is
 
 \[
-\Pi_{\ge0}^{\mathbb T}
-=\frac12(I+iH_{\mathbb T})+\frac12P_0,
+\Pi_{\ge0}^{\mathbb T}f
+=\frac{f+iH_{\mathbb T}f}{2}+\frac{P_0f}{2},
 \qquad P_0f=\widehat f(0).
+\tag{9.13}
 \]
 
-The additional \(P_0/2\) restores the full zero mode. This is the precise difference from the real-line projection.
+Its Fourier multiplier is \(1\) for \(k\ge0\) and \(0\) for \(k<0\); thus it is a bounded projection onto \(\mathcal A^p(\mathbb T)\). The extra \(P_0/2\) restores the constant mode that is only halved by \((I+iH_{\mathbb T})/2\). On \(\mathbb R\), nonzero constants are excluded by finite-\(p\) integrability; on \(\mathbb T\), they are precisely the additional freedom.
 
 ## 10. Second application: Dirichlet kernels and modulated Hilbert integrals
 
@@ -950,13 +1175,7 @@ T_nf(x)
 
 Each integral now contains a Hilbert kernel applied to a function multiplied by a phase. Multiplication by \(e^{\pm ia_ny}\) preserves absolute values and hence every \(L^p\) norm.
 
-There is a domain issue to handle: \(a_n\) is a half-integer, so these phases are not \(2\pi\)-periodic. We use them as real-line functions, rather than as periodic multipliers. Extend \(f\) periodically over three periods and cut off as before:
-
-\[
-\widetilde f(y)=\mathbf1_{[-3\pi,3\pi]}(y)f_{\mathrm{per}}(y).
-\]
-
-For \(x\in[-\pi,\pi]\) and \(|t|\le\pi\), we have \(x-t\in[-2\pi,2\pi]\), so this cutoff does not alter either integral in (10.2).
+There is a domain issue to handle: \(a_n\) is a half-integer, so these phases are not \(2\pi\)-periodic. We use them as real-line functions, rather than as periodic multipliers. Take the same cutoff extension \(\widetilde f\) as in (9.10). As in (9.11), it agrees with \(f_{\mathrm{per}}\) at every argument \(x-t\) occurring in (10.2).
 
 To identify the first integral with real-line truncations, write its full expression as
 
@@ -982,13 +1201,7 @@ Consequently, each difference satisfies
 =2A_p\|\widetilde f\|_{L^p(\mathbb R)}.
 \]
 
-The extension contains exactly three periods, so
-
-\[
-\|\widetilde f\|_{L^p(\mathbb R)}^p
-=3\int_{-\pi}^{\pi}|f(x)|^p\,dx
-=3(2\pi)\|f\|_{L^p(\mathbb T)}^p.
-\]
+The norm identity (9.10) accounts for the three periods and for the normalized measure on \(\mathbb T\).
 
 In (10.2), each difference is multiplied by a phase of modulus one and a scalar of modulus \(1/2\). Restricting the real-line estimates to \([-\pi,\pi]\) and dividing by \((2\pi)^{1/p}\) therefore gives
 
@@ -1101,48 +1314,110 @@ For \(1\le q<\infty\), Minkowski gives
 
 For each fixed \(t\), the translation difference tends to zero. It is bounded by \(2\|f\|_q\), so dominated convergence proves the claim. A kernel of integral zero has a vanishing limit; a kernel of integral one gives the usual approximate identity.
 
-### B. Pointwise convergence at Lebesgue points
+### B. Almost-everywhere convergence from a maximal estimate
 
-Let \(x\) be a finite Lebesgue point of \(f\in L^p\). We estimate
-
-\[
-\int\psi_\varepsilon(t)[f(x-t)-f(x)]\,dt.
-\]
-
-Given \(\eta>0\), choose \(\delta>0\) such that
+The two limits needed in Section 8 can be proved together. Suppose
 
 \[
-A(r):=\int_{|t|<r}|f(x-t)-f(x)|\,dt\le2\eta r,
-\qquad0<r\le\delta.
+|\kappa(t)|\le\frac{C}{(1+|t|)^2},
+\qquad
+a:=\int_{\mathbb R}\kappa(t)\,dt,
+\qquad
+\kappa_\varepsilon(t):=\varepsilon^{-1}\kappa(t/\varepsilon).
 \]
 
-Use the majorant \(\Phi(t)=C(1+|t|)^{-3}\), and set \(\phi_\varepsilon(r)=\varepsilon^{-1}\Phi(r/\varepsilon)\). Stieltjes integration by parts gives the local estimate
+Then, for \(f\in L^p(\mathbb R)\), \(1<p<\infty\),
+
+\[
+\kappa_\varepsilon*f(x)\longrightarrow af(x)
+\quad\text{a.e. as }\varepsilon\downarrow0.
+\]
+
+This applies to \(\kappa=\psi\), with \(a=0\), and to \(\kappa=P_1\), with \(a=1\). The argument has three steps.
+
+**1. Bound all scales by one maximal function.** Use the centered maximal function
+
+\[
+Mf(x):=\sup_{r>0}\frac1{2r}\int_{|t|<r}|f(x-t)|\,dt.
+\]
+
+Split the convolution into \(|t|<\varepsilon\) and the annuli \(2^j\varepsilon\le|t|<2^{j+1}\varepsilon\). The decay assumption gives
 
 \[
 \begin{aligned}
-&\int_{|t|<\delta}\Phi_\varepsilon(t)|f(x-t)-f(x)|\,dt\\
-&\quad=\phi_\varepsilon(\delta)A(\delta)
-+\int_0^\delta A(r)(-\phi_\varepsilon'(r))\,dr\\
-&\quad\le2\eta\left[\delta\phi_\varepsilon(\delta)
-+\int_0^\delta r(-\phi_\varepsilon'(r))\,dr\right]\\
-&\quad=2\eta\int_0^\delta\phi_\varepsilon(r)\,dr
-\le\eta\|\Phi\|_1.
+|\kappa_\varepsilon*f(x)|
+&\le\frac C\varepsilon
+\int_{|t|<\varepsilon}|f(x-t)|\,dt\\
+&\quad+\sum_{j\ge0}\frac{C\,2^{-2j}}\varepsilon
+\int_{|t|<2^{j+1}\varepsilon}|f(x-t)|\,dt\\
+&\le C\left(1+\sum_{j\ge0}2^{-j}\right)Mf(x)
+\le C_\kappa Mf(x).
 \end{aligned}
 \]
 
-For \(|t|\ge\delta\), \(\Phi_\varepsilon(t)\le C\varepsilon^2|t|^{-3}\). The tail is therefore bounded by
+In particular,
 
 \[
-C\varepsilon^2\left[
-\|f\|_p\bigl\||t|^{-3}\mathbf1_{\{|t|\ge\delta\}}\bigr\|_{p'}
-+|f(x)|\int_{|t|\ge\delta}|t|^{-3}\,dt\right].
+\left\|\sup_{\varepsilon>0}
+|\kappa_\varepsilon*f|\right\|_p
+\le C_{\kappa,p}\|f\|_p.
 \]
 
-For fixed \(\delta\), this tends to zero. Letting \(\varepsilon\downarrow0\) and then \(\eta\downarrow0\) proves (8.4). Lebesgue differentiation ensures that these points form a set of full measure.
+The sign and the integral of \(\kappa\) play no role in this estimate.
+
+**2. Prove convergence on a dense class.** For \(g\in C_c^\infty(\mathbb R)\),
+
+\[
+\|\kappa_\varepsilon*g-ag\|_\infty
+\le\int_{\mathbb R}|\kappa(t)|
+\|g(\,\cdot-\varepsilon t)-g\|_\infty\,dt
+\longrightarrow0.
+\]
+
+For each fixed \(t\), uniform continuity makes the translation difference tend to zero; the integrable majorant is \(2\|g\|_\infty|\kappa(t)|\). Thus convergence holds uniformly on this class.
+
+**3. Extend convergence by density.** Set
+
+\[
+D_f(x):=\limsup_{\varepsilon\downarrow0}
+|\kappa_\varepsilon*f(x)-af(x)|.
+\]
+
+For every \(g\in C_c^\infty\), Step 2 and linearity imply
+
+\[
+D_f(x)
+\le C_\kappa M(f-g)(x)+|a|\,|f(x)-g(x)|.
+\]
+
+Chebyshev's inequality and the \(L^p\) maximal theorem give, for every \(\lambda>0\),
+
+\[
+\begin{aligned}
+m\{D_f>\lambda\}
+&\le m\{C_\kappa M(f-g)>\lambda/2\}
++m\{|a|\,|f-g|>\lambda/2\}\\
+&\le C_{\kappa,p}\lambda^{-p}\|f-g\|_p^p.
+\end{aligned}
+\]
+
+Choose \(g\) arbitrarily close to \(f\) in \(L^p\). The left side is independent of \(g\), so it must be zero. Taking \(\lambda=1/n\) proves \(D_f=0\) a.e.
+
+Thus the same maximal-function extension gives both
+
+\[
+\psi_\varepsilon*f\to0
+\quad\text{and}\quad
+P_\varepsilon*f\to f
+\qquad\text{a.e.}
+\]
+
+The mechanism is the same as in the norm-convergence arguments earlier: establish convergence on a dense class and control approximation errors uniformly. Here the control is pointwise through \(M\), which is what upgrades the conclusion to almost-everywhere convergence. This is the maximal-function extension underlying Basic, Corollary 6.42 and Chapter IX, Problem 17; the argument above uses the strong \(L^p\) maximal estimate appropriate to our range \(1<p<\infty\).
 
 ## References and reading locations
 
 1. Anthony W. Knapp, *Basic Real Analysis*, Digital Second Edition, 2016, published by the author.
+   - Chapter VI, §6, Corollary 6.42, p. 371: maximal estimates for approximate identities and the density argument for a.e. boundary recovery.
    - Chapter VIII, §4, Theorem 8.14, pp. 425–426: the multiplier representation of translation-invariant \(L^2\) operators.
    - Chapter VIII, §7, pp. 435–442: the Hilbert transform, Poisson and conjugate Poisson kernels; Lemma 8.23 and Theorems 8.22, 8.24, and 8.25.
    - Chapter IX, §7, Theorem 9.20, Lemma 9.22, Theorem 9.23, and Lemma 9.24: interpolation, convolution duality, uniform truncation bounds, and the \(L^p\) limit.
