@@ -910,7 +910,9 @@ The frequency interpretation is literal on \(L^2\cap L^p\):
 
 For general \(L^p\) data, \(\Pi_+\) is the bounded extension of this positive-frequency projection; an ordinary pointwise Fourier transform is not being assumed. The eigenvalue condition in (9.6) is valid throughout \(L^p\) and gives a complete trace characterization without that assumption. Notice also that, for real \(u\), its analytic completion has trace \(u+iHu=2\Pi_+u\), not \(\Pi_+u\). The factor \(2\) is needed to retain real part \(u\).
 
-### 9.3 Returning to the disc: Schwarz integrals and the cotangent kernel
+## 10. Returning to the disc: Schwarz integrals and the cotangent kernel
+
+### 10.1 The Schwarz integral and its boundary kernel
 
 The circle analogue is most naturally derived from the *Schwarz integral*. For real \(u_0\in L^p(\mathbb T)\), define
 
@@ -919,7 +921,7 @@ The circle analogue is most naturally derived from the *Schwarz integral*. For r
 :=\frac1{2\pi}\int_{-\pi}^{\pi}
 \frac{e^{is}+z}{e^{is}-z}\,u_{0,\mathrm{per}}(s)\,ds,
 \qquad |z|<1.
-\tag{9.7}
+\tag{10.1}
 \]
 
 The denominator is separated from zero on compact subsets of \(\mathbb D\), so this integral is holomorphic. Expanding its kernel gives
@@ -943,7 +945,7 @@ P_r^{\mathbb T}(t)
 Q_r^{\mathbb T}(t)
 &=\frac{2r\sin t}{1-2r\cos t+r^2}.
 \end{aligned}
-\tag{9.8}
+\tag{10.2}
 \]
 
 Consequently,
@@ -988,19 +990,21 @@ H_{\mathbb T}u_0(x)
 \int_{\delta\le|t|<\pi}
 u_{0,\mathrm{per}}(x-t)\cot(t/2)\,dt.
 \end{aligned}
-\tag{9.9}
+\tag{10.3}
 \]
 
-The kernel expansion in (9.8) also gives
+The kernel expansion in (10.2) also gives
 
 \[
 \widehat{Q_r^{\mathbb T}}(k)
 =-i\operatorname{sgn}(k)r^{|k|}.
 \]
 
-Thus (9.9) is exactly the \(L^2\) multiplier from Section 2, now derived from Schwarz representation and boundary harmonic conjugation.
+Thus (10.3) is exactly the \(L^2\) multiplier from Section 2, now derived from Schwarz representation and boundary harmonic conjugation.
 
-**Extending the kernel formula to \(L^p\).** The real-line theory supplies the missing estimate. Write
+### 10.2 Extending the cotangent kernel formula to \(L^p\)
+
+The real-line theory supplies the missing estimate. Write
 
 \[
 \cot(t/2)=\frac2t+\rho(t),
@@ -1017,7 +1021,7 @@ For \(f\in L^p(\mathbb T)\), fix the real-line extension
 \qquad
 \|\widetilde f\|_{L^p(\mathbb R)}^p
 =3(2\pi)\|f\|_{L^p(\mathbb T)}^p.
-\tag{9.10}
+\tag{10.4}
 \]
 
 For \(x\in[-\pi,\pi]\) and \(|t|<\pi\), the argument \(x-t\) stays in \([-2\pi,2\pi]\); hence the cutoff does not change the single-period integral. If \(0<\delta<\pi\), the circle truncation splits as
@@ -1032,7 +1036,7 @@ f_{\mathrm{per}}(x-t)\cot(t/2)\,dt\\
 \frac{\widetilde f(x-t)}t\,dt
 +(\rho_\delta*_{\mathbb T}f)(x),
 \end{aligned}
-\tag{9.11}
+\tag{10.5}
 \]
 
 where \(\rho_\delta(t)=\mathbf1_{\{\delta\le|t|<\pi\}}\rho(t)\), extended periodically. The first two integrals are real-line Hilbert truncations; (6.1), restriction to one period, and Young's inequality yield
@@ -1047,7 +1051,7 @@ f_{\mathrm{per}}(\,\cdot-t)\cot(t/2)\,dt
 \|f\|_{L^p(\mathbb T)}.
 \]
 
-As \(\delta\downarrow0\), the real-line terms converge in \(L^p\) and a.e., and \(\rho_\delta\to\rho\) in \(L^1(\mathbb T)\). The error convolution also converges a.e., by absolute integrability of \(|\rho|*_{\mathbb T}|f|\). Therefore (9.9) defines a bounded \(H_{\mathbb T}\) on all of \(L^p(\mathbb T)\), with both norm and a.e. principal-value convergence. Density of trigonometric polynomials and continuity of each Fourier coefficient give
+As \(\delta\downarrow0\), the real-line terms converge in \(L^p\) and a.e., and \(\rho_\delta\to\rho\) in \(L^1(\mathbb T)\). The error convolution also converges a.e., by absolute integrability of \(|\rho|*_{\mathbb T}|f|\). Therefore (10.3) defines a bounded \(H_{\mathbb T}\) on all of \(L^p(\mathbb T)\), with both norm and a.e. principal-value convergence. Density of trigonometric polynomials and continuity of each Fourier coefficient give
 
 \[
 \widehat{H_{\mathbb T}f}(k)
@@ -1064,7 +1068,9 @@ Q_r^{\mathbb T}*_{\mathbb T}f
 
 Unlike on the line, every \(L^p(\mathbb T)\) function has ordinary Fourier coefficients, since \(L^p(\mathbb T)\subset L^1(\mathbb T)\).
 
-**The Hardy correspondence on the disc.** Returning to (9.7), we now have
+### 10.3 The Hardy correspondence on the disc
+
+Returning to (10.1), we now have
 
 \[
 \mathcal S u_0(re^{ix})
@@ -1096,7 +1102,7 @@ L^p(\mathbb T;\mathbb R)\times\mathbb R
 \qquad
 (u_0,c)\longmapsto\mathcal S u_0+ic.
 }
-\tag{9.12}
+\tag{10.6}
 \]
 
 The inverse is \(F\mapsto(\operatorname{Re}F^*,\operatorname{Im}F(0))\). Indeed, on analytic traces the Fourier multiplier gives \(H_{\mathbb T}(\operatorname{Re}F^*)=\operatorname{Im}F^*-\operatorname{Im}F(0)\). Equivalently, \(\mathcal S\) is a real-linear bijection from \(L^p(\mathbb T;\mathbb R)\) onto \(\{F\in H^p(\mathbb D):\operatorname{Im}F(0)=0\}\).
@@ -1107,16 +1113,16 @@ The corresponding complex-linear projection is
 \Pi_{\ge0}^{\mathbb T}f
 =\frac{f+iH_{\mathbb T}f}{2}+\frac{P_0f}{2},
 \qquad P_0f=\widehat f(0).
-\tag{9.13}
+\tag{10.7}
 \]
 
 Its Fourier multiplier is \(1\) for \(k\ge0\) and \(0\) for \(k<0\); thus it is a bounded projection onto \(\mathcal A^p(\mathbb T)\). The extra \(P_0/2\) restores the constant mode that is only halved by \((I+iH_{\mathbb T})/2\). On \(\mathbb R\), nonzero constants are excluded by finite-\(p\) integrability; on \(\mathbb T\), they are precisely the additional freedom.
 
-## 10. Second application: Dirichlet kernels and modulated Hilbert integrals
+## 11. Second application: Dirichlet kernels and modulated Hilbert integrals
 
 We now follow Basic, Chapter IX, Problems 20–22. This route uses the real-line truncation estimates directly; the circle Hilbert transform from the previous section is not needed for the proof.
 
-### 10.1 Extracting the part that needs cancellation
+### 11.1 Extracting the part that needs cancellation
 
 Set
 
@@ -1137,7 +1143,7 @@ then extend \(E_n\) periodically. We claim
 \[
 D_n=E_n+r_n,
 \qquad \sup_n\|r_n\|_{L^1(\mathbb T)}<\infty.
-\tag{10.1}
+\tag{11.1}
 \]
 
 There are two errors to estimate. Replacing \(1/\sin(t/2)\) by \(2/t\) produces
@@ -1154,9 +1160,9 @@ The parenthesis is \(O(t)\) at zero and integrable on the whole interval, so thi
 \le4a_n\delta_n=2.
 \]
 
-These estimates prove (10.1). Therefore, if \(T_nf=E_n*_{\mathbb T}f\), it remains to bound \(T_n\) uniformly; Young handles \(r_n*_{\mathbb T}f\).
+These estimates prove (11.1). Therefore, if \(T_nf=E_n*_{\mathbb T}f\), it remains to bound \(T_n\) uniformly; Young handles \(r_n*_{\mathbb T}f\).
 
-### 10.2 Writing out the two modulated integrals
+### 11.2 Writing out the two modulated integrals
 
 Use \(2\sin(a_nt)=(e^{ia_nt}-e^{-ia_nt})/i\). Expanding the normalized convolution gives, for \(x\in[-\pi,\pi]\),
 
@@ -1170,12 +1176,12 @@ T_nf(x)
 \int_{\delta_n\le|t|\le\pi}
 \frac{e^{ia_n(x-t)}f_{\mathrm{per}}(x-t)}t\,dt.
 \end{aligned}
-\tag{10.2}
+\tag{11.2}
 \]
 
 Each integral now contains a Hilbert kernel applied to a function multiplied by a phase. Multiplication by \(e^{\pm ia_ny}\) preserves absolute values and hence every \(L^p\) norm.
 
-There is a domain issue to handle: \(a_n\) is a half-integer, so these phases are not \(2\pi\)-periodic. We use them as real-line functions, rather than as periodic multipliers. Take the same cutoff extension \(\widetilde f\) as in (9.10). As in (9.11), it agrees with \(f_{\mathrm{per}}\) at every argument \(x-t\) occurring in (10.2).
+There is a domain issue to handle: \(a_n\) is a half-integer, so these phases are not \(2\pi\)-periodic. We use them as real-line functions, rather than as periodic multipliers. Take the same cutoff extension \(\widetilde f\) as in (10.4). As in (10.5), it agrees with \(f_{\mathrm{per}}\) at every argument \(x-t\) occurring in (11.2).
 
 To identify the first integral with real-line truncations, write its full expression as
 
@@ -1188,10 +1194,10 @@ To identify the first integral with real-line truncations, write its full expres
 -\frac1\pi\int_{|t|\ge\pi}
 \frac{e^{-ia_n(x-t)}\widetilde f(x-t)}t\,dt.
 \end{aligned}
-\tag{10.3}
+\tag{11.3}
 \]
 
-Define \(g_n^-(y)=e^{-ia_ny}\widetilde f(y)\). The two terms on the last line are exactly \(H_{\delta_n}g_n^-(x)\) and \(H_\pi g_n^-(x)\). Similarly, for \(g_n^+(y)=e^{ia_ny}\widetilde f(y)\), the other integral in (10.2), including its \(1/\pi\) factor, equals \(H_{\delta_n}g_n^+(x)-H_\pi g_n^+(x)\).
+Define \(g_n^-(y)=e^{-ia_ny}\widetilde f(y)\). The two terms on the last line are exactly \(H_{\delta_n}g_n^-(x)\) and \(H_\pi g_n^-(x)\). Similarly, for \(g_n^+(y)=e^{ia_ny}\widetilde f(y)\), the other integral in (11.2), including its \(1/\pi\) factor, equals \(H_{\delta_n}g_n^+(x)-H_\pi g_n^+(x)\).
 
 Consequently, each difference satisfies
 
@@ -1201,29 +1207,29 @@ Consequently, each difference satisfies
 =2A_p\|\widetilde f\|_{L^p(\mathbb R)}.
 \]
 
-The norm identity (9.10) accounts for the three periods and for the normalized measure on \(\mathbb T\).
+The norm identity (10.4) accounts for the three periods and for the normalized measure on \(\mathbb T\).
 
-In (10.2), each difference is multiplied by a phase of modulus one and a scalar of modulus \(1/2\). Restricting the real-line estimates to \([-\pi,\pi]\) and dividing by \((2\pi)^{1/p}\) therefore gives
+In (11.2), each difference is multiplied by a phase of modulus one and a scalar of modulus \(1/2\). Restricting the real-line estimates to \([-\pi,\pi]\) and dividing by \((2\pi)^{1/p}\) therefore gives
 
 \[
 \|T_nf\|_{L^p(\mathbb T)}
 \le2A_p3^{1/p}\|f\|_{L^p(\mathbb T)}.
 \]
 
-Together with (10.1), this proves
+Together with (11.1), this proves
 
 \[
 \boxed{\sup_n\|S_nf\|_p\le C_p\|f\|_p.}
-\tag{10.4}
+\tag{11.4}
 \]
 
 The growing \(L^1\) norm of \(D_n\) has not disappeared. Instead, its principal part has been expressed through two oscillatory changes of the input to uniformly bounded Hilbert truncations. The remaining convolution kernels have uniformly bounded \(L^1\) norms.
 
-### 10.3 Uniform boundedness completes the convergence proof
+### 11.3 Uniform boundedness completes the convergence proof
 
 Trigonometric polynomials are dense in \(L^p(\mathbb T)\) for \(p<\infty\). For example, Fejér means are trigonometric polynomials and converge in \(L^p\), since the Fejér kernels form a positive approximate identity.
 
-Choose a trigonometric polynomial \(q\) approximating \(f\). For \(n\) beyond its degree, \(S_nq=q\), and (10.4) gives
+Choose a trigonometric polynomial \(q\) approximating \(f\). For \(n\) beyond its degree, \(S_nq=q\), and (11.4) gives
 
 \[
 \|S_nf-f\|_p
@@ -1242,7 +1248,7 @@ This is the same extension mechanism used to construct \(H\): prove convergence 
 
 The conclusion here is norm convergence. It does not establish a.e. convergence of the full sequence of Fourier partial sums; that is a separate result in Carleson–Hunt theory. Likewise, existence of Hilbert-transform principal values and pointwise convergence of Fourier partial sums are distinct convergence questions.
 
-## 11. The higher-dimensional form: the kernel changes, the architecture persists
+## 12. The higher-dimensional form: the kernel changes, the architecture persists
 
 Advanced, Chapter III, §5, Theorem 3.26 gives the following direct generalization. Let \(\Omega\in C^1(\mathbb R^N\setminus\{0\})\) be homogeneous of degree zero and have mean zero on the unit sphere:
 
