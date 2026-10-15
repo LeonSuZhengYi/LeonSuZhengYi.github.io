@@ -40,8 +40,8 @@ a:focus-visible{outline:2px solid var(--link);outline-offset:5px}
 .topbar nav a[aria-current=page]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent)}
 .layout{max-width:var(--max);margin:auto;display:grid;grid-template-columns:190px minmax(0,1fr);gap:52px;padding:50px 28px 78px}
 .profile{align-self:start;position:relative}
-.portrait-shell{position:relative;width:100%;aspect-ratio:4/5;margin-top:22px}
-.portrait{display:block;width:100%;height:100%;object-fit:cover;object-position:center 38%;border-radius:2px;box-shadow:0 6px 18px rgba(23,43,58,.08)}
+.portrait-shell{position:relative;width:100%;aspect-ratio:640/639;margin-top:22px}
+.portrait{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:2px;box-shadow:0 6px 18px rgba(23,43,58,.08)}
 .profile h1,.profile .name{font-size:26px;line-height:1.15;letter-spacing:-.02em;margin:0 0 14px;font-weight:600;color:var(--ink)}
 .profile .name a{color:inherit}
 .profile .affiliation{font-size:15px;color:#425763;margin:0 0 6px;line-height:1.5}
