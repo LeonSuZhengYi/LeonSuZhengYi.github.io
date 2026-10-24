@@ -218,53 +218,6 @@ D^\alpha(f*g)=(D^\alpha f)*g=f*(D^\alpha g).
 \|\widehat f\|_2=\|f\|_2.
 \]</div>
 <p>Density then extends <span class="math-inline">\(\mathcal F\)</span> uniquely to a unitary map on <span class="math-inline">\(L^2\)</span>. The <span class="math-inline">\(L^2\)</span> transform agrees with the classical integral whenever <span class="math-inline">\(f\in L^1\cap L^2\)</span>.</p>
-<h3>Smooth multipliers and the origin</h3>
-<p>If <span class="math-inline">\(a\in C^\infty\)</span> and each derivative of <span class="math-inline">\(a\)</span> grows at most polynomially, then</p>
-<div class="math-display">\[
-f\longmapsto a\widehat f
-\quad\text{and}\quad
-f\longmapsto T_af=\mathcal F^{-1}(a\widehat f)
-\]</div>
-<p>are continuous maps on <span class="math-inline">\(\mathcal S\)</span>. This applies to differential symbols, smooth cutoffs, and smooth frequency-localized symbols.</p>
-<p>A multiplier smooth only on <span class="math-inline">\(\mathbb R^n\setminus\{0\}\)</span> need not preserve <span class="math-inline">\(\mathcal S\)</span>: behavior at the origin still matters. A convenient initial class is</p>
-<div class="math-display">\[
-\mathcal S_*=
- \mathcal F^{-1}\bigl(C_c^\infty(\mathbb R^n\setminus\{0\})\bigr).
-\]</div>
-<p>For smooth <span class="math-inline">\(m\)</span> away from zero and <span class="math-inline">\(f\in\mathcal S_*\)</span>, <span class="math-inline">\(m\widehat f\in C_c^\infty\)</span>, so <span class="math-inline">\(T_mf\in\mathcal S\)</span>. This class is dense in <span class="math-inline">\(L^p\)</span>, <span class="math-inline">\(1&lt;p&lt;\infty\)</span>; Section 9 records the cutoff argument. Finite-regularity symbols can instead be defined first on <span class="math-inline">\(L^2\)</span> and treated by approximation.</p>
-<h3>Tempered distributions extend the identities, not the estimates</h3>
-<p>The continuous dual <span class="math-inline">\(\mathcal S'\)</span> is the space of tempered distributions. With the bilinear distributional pairing,</p>
-<div class="math-display">\[
-\langle D^\alpha u,\phi\rangle
- =(-1)^{|\alpha|}\langle u,D^\alpha\phi\rangle,
-\qquad
-\langle\widehat u,\phi\rangle=\langle u,\widehat\phi\rangle.
-\]</div>
-<p>These definitions extend the classical operations compatibly:</p>
-<div class="math-display">\[
-\mathcal F:\mathcal S'\overset{\sim}{\longrightarrow}\mathcal S',
-\qquad
-\widehat{D^\alpha u}=(2\pi i\xi)^\alpha\widehat u.
-\]</div>
-<p>Every <span class="math-inline">\(f\in L^p\)</span>, <span class="math-inline">\(1\le p\le\infty\)</span>, defines a tempered distribution because</p>
-<div class="math-display">\[
-|\langle f,\phi\rangle|\le\|f\|_p\|\phi\|_{p'}.
-\]</div>
-<p>For <span class="math-inline">\(u\in\mathcal S'\)</span> and <span class="math-inline">\(\phi\in\mathcal S\)</span>, the convolution <span class="math-inline">\(u*\phi\)</span> is well-defined, and</p>
-<div class="math-display">\[
-\widehat{u*\phi}=\widehat u\,\widehat\phi
-\quad\text{in }\mathcal S'.
-\]</div>
-<p>Products or convolutions of two arbitrary tempered distributions are not automatically defined. We will use either these legitimate distributional operations or an explicitly justified classical/Bochner integral.</p>
-<p>The working order is therefore</p>
-<div class="math-display">\[
-\text{calculate on }\mathcal S\text{ or }\mathcal S_*
- \ \longrightarrow\
- \text{identify in }\mathcal S'
- \ \longrightarrow\
- \text{prove an }L^p\text{ bound and extend}.
-\]</div>
-<p>The last step is substantive: a distributional Fourier identity is not itself a multiplier theorem.</p>
 <h2>1. Cancellation and Calderón–Zygmund estimates</h2>
 <h3>Local averages and the good/bad decomposition</h3>
 <p>The maximal operator and its basic estimates are</p>
@@ -1162,7 +1115,11 @@ M_mg(\xi)=m(\xi)g(\xi),
 \|T_mf\|_p\stackrel{?}{\lesssim}\|f\|_p.
 \]</div>
 <p>Plancherel answers this for <span class="math-inline">\(p=2\)</span> using only <span class="math-inline">\(\|m\|_\infty\)</span>. For other exponents, it is useful to split the problem into frequency scales.</p>
-<p>To see the architecture, temporarily take <span class="math-inline">\(m\)</span> smooth away from zero and <span class="math-inline">\(f\in\mathcal S_*\)</span>. Choose smooth annular cutoffs</p>
+<p>To see the architecture, temporarily take <span class="math-inline">\(m\)</span> smooth away from zero and <span class="math-inline">\(f\)</span> in</p>
+<div class="math-display">\[
+\mathcal S_*:=\mathcal F^{-1}\bigl(C_c^\infty(\mathbb R^n\setminus\{0\})\bigr).
+\]</div>
+<p>The Fourier support of <span class="math-inline">\(f\)</span> then meets only finitely many annuli. Choose smooth annular cutoffs</p>
 <div class="math-display">\[
 \varphi_j(\xi)=\varphi(2^{-j}\xi),
 \qquad
@@ -1742,12 +1699,7 @@ T\otimes I_{\ell^2}:L^p(X;\ell^2)\to L^p(X;\ell^2).
 S_{\mathrm{soft}}f
  =\left(\sum_{j\in\mathbb Z}|\Delta_jf|^2\right)^{1/2}.
 \]</div>
-<p>For algebraic identities, begin in the dense class</p>
-<div class="math-display">\[
-\mathcal S_*=\mathcal F^{-1}
- \bigl(C_c^\infty(\mathbb R^n\setminus\{0\})\bigr).
-\]</div>
-<p>Density in <span class="math-inline">\(L^p\)</span>, <span class="math-inline">\(1&lt;p&lt;\infty\)</span>, follows by cutting off high and very low frequencies of Schwartz functions. The low-frequency error tends to zero since</p>
+<p>For algebraic identities, begin in the class <span class="math-inline">\(\mathcal S_*\)</span> introduced in Section 6. It is dense in <span class="math-inline">\(L^p\)</span>, <span class="math-inline">\(1&lt;p&lt;\infty\)</span>: cut off high and very low frequencies of Schwartz functions. The low-frequency error tends to zero since</p>
 <div class="math-display">\[
 \|\mathcal F^{-1}[\eta(\xi/\varepsilon)\widehat h]\|_p
  \le\|h\|_1\,\varepsilon^{n(1-1/p)}\|\check\eta\|_p

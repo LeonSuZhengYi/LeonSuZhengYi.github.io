@@ -199,73 +199,6 @@ Parseval and Plancherel likewise begin on $\mathcal S$:
 
 Density then extends $\mathcal F$ uniquely to a unitary map on $L^2$. The $L^2$ transform agrees with the classical integral whenever $f\in L^1\cap L^2$.
 
-### Smooth multipliers and the origin
-
-If $a\in C^\infty$ and each derivative of $a$ grows at most polynomially, then
-
-\[
-f\longmapsto a\widehat f
-\quad\text{and}\quad
-f\longmapsto T_af=\mathcal F^{-1}(a\widehat f)
-\]
-
-are continuous maps on $\mathcal S$. This applies to differential symbols, smooth cutoffs, and smooth frequency-localized symbols.
-
-A multiplier smooth only on $\mathbb R^n\setminus\{0\}$ need not preserve $\mathcal S$: behavior at the origin still matters. A convenient initial class is
-
-\[
-\mathcal S_*=
- \mathcal F^{-1}\bigl(C_c^\infty(\mathbb R^n\setminus\{0\})\bigr).
-\]
-
-For smooth $m$ away from zero and $f\in\mathcal S_*$, $m\widehat f\in C_c^\infty$, so $T_mf\in\mathcal S$. This class is dense in $L^p$, $1<p<\infty$; Section 9 records the cutoff argument. Finite-regularity symbols can instead be defined first on $L^2$ and treated by approximation.
-
-### Tempered distributions extend the identities, not the estimates
-
-The continuous dual $\mathcal S'$ is the space of tempered distributions. With the bilinear distributional pairing,
-
-\[
-\langle D^\alpha u,\phi\rangle
- =(-1)^{|\alpha|}\langle u,D^\alpha\phi\rangle,
-\qquad
-\langle\widehat u,\phi\rangle=\langle u,\widehat\phi\rangle.
-\]
-
-These definitions extend the classical operations compatibly:
-
-\[
-\mathcal F:\mathcal S'\overset{\sim}{\longrightarrow}\mathcal S',
-\qquad
-\widehat{D^\alpha u}=(2\pi i\xi)^\alpha\widehat u.
-\]
-
-Every $f\in L^p$, $1\le p\le\infty$, defines a tempered distribution because
-
-\[
-|\langle f,\phi\rangle|\le\|f\|_p\|\phi\|_{p'}.
-\]
-
-For $u\in\mathcal S'$ and $\phi\in\mathcal S$, the convolution $u*\phi$ is well-defined, and
-
-\[
-\widehat{u*\phi}=\widehat u\,\widehat\phi
-\quad\text{in }\mathcal S'.
-\]
-
-Products or convolutions of two arbitrary tempered distributions are not automatically defined. We will use either these legitimate distributional operations or an explicitly justified classical/Bochner integral.
-
-The working order is therefore
-
-\[
-\text{calculate on }\mathcal S\text{ or }\mathcal S_*
- \ \longrightarrow\
- \text{identify in }\mathcal S'
- \ \longrightarrow\
- \text{prove an }L^p\text{ bound and extend}.
-\]
-
-The last step is substantive: a distributional Fourier identity is not itself a multiplier theorem.
-
 ## 1. Cancellation and Calderón–Zygmund estimates
 
 ### Local averages and the good/bad decomposition
@@ -1449,7 +1382,13 @@ M_mg(\xi)=m(\xi)g(\xi),
 
 Plancherel answers this for $p=2$ using only $\|m\|_\infty$. For other exponents, it is useful to split the problem into frequency scales.
 
-To see the architecture, temporarily take $m$ smooth away from zero and $f\in\mathcal S_*$. Choose smooth annular cutoffs
+To see the architecture, temporarily take $m$ smooth away from zero and $f$ in
+
+\[
+\mathcal S_*:=\mathcal F^{-1}\bigl(C_c^\infty(\mathbb R^n\setminus\{0\})\bigr).
+\]
+
+The Fourier support of $f$ then meets only finitely many annuli. Choose smooth annular cutoffs
 
 \[
 \varphi_j(\xi)=\varphi(2^{-j}\xi),
@@ -2208,14 +2147,7 @@ S_{\mathrm{soft}}f
  =\left(\sum_{j\in\mathbb Z}|\Delta_jf|^2\right)^{1/2}.
 \]
 
-For algebraic identities, begin in the dense class
-
-\[
-\mathcal S_*=\mathcal F^{-1}
- \bigl(C_c^\infty(\mathbb R^n\setminus\{0\})\bigr).
-\]
-
-Density in $L^p$, $1<p<\infty$, follows by cutting off high and very low frequencies of Schwartz functions. The low-frequency error tends to zero since
+For algebraic identities, begin in the class $\mathcal S_*$ introduced in Section 6. It is dense in $L^p$, $1<p<\infty$: cut off high and very low frequencies of Schwartz functions. The low-frequency error tends to zero since
 
 \[
 \|\mathcal F^{-1}[\eta(\xi/\varepsilon)\widehat h]\|_p
