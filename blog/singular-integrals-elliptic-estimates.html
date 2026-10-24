@@ -7,6 +7,25 @@
   <meta name="description" content="Three elliptic estimates through cancellation, spherical spectral theory, and Littlewood–Paley square functions, with definitions and proof calculations.">
   <link rel="stylesheet" href="../styles.css?v=20261011-1">
   <style>
+    .nested-toc [data-article-toc]{display:block;max-height:calc(100vh - 100px);max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d8e0e3 transparent;padding-right:5px}
+    .nested-toc .toc-sections,.nested-toc .toc-subsections{list-style:none;margin:0;padding:0}
+    .nested-toc .toc-section{margin:0;padding:0}
+    .nested-toc .toc-section-row{display:flex;align-items:baseline;gap:3px}
+    .nested-toc .toc-section-row>a{flex:1;min-width:0;padding:6px 0;font-size:12.5px;line-height:1.4}
+    .nested-toc .is-current-section>.toc-section-row>a{color:var(--ink);font-weight:600}
+    .nested-toc .toc-section-row>a[aria-current=location]{color:var(--accent);font-weight:650}
+    .nested-toc .toc-toggle{flex:none;display:grid;place-items:center;width:19px;height:23px;padding:0;border:0;border-radius:3px;background:transparent;color:var(--muted);cursor:pointer}
+    .nested-toc .toc-toggle:hover{background:#f1f5f5;color:var(--ink)}
+    .nested-toc .toc-toggle:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+    .nested-toc .toc-toggle svg{transition:transform .15s ease}
+    .nested-toc .toc-toggle[aria-expanded=true] svg{transform:rotate(90deg)}
+    .nested-toc .toc-subsections{margin:1px 0 8px 3px;padding:1px 0 1px 11px;border-left:1px solid var(--line)}
+    .nested-toc .toc-subsections[hidden]{display:none}
+    .nested-toc .toc-subsections a{position:relative;padding:4px 2px;color:#74848e;font-size:11.5px;line-height:1.45}
+    .nested-toc a:hover{transform:none}
+    .nested-toc .toc-subsections a[aria-current=location]{color:var(--accent);font-weight:600}
+    .nested-toc .toc-subsections a[aria-current=location]::before{content:"";position:absolute;left:-12px;top:5px;bottom:5px;width:2px;background:var(--accent)}
+    @media(prefers-reduced-motion:reduce){.nested-toc .toc-toggle svg{transition:none}}
     .post-body .math-display{max-width:100%;overflow-x:auto;overflow-y:hidden}
     .post-body .math-display mjx-container[display="true"]{margin:.75em 0}
     .post-body p{margin-bottom:.9em}
@@ -16,7 +35,7 @@
     .post-body th{color:var(--ink)}
   </style>
   <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
-  <script defer src="../article-toc.js?v=20260910-toc"></script>
+  <script defer src="../article-toc.js?v=20261024-subsections-1"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
@@ -1994,7 +2013,7 @@ fg=\sum_{j,k}(\Delta_jf)(\Delta_kg).
     </article>
     <aside class="article-toc" aria-label="Table of contents">
       <p class="toc-title">On this page</p>
-      <nav data-article-toc></nav>
+      <nav data-article-toc="nested"></nav>
     </aside>
   </main>
 </body>
