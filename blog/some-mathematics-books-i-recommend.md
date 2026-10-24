@@ -825,15 +825,13 @@ These subjects are not really independent. Taken together, the books above form 
 
 \[
 \begin{gathered}
-\begin{array}{cc}
 \text{Real and Functional Analysis}
-&
+\\[3pt]
 \text{Harmonic Analysis}
-\\[4pt]
+\\[3pt]
 \text{Stochastic Analysis}
-&
+\\[3pt]
 \text{Variational Methods and Dynamical Systems}
-\end{array}
 \\[8pt]
 \Downarrow
 \\[8pt]
