@@ -223,6 +223,53 @@ T:\varphi\mapsto \langle T,\varphi\rangle.
 <p>The book begins with Fourier series and questions of convergence and summability, then moves to the Fourier transform on \(\mathbb R\) and \(\mathbb R^d\), with applications to PDE, number theory, and other areas.</p>
 <p>What I particularly like is that Fourier analysis is presented as a way of thinking about functions and operators, rather than merely as a collection of transform formulas.</p>
 <p>For a first systematic encounter with Fourier analysis as an independent subject, this would be my default recommendation.</p>
+<h3>From Fourier Analysis of Functions to Operators</h3>
+<p>One of the central ideas of Fourier analysis is to decompose a function into simpler frequency components. The most classical example is the Fourier series on the circle,</p>
+<p>\[
+f(x)=\sum_{k\in\mathbb Z}\widehat f(k)e^{2\pi ikx},
+\]</p>
+<p>which expresses a function in terms of its trigonometric modes (in an appropriate sense of convergence). A higher-dimensional spectral analogue is provided by <strong>spherical harmonics</strong>: functions on \(S^{n-1}\) decompose into orthogonal eigenspaces of the Laplace–Beltrami operator,</p>
+<p>\[
+L^2(S^{n-1})=\widehat{\bigoplus}_{k=0}^{\infty}\mathcal H_k.
+\]</p>
+<p>On Euclidean space, the Fourier transform provides a continuous frequency representation instead. These decompositions differ in their underlying spaces and spectral variables, but they share a guiding principle: understand a complicated function by resolving it into simpler modes.</p>
+<p>The subject becomes especially interesting when we turn from <strong>functions to operators</strong>. For a bounded translation-invariant operator on \(L^2(\mathbb R^n)\), Fourier transform diagonalizes its action:</p>
+<p>\[
+Tf=\mathcal F^{-1}(m\widehat f),
+\]</p>
+<p>where \(m\in L^\infty\) is the <strong>Fourier multiplier</strong> of \(T\). To understand \(T\) on \(L^p\), we can further decompose the input into frequency-localized pieces \(f_j=\Delta_jf\). Choose a smooth frequency cutoff \(\psi_j\) equal to one on the Fourier support of \(f_j\), and set \(K_j=\mathcal F^{-1}(m\psi_j)\). Then, initially on suitable test functions and with the appropriate interpretation of the convolutions and sums,</p>
+<p>\[
+\boxed{
+ f=\sum_jf_j,
+ \qquad
+ Tf=\sum_jK_j*f_j.
+}
+\]</p>
+<p>This suggests two complementary problems. <strong>First</strong>, how can the sizes of the individual frequency components be recombined to recover the size of the original function? <strong>Littlewood–Paley theory</strong> answers this through square-function estimates for a standard smooth dyadic partition, for example</p>
+<p>\[
+\boxed{
+\|f\|_{L^p}
+\asymp
+\left\|\left(\sum_j|\Delta_jf|^2\right)^{1/2}\right\|_{L^p},
+\qquad 1&lt;p&lt;\infty.
+}
+\]</p>
+<p><strong>Second</strong>, which regularity conditions on the multiplier \(m\), or corresponding cancellation and decay properties of its localized kernels \(K_j\), guarantee that the pieces can be controlled uniformly? This leads to <strong>singular integral theory</strong> and <strong>Fourier multiplier theorems</strong>.</p>
+<p>This is a useful way to view the transition from elementary Fourier analysis to harmonic analysis: from decomposing <strong>functions into modes</strong> to studying <strong>operators scale by scale</strong>. One particularly important application is PDE, where algebraic properties of differential operators become estimates for derivatives of their solutions.</p>
+<h3>Elias M. Stein — <em>Singular Integrals and Differentiability Properties of Functions</em></h3>
+<p>This is the book I would recommend for moving from elementary Fourier analysis to <strong>classical harmonic analysis</strong>, once measure theory, \(L^p\) spaces, and the basic Fourier transform are familiar.</p>
+<p>I find its <strong>first four chapters</strong> especially rewarding. Starting from maximal functions and Calderón–Zygmund theory, Stein develops singular integral operators, the Hilbert and Riesz transforms, and the correspondence between smooth homogeneous singular kernels and Fourier multipliers through spherical harmonics. Littlewood–Paley theory then provides a powerful route to more general multiplier theorems.</p>
+<p>What interests me most is how these ideas come together in the study of <strong>elliptic PDE</strong>. For a constant-coefficient differential operator \(P(D)\) of order \(k\) with elliptic principal part, one obtains, for \(f\in W^{k,p}(\mathbb R^n)\), estimates of the form</p>
+<p>\[
+\boxed{
+\|f\|_{W^{k,p}(\mathbb R^n)}
+\lesssim
+\|P(D)f\|_{L^p(\mathbb R^n)}+\|f\|_{L^p(\mathbb R^n)},
+\qquad 1&lt;p&lt;\infty.
+}
+\]</p>
+<p>The book is concise, and some functional-analytic foundations are left implicit. Reconstructing those details—particularly the use of vector-valued singular integrals and spectral theory—was an important part of my reading. For me, Chapters I–IV form a coherent introduction to harmonic analysis as a theory of <strong>operators, estimates, and regularity</strong>, and an excellent foundation for further work in PDE.</p>
+<p><a href="singular-integrals-elliptic-estimates.html">My reading notes (Chapters I–IV)</a></p>
 <hr>
 <h2>Partial Differential Equations</h2>
 <p>For PDE, I would suggest</p>
