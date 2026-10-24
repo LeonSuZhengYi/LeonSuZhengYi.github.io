@@ -248,12 +248,14 @@ A rough reading route is therefore
 
 ## Complex Analysis
 
-For complex analysis, my recommended progression is much shorter:
+For complex analysis, I would read these in this order:
 
 \[
 \text{Perera–Agarwal–Pinelas}
 \longrightarrow
-\text{Stein–Shakarchi}.
+\text{Stein–Shakarchi}
+\longrightarrow
+\text{Rudin}.
 \]
 
 ### Kanishka Perera, Ravi P. Agarwal, and Sandra Pinelas — *An Introduction to Complex Analysis*
@@ -278,11 +280,21 @@ The progression is roughly
 
 \[
 \boxed{
-\text{learn classical complex analysis}
+\text{classical theory}
 \longrightarrow
-\text{see what complex analysis is connected to}.
+\text{connections}
+\longrightarrow
+\text{synthesis}.
 }
 \]
+
+### Walter Rudin — *Real and Complex Analysis*
+
+I would read this after a first course in complex analysis and a solid grounding in measure theory. Chapters 1–9 build the measure, \(L^p\), Hilbert-space, and Fourier tools; Chapters 10–20 bring them into analytic and harmonic functions, Runge approximation, conformal mapping, \(H^p\) spaces, Banach algebras, and polynomial approximation.
+
+What makes the book worth reading is how these subjects support one another. The Poisson kernel connects boundary data to harmonic functions, while the final proof of Mergelyan's theorem draws on topology, convolution, \(\bar\partial\), and Runge's theorem. Rudin is concise, so I recommend it as a **second pass and a synthesis**, rather than a first introduction.
+
+My reading notes: [Chapters 1–9](reading-big-rudin-chapters-1-9.html) and [Chapters 10–20](reading-big-rudin-chapters-10-20.html).
 
 ---
 
