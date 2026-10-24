@@ -290,9 +290,9 @@ The progression is roughly
 
 ### Walter Rudin — *Real and Complex Analysis*
 
-I would read this after a first course in complex analysis and a solid grounding in measure theory. Chapters 1–9 build the measure, \(L^p\), Hilbert-space, and Fourier tools; Chapters 10–20 bring them into analytic and harmonic functions, Runge approximation, conformal mapping, \(H^p\) spaces, Banach algebras, and polynomial approximation.
+I would read this after a first course in complex analysis and a solid grounding in measure theory. Its distinctive feature is that it brings the tools of classical real analysis—measure theory, \(L^p\) spaces, Fourier analysis, and functional analysis—into complex analysis, producing stronger and often more quantitative results than an elementary treatment alone.
 
-What makes the book worth reading is how these subjects support one another. The Poisson kernel connects boundary data to harmonic functions, while the final proof of Mergelyan's theorem draws on topology, convolution, \(\bar\partial\), and Runge's theorem. Rudin is concise, so I recommend it as a **second pass and a synthesis**, rather than a first introduction.
+This viewpoint runs through Rudin's proof of Runge's theorem, the boundary theory and Blaschke–singular–outer factorization of \(H^p\) functions, the Paley–Wiener theorems, and the final proof of Mergelyan's theorem. I therefore recommend the book as a concise **second pass and synthesis** of real and complex analysis.
 
 My reading notes: [Chapters 1–9](reading-big-rudin-chapters-1-9.html) and [Chapters 10–20](reading-big-rudin-chapters-10-20.html).
 
