@@ -118,6 +118,133 @@ A\asymp B\ \Longleftrightarrow\ A\lesssim B\lesssim A.
 \end{gathered}
 \]</div>
 <p>The constant may depend on displayed subscripts, dimension, or a fixed cutoff, but never on the function or a finite number of frequency pieces. Surface measure <span class="math-inline">\(d\sigma\)</span> on <span class="math-inline">\(S^{n-1}\)</span> is unnormalized.</p>
+<h2>0. Schwartz space: a safe domain for Fourier operations</h2>
+<p>Before using a singular kernel or a Hilbert-valued Fourier transform, I want a class on which the underlying scalar operations are genuinely justified. That class is <span class="math-inline">\(\mathcal S(\mathbb R^n)\)</span>.</p>
+<h3>Decay, differentiation, and the Fréchet topology</h3>
+<p>Define</p>
+<div class="math-display">\[
+\mathcal S=\left\{f\in C^\infty:
+ q_{\alpha,\beta}(f):=\sup_x|x^\alpha D^\beta f(x)|&lt;\infty
+ \text{ for all }\alpha,\beta\right\}.
+\]</div>
+<p>An equivalent increasing family of seminorms is</p>
+<div class="math-display">\[
+p_N(f)=\max_{|\beta|\le N}\sup_x(1+|x|)^N|D^\beta f(x)|,
+\qquad N=0,1,\ldots.
+\]</div>
+<p>Thus <span class="math-inline">\(f_j\to f\)</span> in <span class="math-inline">\(\mathcal S\)</span> means <span class="math-inline">\(p_N(f_j-f)\to0\)</span> for every <span class="math-inline">\(N\)</span>. In particular,</p>
+<div class="math-display">\[
+D^\beta f,\quad x^\alpha f\in\mathcal S,
+\qquad
+\mathcal S\subset L^p\quad(1\le p\le\infty),
+\]</div>
+<p>and multiplication by polynomials and differentiation are continuous maps <span class="math-inline">\(\mathcal S\to\mathcal S\)</span>.</p>
+<p>Rapid decay gives the domination needed to differentiate under the Fourier integral, while integration by parts has no boundary contribution:</p>
+<div class="math-display">\[
+D_\xi^\beta\widehat f
+ =\mathcal F[(-2\pi ix)^\beta f],
+\qquad
+(2\pi i\xi)^\alpha\widehat f
+ =\mathcal F[D^\alpha f].
+\]</div>
+<p>Combining these identities,</p>
+<div class="math-display">\[
+\sup_\xi
+ |(2\pi i\xi)^\alpha D_\xi^\beta\widehat f(\xi)|
+ \le\|D^\alpha[(-2\pi ix)^\beta f]\|_1&lt;\infty.
+\]</div>
+<p>Each <span class="math-inline">\(L^1\)</span> norm on the right is controlled by finitely many Schwartz seminorms. This proves the continuity of <span class="math-inline">\(\mathcal F:\mathcal S\to\mathcal S\)</span>. Fourier inversion supplies its continuous inverse:</p>
+<div class="math-display">\[
+\boxed{
+\mathcal F:\mathcal S\overset{\sim}{\longrightarrow}\mathcal S,
+\qquad
+f(x)=\int e^{2\pi ix\cdot\xi}\widehat f(\xi)\,d\xi.
+}
+\]</div>
+<p>The inversion integral is absolutely convergent; differentiating it is legitimate to every order.</p>
+<h3>Convolution, products, and Fubini</h3>
+<p>For <span class="math-inline">\(f,g\in\mathcal S\)</span>, both <span class="math-inline">\(fg\)</span> and <span class="math-inline">\(f*g\)</span> belong to <span class="math-inline">\(\mathcal S\)</span>. For convolution, the basic estimates follow from</p>
+<div class="math-display">\[
+D^\beta(f*g)=f*D^\beta g,
+\qquad
+x^\alpha=\sum_{\gamma\le\alpha}
+ {\alpha\choose\gamma}z^\gamma(x-z)^{\alpha-\gamma}
+\]</div>
+<p>inside the integral <span class="math-inline">\(\int f(z)g(x-z)\,dz\)</span>. Weighted derivatives reduce to finite sums of convolutions of rapidly decreasing functions.</p>
+<p>The Fourier product rule is a classical Fubini calculation, justified by</p>
+<div class="math-display">\[
+\iint|f(z)g(x-z)|\,dz\,dx=\|f\|_1\|g\|_1&lt;\infty.
+\]</div>
+<p>Consequently,</p>
+<div class="math-display">\[
+\boxed{
+\widehat{f*g}=\widehat f\,\widehat g,
+\qquad
+\widehat{fg}=\widehat f*\widehat g,
+\qquad
+D^\alpha(f*g)=(D^\alpha f)*g=f*(D^\alpha g).
+}
+\]</div>
+<p>For example, if <span class="math-inline">\(a,b\in\mathcal S\)</span>, then</p>
+<div class="math-display">\[
+\mathcal F^{-1}(a\,b)=\check a*\check b
+\]</div>
+<p>is an identity between ordinary absolutely convergent integrals. This is the elementary calculation later used in localized multiplier formulas.</p>
+<p>Parseval and Plancherel likewise begin on <span class="math-inline">\(\mathcal S\)</span>:</p>
+<div class="math-display">\[
+\langle f,g\rangle
+ =\langle\widehat f,\widehat g\rangle,
+\qquad
+\|\widehat f\|_2=\|f\|_2.
+\]</div>
+<p>Density then extends <span class="math-inline">\(\mathcal F\)</span> uniquely to a unitary map on <span class="math-inline">\(L^2\)</span>. The <span class="math-inline">\(L^2\)</span> transform agrees with the classical integral whenever <span class="math-inline">\(f\in L^1\cap L^2\)</span>.</p>
+<h3>Smooth multipliers and the origin</h3>
+<p>If <span class="math-inline">\(a\in C^\infty\)</span> and each derivative of <span class="math-inline">\(a\)</span> grows at most polynomially, then</p>
+<div class="math-display">\[
+f\longmapsto a\widehat f
+\quad\text{and}\quad
+f\longmapsto T_af=\mathcal F^{-1}(a\widehat f)
+\]</div>
+<p>are continuous maps on <span class="math-inline">\(\mathcal S\)</span>. This applies to differential symbols, smooth cutoffs, and smooth frequency-localized symbols.</p>
+<p>A multiplier smooth only on <span class="math-inline">\(\mathbb R^n\setminus\{0\}\)</span> need not preserve <span class="math-inline">\(\mathcal S\)</span>: behavior at the origin still matters. A convenient initial class is</p>
+<div class="math-display">\[
+\mathcal S_*=
+ \mathcal F^{-1}\bigl(C_c^\infty(\mathbb R^n\setminus\{0\})\bigr).
+\]</div>
+<p>For smooth <span class="math-inline">\(m\)</span> away from zero and <span class="math-inline">\(f\in\mathcal S_*\)</span>, <span class="math-inline">\(m\widehat f\in C_c^\infty\)</span>, so <span class="math-inline">\(T_mf\in\mathcal S\)</span>. This class is dense in <span class="math-inline">\(L^p\)</span>, <span class="math-inline">\(1&lt;p&lt;\infty\)</span>; Section 9 records the cutoff argument. Finite-regularity symbols can instead be defined first on <span class="math-inline">\(L^2\)</span> and treated by approximation.</p>
+<h3>Tempered distributions extend the identities, not the estimates</h3>
+<p>The continuous dual <span class="math-inline">\(\mathcal S'\)</span> is the space of tempered distributions. With the bilinear distributional pairing,</p>
+<div class="math-display">\[
+\langle D^\alpha u,\phi\rangle
+ =(-1)^{|\alpha|}\langle u,D^\alpha\phi\rangle,
+\qquad
+\langle\widehat u,\phi\rangle=\langle u,\widehat\phi\rangle.
+\]</div>
+<p>These definitions extend the classical operations compatibly:</p>
+<div class="math-display">\[
+\mathcal F:\mathcal S'\overset{\sim}{\longrightarrow}\mathcal S',
+\qquad
+\widehat{D^\alpha u}=(2\pi i\xi)^\alpha\widehat u.
+\]</div>
+<p>Every <span class="math-inline">\(f\in L^p\)</span>, <span class="math-inline">\(1\le p\le\infty\)</span>, defines a tempered distribution because</p>
+<div class="math-display">\[
+|\langle f,\phi\rangle|\le\|f\|_p\|\phi\|_{p'}.
+\]</div>
+<p>For <span class="math-inline">\(u\in\mathcal S'\)</span> and <span class="math-inline">\(\phi\in\mathcal S\)</span>, the convolution <span class="math-inline">\(u*\phi\)</span> is well-defined, and</p>
+<div class="math-display">\[
+\widehat{u*\phi}=\widehat u\,\widehat\phi
+\quad\text{in }\mathcal S'.
+\]</div>
+<p>Products or convolutions of two arbitrary tempered distributions are not automatically defined. We will use either these legitimate distributional operations or an explicitly justified classical/Bochner integral.</p>
+<p>The working order is therefore</p>
+<div class="math-display">\[
+\text{calculate on }\mathcal S\text{ or }\mathcal S_*
+ \ \longrightarrow\
+ \text{identify in }\mathcal S'
+ \ \longrightarrow\
+ \text{prove an }L^p\text{ bound and extend}.
+\]</div>
+<p>The last step is substantive: a distributional Fourier identity is not itself a multiplier theorem.</p>
 <h2>1. Cancellation and Calderón–Zygmund estimates</h2>
 <h3>Local averages and the good/bad decomposition</h3>
 <p>The maximal operator and its basic estimates are</p>
@@ -244,35 +371,7 @@ Tb_Q(x)
 \qquad 1&lt;p&lt;\infty.}
 \]</div>
 <p>This proof explains exactly where each hypothesis enters: <span class="math-inline">\(L^2\)</span> controls <span class="math-inline">\(g\)</span>; the size of the bad set controls <span class="math-inline">\(E^*\)</span>; cancellation and kernel regularity control <span class="math-inline">\(b\)</span> off <span class="math-inline">\(E^*\)</span>.</p>
-<h3>Distributional identities versus principal values</h3>
-<p>The common ambient spaces are</p>
-<div class="math-display">\[
-\mathcal S
- =\{\phi:q_{\alpha,\beta}(\phi)&lt;\infty
-       \text{ for every }\alpha,\beta\},
-\qquad
-q_{\alpha,\beta}(\phi)=\sup_x|x^\alpha D^\beta\phi(x)|,
-\]</div>
-<div class="math-display">\[
-\mathcal S'=(\mathcal S)^*,
-\qquad
-\mathcal F:\mathcal S\overset{\sim}{\longrightarrow}\mathcal S,
-\qquad
-\langle\widehat u,\phi\rangle=\langle u,\widehat\phi\rangle.
-\]</div>
-<p>The last pairing is the bilinear distributional pairing. For <span class="math-inline">\(f\in L^p\)</span>,</p>
-<div class="math-display">\[
-|\langle f,\phi\rangle|
- \le\|f\|_p\|\phi\|_{p'},
-\]</div>
-<p>so <span class="math-inline">\(L^p\subset\mathcal S'\)</span>. Fourier calculations can therefore precede the <span class="math-inline">\(L^p\)</span> theory:</p>
-<div class="math-display">\[
-T_Kf=K*f
-\quad\rightsquigarrow\quad
-\widehat{T_Kf}=m\widehat f
-\quad\rightsquigarrow\quad
-T_K:L^p\to L^p.
-\]</div>
+<h3>From a bounded operator to principal values</h3>
 <p>Pointwise principal values require another step. Define</p>
 <div class="math-display">\[
 T_\varepsilon f(x)=\int_{|y|&gt;\varepsilon}K(y)f(x-y)\,dy,
@@ -612,25 +711,110 @@ K(x)\in\mathcal B(H_1,H_2),
 \|F\|_{L^p(H)}
  =\left(\int_{\mathbb R^n}\|F(x)\|_H^p\,dx\right)^{1/p}.
 \]</div>
-<h3>Bochner integration: integrate vectors before taking norms</h3>
-<p>For a strongly measurable <span class="math-inline">\(H\)</span>-valued function,</p>
+<h3>Bochner integration: the abstract integral and its scalar tests</h3>
+<p>Let <span class="math-inline">\(E\)</span> be a Banach space. A strongly measurable <span class="math-inline">\(F:Z\to E\)</span> is Bochner integrable precisely when</p>
 <div class="math-display">\[
-\int\|F(y)\|_H\,dy&lt;\infty
-\quad\Longrightarrow\quad
-\int F(y)\,dy\in H,
+\int_Z\|F(z)\|_E\,d\mu(z)&lt;\infty.
+\]</div>
+<p>One defines the integral by approximating <span class="math-inline">\(F\)</span> with simple <span class="math-inline">\(E\)</span>-valued functions in <span class="math-inline">\(L^1(Z;E)\)</span>:</p>
+<div class="math-display">\[
+\int s_j\,d\mu\longrightarrow\int F\,d\mu
+\quad\text{in }E,
 \qquad
-\left\|\int F\right\|_H\le\int\|F\|_H.
+\left\|\int F\,d\mu\right\|_E\le\int\|F\|_E\,d\mu.
 \]</div>
-<p>For bounded linear <span class="math-inline">\(L:H\to H'\)</span>,</p>
+<p>For any bounded linear <span class="math-inline">\(L:E\to E'\)</span>,</p>
 <div class="math-display">\[
-L\left(\int F(y)\,dy\right)=\int LF(y)\,dy.
+L\left(\int F\,d\mu\right)=\int LF\,d\mu.
 \]</div>
-<p>Apply these facts to suitably integrable truncations of</p>
+<p>In particular, each <span class="math-inline">\(\ell\in E^*\)</span> recovers an ordinary scalar integral:</p>
 <div class="math-display">\[
-T_\varepsilon f(x)
- =\int_{|x-y|&gt;\varepsilon}K(x-y)f(y)\,dy.
+\ell\left(\int F\,d\mu\right)=\int\ell(F(z))\,d\mu(z).
 \]</div>
-<p>The singular, untruncated formula is obtained by a limit; it is not assumed to be an absolutely convergent Bochner integral.</p>
+<p>For <span class="math-inline">\(E=\mathbb C^q\)</span>, this is exactly coordinatewise classical integration. For a separable Hilbert space, strong measurability can be checked through scalar inner products.</p>
+<h3>Bochner–Fubini and abstract convolution</h3>
+<p>For sigma-finite measure spaces <span class="math-inline">\(X,Z\)</span> and a jointly strongly measurable <span class="math-inline">\(\Phi:X\times Z\to E\)</span>, the sufficient Fubini hypothesis is</p>
+<div class="math-display">\[
+\int_X\int_Z\|\Phi(x,z)\|_E\,d\mu(z)\,d\nu(x)&lt;\infty.
+\]</div>
+<p>The sections are then Bochner integrable almost everywhere, and</p>
+<div class="math-display">\[
+\int_X\left(\int_Z\Phi(x,z)\,d\mu(z)\right)d\nu(x)
+ =
+\int_Z\left(\int_X\Phi(x,z)\,d\nu(x)\right)d\mu(z).
+\]</div>
+<p>Scalar Tonelli applies to <span class="math-inline">\(\|\Phi\|_E\)</span> to check this hypothesis. We will use Bochner–Fubini when interchanging a spatial integral, a scale integral, and a Fourier transform; the integrability condition must be established first.</p>
+<p>For an operator kernel <span class="math-inline">\(K:\mathbb R^n\to\mathcal B(H_1,H_2)\)</span>, abstract convolution means</p>
+<div class="math-display">\[
+(K*_B f)(x):=\int_{\mathbb R^n}^{B}K(z)f(x-z)\,dz\in H_2.
+\]</div>
+<p>The superscript <span class="math-inline">\(B\)</span> records a Bochner integral. Its basic sufficient condition at a fixed <span class="math-inline">\(x\)</span> is strong measurability together with</p>
+<div class="math-display">\[
+\int_{\mathbb R^n}
+ \|K(z)\|_{\mathrm{op}}\|f(x-z)\|_{H_1}\,dz&lt;\infty.
+\]</div>
+<p>In particular, under the usual measurability hypotheses, Young's inequality becomes</p>
+<div class="math-display">\[
+\|K*_B f\|_{L^p(H_2)}
+ \le\|\|K(\cdot)\|_{\mathrm{op}}\|_{L^1}
+       \|f\|_{L^p(H_1)},\qquad1\le p\le\infty.
+\]</div>
+<p>For scalar <span class="math-inline">\(f\)</span> and an <span class="math-inline">\(H\)</span>-valued <span class="math-inline">\(k\in L^1(\mathbb R^n;H)\)</span>, Bochner–Fubini also gives the familiar Fourier formula, initially with <span class="math-inline">\(f\in\mathcal S\)</span>:</p>
+<div class="math-display">\[
+\widehat{k*_B f}(\xi)=\widehat k(\xi)\widehat f(\xi).
+\]</div>
+<p>For singular or merely weakly specified operator kernels, we first truncate/regularize or scalarize; we do not presume an operator-norm Fourier integral exists.</p>
+<h3>Compatibility with a parameterwise classical convolution</h3>
+<p>Suppose the Hilbert target is itself a function space over a sigma-finite <span class="math-inline">\((Y,\nu)\)</span>,</p>
+<div class="math-display">\[
+H=L^2(Y,\nu;\mathbb C^q),
+\]</div>
+<p>and <span class="math-inline">\(k(z)\in H\)</span> is represented by a jointly measurable function <span class="math-inline">\(k(z,y)\)</span>. If, for a fixed <span class="math-inline">\(x\)</span>,</p>
+<div class="math-display">\[
+\int_{\mathbb R^n}
+ |f(x-z)|\,\|k(z,\cdot)\|_H\,dz&lt;\infty,
+\]</div>
+<p>then abstract convolution and the classical convolution at fixed <span class="math-inline">\(y\)</span> agree:</p>
+<div class="math-display">\[
+\boxed{
+\int_{\mathbb R^n}^{B} k(z,\cdot)f(x-z)\,dz
+ =
+\left[y\longmapsto
+ \int_{\mathbb R^n} k(z,y)f(x-z)\,dz\right]
+ \quad\text{in }L^2(Y,\nu).
+}
+\]</div>
+<p>Brackets mean an equivalence class. The inner classical integral exists for <span class="math-inline">\(\nu\)</span>-almost every <span class="math-inline">\(y\)</span> under these hypotheses. This is a compatibility statement obtained from the integration theory, not from bounded point evaluation: evaluation at one <span class="math-inline">\(y\)</span> is not a continuous functional on <span class="math-inline">\(L^2(Y)\)</span>.</p>
+<p>This matters directly for continuous LP. Put</p>
+<div class="math-display">\[
+H=L^2((0,\infty),t\,dt;\mathbb C^{n+1}),
+\qquad
+K_\varepsilon(z)=
+ [t\longmapsto\nabla P_{t+\varepsilon}(z)],
+\quad\varepsilon&gt;0.
+\]</div>
+<p>Here <span class="math-inline">\(\nabla\)</span> includes the spatial derivatives and the derivative of the Poisson height. For <span class="math-inline">\(f\in\mathcal S\)</span>,</p>
+<div class="math-display">\[
+\|K_\varepsilon(z)\|_H
+ \lesssim(\varepsilon^2+|z|^2)^{-n/2}
+\]</div>
+<p>makes the required spatial norm integral finite for every fixed <span class="math-inline">\(x\)</span>. Thus</p>
+<div class="math-display">\[
+\begin{aligned}
+\mathcal G_\varepsilon f(x)
+ &amp;:=\int_{\mathbb R^n}^{B}K_\varepsilon(z)f(x-z)\,dz\\
+ &amp;=\left[t\longmapsto
+       \int_{\mathbb R^n}\nabla P_{t+\varepsilon}(z)f(x-z)\,dz\right]\\
+ &amp;=\left[t\longmapsto\nabla(P_{t+\varepsilon}*f)(x)\right]
+ \quad\text{in }H.
+\end{aligned}
+\]</div>
+<p>For each fixed <span class="math-inline">\(t&gt;0\)</span>, the last convolution is an ordinary classical integral, with differentiation justified under the integral. Viewed as a function of <span class="math-inline">\(t\)</span>, it represents exactly the Hilbert-valued Bochner convolution. Consequently,</p>
+<div class="math-display">\[
+\|\mathcal G_\varepsilon f(x)\|_H^2
+ =\int_0^\infty t|\nabla(P_{t+\varepsilon}*f)(x)|^2\,dt.
+\]</div>
+<p>The unregularized kernel need not be absolutely Bochner integrable against <span class="math-inline">\(f(x-z)\)</span> near <span class="math-inline">\(z=0\)</span>. We establish uniform operator bounds for <span class="math-inline">\(\varepsilon&gt;0\)</span> and then pass to the limit. This keeps the abstract convolution, the parameterwise convolution, and the square function consistent.</p>
 <h3>Scalarization constructs the <span class="math-inline">\(L^2\)</span> multiplier</h3>
 <p>For <span class="math-inline">\(u\in H_1\)</span>, <span class="math-inline">\(v\in H_2\)</span>, set</p>
 <div class="math-display">\[
@@ -663,40 +847,128 @@ k_{u,v}(x)=\langle K(x)u,v\rangle.
  =\sum_j\int|\langle f,e_j\rangle|^2
  =\int\|f\|_H^2.
 \]</div>
-<h3>Fréchet differentiation supplies kernel regularity</h3>
+<h3>Fréchet differentiation: what space does the derivative live in?</h3>
+<p>For</p>
+<div class="math-display">\[
+K:\mathbb R^n\setminus\{0\}\longrightarrow\mathcal B(H_1,H_2),
+\]</div>
+<p>the Fréchet derivative at <span class="math-inline">\(x\)</span> is a bounded real-linear map</p>
+<div class="math-display">\[
+DK(x)\in\mathcal B\bigl(\mathbb R^n,\mathcal B(H_1,H_2)\bigr).
+\]</div>
+<p>It is characterized by an operator-norm remainder:</p>
+<div class="math-display">\[
+\lim_{h\to0}
+ \frac{\|K(x+h)-K(x)-DK(x)[h]\|_{\mathrm{op}}}{|h|}=0.
+\]</div>
+<p>There are three levels of objects:</p>
+<div class="math-display">\[
+h\in\mathbb R^n,\qquad
+DK(x)[h]\in\mathcal B(H_1,H_2),\qquad
+(DK(x)[h])u\in H_2.
+\]</div>
+<p>With <span class="math-inline">\(|h|\)</span> the Euclidean norm, the derivative norm is the nested supremum</p>
+<div class="math-display">\[
+\begin{aligned}
+\|DK(x)\|
+ &amp;=\sup_{|h|\le1}\|DK(x)[h]\|_{\mathrm{op}}\\
+ &amp;=\sup_{|h|\le1}\sup_{\|u\|_{H_1}\le1}
+       \|(DK(x)[h])u\|_{H_2}\\
+ &amp;=\sup_{|h|\le1}\sup_{\|u\|_{H_1}\le1}
+       \sup_{\|v\|_{H_2}\le1}
+       |\langle(DK(x)[h])u,v\rangle|.
+\end{aligned}
+\]</div>
+<p>In particular,</p>
+<div class="math-display">\[
+\|(DK(x)[h])u\|_{H_2}
+ \le\|DK(x)\|\,|h|\,\|u\|_{H_1}.
+\]</div>
+<p>If <span class="math-inline">\(\partial_jK=DK[e_j]\)</span>, then</p>
+<div class="math-display">\[
+DK(x)[h]=\sum_{j=1}^nh_j\partial_jK(x),
+\]</div>
+<div class="math-display">\[
+\max_j\|\partial_jK(x)\|_{\mathrm{op}}
+ \le\|DK(x)\|
+ \le\left(\sum_j\|\partial_jK(x)\|_{\mathrm{op}}^2\right)^{1/2}.
+\]</div>
+<p>Thus operator-norm estimates for the partial derivatives give the abstract derivative estimate, with only a dimensional constant.</p>
+<h3>From the derivative bound to the Hörmander condition</h3>
 <p>Assume <span class="math-inline">\(K\)</span> is <span class="math-inline">\(C^1\)</span> in operator norm and</p>
 <div class="math-display">\[
-\|DK(x)\|_{\mathcal B(\mathbb R^n,\mathcal B(H_1,H_2))}
- \lesssim |x|^{-n-1}.
+\|DK(x)\|\le C|x|^{-n-1},\qquad x\ne0.
 \]</div>
-<p>The fundamental theorem of calculus along a segment is an operator-valued identity:</p>
+<p>The fundamental theorem of calculus along a segment is a Bochner integral in <span class="math-inline">\(\mathcal B(H_1,H_2)\)</span>:</p>
 <div class="math-display">\[
 K(x-h)-K(x)
- =-\int_0^1DK(x-th)[h]\,dt.
+ =-\int_0^1DK(x-sh)[h]\,ds.
 \]</div>
-<p>Consequently,</p>
+<p>If <span class="math-inline">\(|x|&gt;2|h|\)</span>, then <span class="math-inline">\(|x-sh|\ge|x|/2\)</span> for <span class="math-inline">\(0\le s\le1\)</span>. Therefore</p>
+<div class="math-display">\[
+\begin{aligned}
+\|K(x-h)-K(x)\|_{\mathrm{op}}
+ &amp;\le|h|\int_0^1\|DK(x-sh)\|\,ds\\
+ &amp;\le C\,2^{n+1}|h|\,|x|^{-n-1}.
+\end{aligned}
+\]</div>
+<p>Integrating in polar coordinates now removes the dependence on <span class="math-inline">\(h\)</span>:</p>
+<div class="math-display">\[
+\begin{aligned}
+\int_{|x|&gt;2|h|}\|K(x-h)-K(x)\|_{\mathrm{op}}\,dx
+ &amp;\le C\,2^{n+1}|S^{n-1}|\,|h|
+       \int_{2|h|}^{\infty}r^{-2}\,dr\\
+ &amp;=C\,2^n|S^{n-1}|.
+\end{aligned}
+\]</div>
+<p>This is precisely the operator-valued Hörmander condition:</p>
+<div class="math-display">\[
+\boxed{
+\mathfrak H(K):=
+ \sup_{h\ne0}\int_{|x|&gt;2|h|}
+ \|K(x-h)-K(x)\|_{\mathrm{op}}\,dx&lt;\infty.
+}
+\]</div>
+<p>The integrand itself contains the input/output suprema:</p>
 <div class="math-display">\[
 \|K(x-h)-K(x)\|_{\mathrm{op}}
- \lesssim |h||x|^{-n-1},
-\qquad |h|\le|x|/2.
+ =
+ \sup_{\|u\|\le1}\sup_{\|v\|\le1}
+ |\langle[K(x-h)-K(x)]u,v\rangle|.
 \]</div>
-<p>For a bad piece, <span class="math-inline">\(\int_Qb_Q=0\)</span> in <span class="math-inline">\(H_1\)</span>, so</p>
+<p>We control this norm before integrating; no interchange of a supremum and an integral is being assumed.</p>
+<h3>Cancellation still precedes every norm</h3>
+<p>For a Hilbert-valued bad piece, <span class="math-inline">\(\int_Qb_Q=0\)</span> in <span class="math-inline">\(H_1\)</span>. Bounded linear maps commute with Bochner integration, so</p>
+<div class="math-display">\[
+K(x-c_Q)\int_Qb_Q(y)\,dy=0.
+\]</div>
+<p>Hence</p>
 <div class="math-display">\[
 Tb_Q(x)
  =\int_Q[K(x-y)-K(x-c_Q)]b_Q(y)\,dy
 \]</div>
-<p>as an identity in <span class="math-inline">\(H_2\)</span>, followed by</p>
+<p>in <span class="math-inline">\(H_2\)</span>. Taking norms and then using scalar Tonelli gives</p>
 <div class="math-display">\[
-\|Tb_Q(x)\|_{H_2}
- \le\int_Q\|K(x-y)-K(x-c_Q)\|_{\mathrm{op}}
-             \|b_Q(y)\|_{H_1}\,dy.
+\begin{aligned}
+\int_{(Q^*)^c}\|Tb_Q(x)\|_{H_2}\,dx
+ &amp;\le\int_Q\|b_Q(y)\|_{H_1}
+ \left[\int_{(Q^*)^c}
+ \|K(x-y)-K(x-c_Q)\|_{\mathrm{op}}\,dx\right]dy\\
+ &amp;\le\mathfrak H(K)\|b_Q\|_{L^1(H_1)}.
+\end{aligned}
 \]</div>
-<p>Taking norms before the subtraction would discard the zero-vector integral. With this order preserved, the scalar proof survives:</p>
+<p>Here <span class="math-inline">\(Q^*\)</span> is enlarged so that <span class="math-inline">\(|x-c_Q|&gt;2|y-c_Q|\)</span>. This is the exact place where the abstract derivative estimate enters the Calderón–Zygmund proof:</p>
 <div class="math-display">\[
-L^2(H_1)\to L^2(H_2)
-\quad+\quad\text{kernel estimates}
-\quad\Longrightarrow\quad
-\boxed{\|Tf\|_{L^p(H_2)}\lesssim_p\|f\|_{L^p(H_1)}.}
+\|DK(x)\|\lesssim|x|^{-n-1}
+ \ \Longrightarrow\ \mathfrak H(K)&lt;\infty
+ \ \Longrightarrow\ \text{control of the bad pieces}.
+\]</div>
+<p>Together with the Hilbert-valued <span class="math-inline">\(L^2\)</span> estimate and the adjoint argument,</p>
+<div class="math-display">\[
+\boxed{
+\|Tf\|_{L^p(H_2)}\lesssim_p\|f\|_{L^p(H_1)},
+\qquad1&lt;p&lt;\infty.
+}
 \]</div>
 <h2>5. Poisson extensions and boundary traces</h2>
 <h3>The semigroup and its boundary recovery</h3>
@@ -860,6 +1132,133 @@ P_t*\mu(x)\longrightarrow f(x)
 \]</div>
 <p>For arbitrary <span class="math-inline">\(L^\infty\)</span> data, weak-* convergence is the natural general statement.</p>
 <h2>6. Continuous Littlewood–Paley theory and Mikhlin</h2>
+<h3>Why decompose frequencies when studying a multiplier?</h3>
+<p>One organizing motivation for Littlewood–Paley theory is the multiplier problem</p>
+<div class="math-display">\[
+T_m=\mathcal F^{-1}M_m\mathcal F,
+\qquad
+M_mg(\xi)=m(\xi)g(\xi),
+\qquad
+\|T_mf\|_p\stackrel{?}{\lesssim}\|f\|_p.
+\]</div>
+<p>Plancherel answers this for <span class="math-inline">\(p=2\)</span> using only <span class="math-inline">\(\|m\|_\infty\)</span>. For other exponents, it is useful to split the problem into frequency scales.</p>
+<p>To see the architecture, temporarily take <span class="math-inline">\(m\)</span> smooth away from zero and <span class="math-inline">\(f\in\mathcal S_*\)</span>. Choose smooth annular cutoffs</p>
+<div class="math-display">\[
+\varphi_j(\xi)=\varphi(2^{-j}\xi),
+\qquad
+\sum_j\varphi_j(\xi)=1\quad(\xi\ne0),
+\]</div>
+<p>and let <span class="math-inline">\(\widetilde\varphi_j=1\)</span> on <span class="math-inline">\(\operatorname{supp}\varphi_j\)</span>, with slightly larger annular support. Define</p>
+<div class="math-display">\[
+f_j=\mathcal F^{-1}(\varphi_j\widehat f),
+\qquad
+m_j=m\,\widetilde\varphi_j,
+\qquad
+k_j=\mathcal F^{-1}m_j.
+\]</div>
+<p>The Schwartz calculus from Section 0 now gives actual localized convolutions:</p>
+<div class="math-display">\[
+\begin{aligned}
+f&amp;=\sum_jf_j,\\
+T_mf
+ &amp;=\sum_j\mathcal F^{-1}(m\widehat f_j)\\
+ &amp;=\sum_j\mathcal F^{-1}(m_j\widehat f_j)
+ =\boxed{\sum_j k_j*f_j}.
+\end{aligned}
+\]</div>
+<p>There are only finitely many terms for this initial <span class="math-inline">\(f\)</span>. The general theory asks how to estimate and reconstruct such decompositions uniformly.</p>
+<p>This separates two tasks:</p>
+<div class="table-scroll" role="region" aria-label="Scrollable mathematical table" tabindex="0"><table>
+<thead>
+<tr>
+  <th>Task</th>
+  <th>Quantity to control</th>
+  <th>Source of the estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Measure the input across scales</td>
+  <td><span class="math-inline">\(\|(\sum_j|f_j|^2)^{1/2}\|_p\)</span> in terms of <span class="math-inline">\(\|f\|_p\)</span></td>
+  <td>Littlewood–Paley theory</td>
+</tr>
+<tr>
+  <td>Control the localized action</td>
+  <td>The kernels <span class="math-inline">\(k_j=\mathcal F^{-1}m_j\)</span> and their action on <span class="math-inline">\((f_j)_j\)</span></td>
+  <td>Regularity assumptions on <span class="math-inline">\(m\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>The second task must give enough uniform kernel structure to assemble a square-function bound. Separate scalar bounds for each <span class="math-inline">\(k_j*f_j\)</span> alone do not justify summing the pieces.</p>
+<h3>What symbol regularity says about the localized kernels</h3>
+<p>Write <span class="math-inline">\(\widetilde\varphi_j(\xi)=\widetilde\varphi(2^{-j}\xi)\)</span> and rescale to one fixed annulus:</p>
+<div class="math-display">\[
+a_j(\eta)=m(2^j\eta)\widetilde\varphi(\eta).
+\]</div>
+<p>Then</p>
+<div class="math-display">\[
+m_j(\xi)=a_j(2^{-j}\xi),
+\qquad
+k_j(x)=2^{jn}\check a_j(2^jx).
+\]</div>
+<p>A Mikhlin condition</p>
+<div class="math-display">\[
+|\xi|^{|\beta|}|D^\beta m(\xi)|\le B,
+\qquad |\beta|\le N,
+\]</div>
+<p>becomes a uniform estimate on that fixed annulus:</p>
+<div class="math-display">\[
+\|D^\beta a_j\|_2\lesssim B,
+\qquad |\beta|\le N,
+\quad\text{independently of }j.
+\]</div>
+<p>Plancherel and weighted Cauchy–Schwarz convert it to spatial kernel estimates:</p>
+<div class="math-display">\[
+\begin{gathered}
+\|(1+|x|)^N\check a_j\|_2\lesssim B,\\
+\|\check a_j\|_1
+ \le\|(1+|x|)^N\check a_j\|_2
+       \|(1+|x|)^{-N}\|_2
+ \lesssim B
+ \quad(N&gt;n/2),\\
+\|k_j\|_1=\|\check a_j\|_1\lesssim B.
+\end{gathered}
+\]</div>
+<p>The derivative threshold <span class="math-inline">\(N&gt;n/2\)</span> is already visible here: it makes the inverse weight square-integrable. These bounds explain what a multiplier regularity condition is buying. Combining scales still requires the square-function argument.</p>
+<h3>Continuous LP measures the same input at continuous scales</h3>
+<p>For the Poisson semigroup, define</p>
+<div class="math-display">\[
+Q_tf=t\,\partial_t(P_t*f),
+\qquad
+\widehat{Q_tf}(\xi)=\psi(t\xi)\widehat f(\xi),
+\]</div>
+<div class="math-display">\[
+\psi(\eta)=-2\pi|\eta|e^{-2\pi|\eta|}.
+\]</div>
+<p>This is a soft frequency selector concentrated where <span class="math-inline">\(t|\xi|\)</span> is of order one, rather than a compactly supported cutoff. The discrete sum is replaced by an integral in <span class="math-inline">\(dt/t\)</span>:</p>
+<div class="math-display">\[
+\left(\sum_j|f_j(x)|^2\right)^{1/2}
+\quad\longleftrightarrow\quad
+g_1(f)(x)
+ =\left(\int_0^\infty|Q_tf(x)|^2\,\frac{dt}{t}\right)^{1/2}.
+\]</div>
+<p>There is also an exact continuous reproducing identity:</p>
+<div class="math-display">\[
+4\int_0^\infty\psi(t\xi)^2\,\frac{dt}{t}=1
+\quad(\xi\ne0),
+\]</div>
+<div class="math-display">\[
+4\int_a^bQ_t^2f\,\frac{dt}{t}
+ \longrightarrow f
+\quad\text{in }L^2,
+\qquad a\downarrow0,\ b\uparrow\infty.
+\]</div>
+<p>The last integral is understood through finite intervals and an <span class="math-inline">\(L^2\)</span> limit; absolute Bochner integrability over all scales is not being asserted for every <span class="math-inline">\(L^2\)</span> input.</p>
+<p>Our order of proof is important. We first establish the continuous input estimate</p>
+<div class="math-display">\[
+\|g_1(f)\|_p\asymp_p\|f\|_p.
+\]</div>
+<p>We then combine it with kernel estimates derived from regularity of <span class="math-inline">\(m\)</span> to prove Mikhlin. The discrete annular theorem is developed afterwards in Section 9; the motivating decomposition above is a roadmap, not a theorem used circularly.</p>
 <h3>All scales in one Hilbert space</h3>
 <p>Write <span class="math-inline">\(u_t=P_t*f\)</span>, and let <span class="math-inline">\(\nabla=\nabla_{x,t}\)</span>. Define</p>
 <div class="math-display">\[
@@ -883,12 +1282,24 @@ g(f)(x)=\|\mathcal Gf(x)\|_H.
  &amp;\lesssim\int_0^\infty
  \frac{t\,dt}{(t^2+|x|^2)^{n+1}}
  \asymp |x|^{-2n},\\
-\|D_xK(x)\|_H^2
+\|D_xK(x)\|_{\mathcal B(\mathbb R^n,H)}^2
  &amp;\lesssim\int_0^\infty
  \frac{t\,dt}{(t^2+|x|^2)^{n+2}}
  \asymp |x|^{-2n-2}.
 \end{aligned}
 \]</div>
+<p>Here <span class="math-inline">\(K(x)\)</span> is viewed as an operator <span class="math-inline">\(\mathbb C\to H\)</span>. Its spatial derivative is</p>
+<div class="math-display">\[
+DK(x)[h]
+ =\left[t\longmapsto
+   \sum_{j=1}^nh_j\partial_{x_j}\nabla P_t(x)\right],
+\]</div>
+<div class="math-display">\[
+\|DK(x)\|_{\mathcal B(\mathbb R^n,H)}^2
+ \le\sum_{j=1}^n
+ \int_0^\infty t|\partial_{x_j}\nabla P_t(x)|^2\,dt.
+\]</div>
+<p>Differentiation into <span class="math-inline">\(H\)</span> is justified by dominated convergence locally away from <span class="math-inline">\(x=0\)</span>. With the regularization <span class="math-inline">\(K_\varepsilon\)</span> from Section 4, the Bochner convolution is exactly the classical scale-by-scale convolution viewed as an element of <span class="math-inline">\(H\)</span>.</p>
 <p>These are the size and smoothness bounds from Section 4. The remaining <span class="math-inline">\(L^2\)</span> bound is especially transparent. Put <span class="math-inline">\(a=2\pi|\xi|\)</span>; then</p>
 <div class="math-display">\[
 \int_0^\infty ta^2e^{-2at}\,dt=\frac14.
@@ -1042,6 +1453,20 @@ M_t=\mathcal F^{-1}
 \qquad
 v_t=(\partial_su_s)|_{s=t/2}.
 \]</div>
+<p>This is the continuous counterpart of <span class="math-inline">\(k_j*f_j\)</span>, not an unrelated convolution introduced for the proof. Indeed, with</p>
+<div class="math-display">\[
+\mathcal K_t=t^NM_t
+ =\mathcal F^{-1}\left[
+ m(\xi)(-2\pi t|\xi|)^Ne^{-\pi t|\xi|}\right],
+\]</div>
+<p>we have</p>
+<div class="math-display">\[
+\boxed{
+t^{N+1}\partial_t^{N+1}U_t
+ =2\,\mathcal K_t*Q_{t/2}f.
+}
+\]</div>
+<p>The input <span class="math-inline">\(Q_{t/2}f\)</span> is a continuous frequency piece. The kernel <span class="math-inline">\(\mathcal K_t\)</span> is the correspondingly localized multiplier kernel, with a soft Poisson cutoff. LP theory controls the input square function; the derivative assumptions on <span class="math-inline">\(m\)</span> control this kernel. The estimates below combine those two controls.</p>
 <p>The multiplier derivative bounds imply</p>
 <div class="math-display">\[
 \begin{aligned}
