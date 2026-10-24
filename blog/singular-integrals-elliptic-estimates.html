@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Singular Integrals and Elliptic Estimates: Reading Stein, Chapters I–IV | Zhengyi Su</title>
+  <meta name="description" content="Three elliptic estimates as a path through Calderón–Zygmund theory, Riesz transforms, spherical harmonics, and Littlewood–Paley theory.">
+  <link rel="stylesheet" href="../styles.css?v=20261011-1">
+  <style>
+    .post-body .math-display{max-width:100%;overflow-x:auto;overflow-y:hidden}
+    .post-body .table-scroll{max-width:100%;overflow-x:auto;margin:1.4em 0}
+    .post-body table{width:100%;border-collapse:collapse;font-size:.88em;line-height:1.55}
+    .post-body th,.post-body td{padding:.6em .7em;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+    .post-body th{color:var(--ink)}
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
+  <script defer src="../article-toc.js?v=20260910-toc"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar"><div class="topbar-inner"><nav aria-label="Main navigation"><a href="../">Home</a><a href="../papers.html">Papers</a><a href="../blog.html" aria-current="page">Blog</a></nav></div></header>
+  <main class="article-layout" id="main">
+    <article>
+      <header class="post-header">
+        <a class="back-link" href="../blog.html">← Blog</a>
+        <h1>Singular Integrals and Elliptic Estimates: Reading Stein, <span style="white-space:nowrap">Chapters I–IV</span></h1>
+        <p class="post-subtitle">Three PDE estimates through singular integrals, spherical harmonics, and Littlewood–Paley theory.</p>
+        <time datetime="2026-10-24">October 24, 2026</time>
+      </header>
+      <div class="post-body">
+<p><em>Notes on Elias M. Stein, Singular Integrals and Differentiability Properties of Functions, Chapters I–IV.</em></p>
+<p>I have decided to pause my first reading of Stein's <em>Singular Integrals</em> after the dyadic Littlewood–Paley estimates in Chapter IV, together with the elliptic application in §7.9. The four chapters already form a remarkably coherent piece of analysis. Rather than write four separate chapter summaries, I want to reconstruct the part of the book that interested me most: <strong>how singular-integral estimates become a priori estimates for elliptic differential operators</strong>.</p>
+<p>Three estimates organize the discussion. For <span class="math-inline">\(1&lt;p&lt;\infty\)</span>, with <span class="math-inline">\(f\)</span> initially smooth and compactly supported, they are</p>
+<div class="math-display">\[
+\begin{gathered}
+\|\partial_xf\|_p+\|\partial_yf\|_p
+ \lesssim_p \|(\partial_x+i\partial_y)f\|_p,\\
+\|\partial_i\partial_jf\|_p\lesssim_{p,n}\|\Delta f\|_p;\\[6pt]
+\|D^\alpha f\|_p\lesssim_{p,P}\|P_k(D)f\|_p,
+\quad |\alpha|=k;\\[6pt]
+\|f\|_{W^{k,p}}\lesssim_{p,P}\|P(D)f\|_p+\|f\|_p.
+\end{gathered}
+\]</div>
+<p>The first pair uses Riesz transforms. In the second estimate, <span class="math-inline">\(P_k\)</span> is homogeneous elliptic of degree <span class="math-inline">\(k\)</span>; the proof uses the correspondence between smooth homogeneous singular kernels and smooth homogeneous Fourier multipliers, established via spherical harmonics. In the third, <span class="math-inline">\(P\)</span> is a general constant-coefficient elliptic operator of order <span class="math-inline">\(k\)</span>. This estimate uses Mikhlin's multiplier theorem and a high-/low-frequency decomposition; the proof of Mikhlin's theorem, in turn, uses continuous Littlewood–Paley theory and Hilbert-space-valued singular integrals. Throughout, <span class="math-inline">\(D^\alpha=\partial^\alpha\)</span>.</p>
+<p>What makes this route compelling is that it repeatedly turns an analytic problem into a more structured operator problem:</p>
+<div class="math-display">\[
+\boxed{\text{ellipticity of a symbol}
+\ \longrightarrow\ \text{bounded Fourier multiplier}
+\ \longrightarrow\ \text{control of derivatives}.}
+\]</div>
+<p>The Hilbert transform already has its own <a href="hilbert-transform-construction-and-applications.html">construction and applications note</a>. Here I want to understand how that one-dimensional example grows into a theory in <span class="math-inline">\(\mathbb R^n\)</span>.</p>
+<p>Several proofs in Stein are remarkably compressed. During this reading I found it useful to reconstruct their functional-analytic foundations—Schwartz spaces, Bochner integration, operator-valued kernels, and the spectral theory of a certain compact normal operator on the sphere. I will include those reconstructions where they illuminate the argument, rather than as a separate catalogue of prerequisites.</p>
+<h2>1. The real-variable engine: cancellation and Calderón–Zygmund theory</h2>
+<p>The starting point is the Hardy–Littlewood maximal operator</p>
+<div class="math-display">\[
+Mf(x)=\sup_{r&gt;0}\frac{1}{|B(x,r)|}\int_{B(x,r)}|f(y)|\,dy.
+\]</div>
+<p>Its weak <span class="math-inline">\((1,1)\)</span> inequality and strong <span class="math-inline">\(L^p\)</span> estimates (<span class="math-inline">\(1&lt;p\le\infty\)</span>) provide a general way to pass from local averages to control of distribution functions. The Calderón–Zygmund decomposition develops this principle for problems where positivity is no longer available.</p>
+<p>At height <span class="math-inline">\(\lambda&gt;0\)</span>, we split an integrable function as</p>
+<div class="math-display">\[
+f=g+b,\qquad b=\sum_Q b_Q,
+\]</div>
+<p>where <span class="math-inline">\(\|g\|_1\lesssim\|f\|_1\)</span>, <span class="math-inline">\(g\)</span> is bounded by a constant multiple of <span class="math-inline">\(\lambda\)</span>, the cubes <span class="math-inline">\(Q\)</span> occupy total measure <span class="math-inline">\(\lesssim\lambda^{-1}\|f\|_1\)</span>, and every bad piece has cancellation:</p>
+<div class="math-display">\[
+\int_Q b_Q=0.
+\]</div>
+<p>The geometry of those cubes matters. Whitney-type decompositions allow one to subordinate cubes to a bad region while keeping their size comparable with the distance to its complement; this is not quite the same geometric task as a Vitali covering argument. For the singular-integral proof, the essential property is that the bad pieces are spatially localized and have mean zero.</p>
+<p>Consider a homogeneous singular kernel</p>
+<div class="math-display">\[
+K(x)=\frac{\Omega(x/|x|)}{|x|^n},\qquad
+\int_{S^{n-1}}\Omega(\theta)\,d\sigma(\theta)=0.
+\]</div>
+<p>For nonzero <span class="math-inline">\(\Omega\)</span>, the kernel is not absolutely locally integrable at the origin. If <span class="math-inline">\(\Omega\)</span> is smooth with zero mean, cancellation nevertheless defines a principal-value distribution. On a Schwartz test function <span class="math-inline">\(\phi\)</span>, its contribution near zero can be written as</p>
+<div class="math-display">\[
+\int_{|y|&lt;1}K(y)[\phi(y)-\phi(0)]\,dy.
+\]</div>
+<p>The bracket supplies one power of <span class="math-inline">\(|y|\)</span>, making this integral absolutely convergent. This constructs the distribution; identifying its action on general <span class="math-inline">\(L^p\)</span> functions with almost-everywhere principal values requires a further convergence theorem. Moreover, regularity such as <span class="math-inline">\(|\nabla K(x)|\lesssim |x|^{-n-1}\)</span> implies the Hörmander difference estimate</p>
+<div class="math-display">\[
+\sup_{h\ne0}\int_{|x|&gt;2|h|}|K(x-h)-K(x)|\,dx&lt;\infty.
+\]</div>
+<p>If <span class="math-inline">\(c_Q\)</span> is the center of a bad cube and <span class="math-inline">\(x\)</span> is away from that cube, the zero integral of <span class="math-inline">\(b_Q\)</span> gives</p>
+<div class="math-display">\[
+Tb_Q(x)=\int_Q\bigl[K(x-y)-K(x-c_Q)\bigr]b_Q(y)\,dy.
+\]</div>
+<p><strong>The bad function need not be small; its integral is zero.</strong> This allows spatial regularity of the kernel to replace the otherwise nonintegrable size bound. The good part is controlled by</p>
+<div class="math-display">\[
+|\{|Tg|&gt;\lambda\}|\lesssim\lambda^{-2}\|g\|_2^2
+\lesssim\lambda^{-1}\|f\|_1.
+\]</div>
+<p>For the bad part, enlarge the bad cubes by a fixed dimensional factor. Outside their union, the difference estimate and the cancellation identity give</p>
+<div class="math-display">\[
+\int_{(Q^*)^c}|Tb_Q(x)|\,dx\lesssim\|b_Q\|_1.
+\]</div>
+<p>The enlarged cubes themselves occupy measure <span class="math-inline">\(\lesssim\lambda^{-1}\|f\|_1\)</span>. Summation and Chebyshev's inequality therefore give weak <span class="math-inline">\((1,1)\)</span>. Interpolation gives <span class="math-inline">\(1&lt;p\le2\)</span>; applying the same argument to the adjoint gives <span class="math-inline">\(2&lt;p&lt;\infty\)</span>, assuming its corresponding kernel hypotheses. Thus</p>
+<div class="math-display">\[
+\|Tf\|_p\lesssim_p\|f\|_p,\qquad 1&lt;p&lt;\infty.
+\]</div>
+<p>This is the real-variable mechanism we will reuse: <em>cancellation of the input</em> together with <em>smoothness of the kernel</em>. The same ideas, with suitable care, continue to work for Hilbert-valued functions.</p>
+<h3>Putting Fourier operations on a legitimate footing</h3>
+<p>For these arguments, Schwartz space is not merely a convenient class of rapidly decaying examples. It is a place where the manipulations underlying the theory can be stated without ambiguity. The Fourier transform is an automorphism of <span class="math-inline">\(\mathcal S(\mathbb R^n)\)</span> and extends by duality to tempered distributions <span class="math-inline">\(\mathcal S'\)</span>. Consequently, one can first interpret singular kernels distributionally, identify their Fourier multipliers, and only then use <span class="math-inline">\(L^p\)</span> estimates to obtain bounded extensions.</p>
+<p>The topology on <span class="math-inline">\(\mathcal S\)</span> is given by the seminorms</p>
+<div class="math-display">\[
+q_{\alpha,\beta}(\phi)=\sup_x|x^\alpha\partial^\beta\phi(x)|.
+\]</div>
+<p>A tempered distribution is a continuous linear functional for this topology. Differentiation and Fourier transformation are continuous operations on <span class="math-inline">\(\mathcal S\)</span>, so their transposes define operations on <span class="math-inline">\(\mathcal S'\)</span>. An <span class="math-inline">\(L^p\)</span> function, <span class="math-inline">\(1\le p\le\infty\)</span>, defines such a distribution by Hölder's inequality against Schwartz functions. This is the common space in which the Fourier identities below live, including when a Fourier transform is not an ordinary function. A distributional identity does not itself imply an <span class="math-inline">\(L^p\)</span> estimate: that is the work done by the multiplier theorems.</p>
+<p>Throughout this note I use</p>
+<div class="math-display">\[
+\widehat f(\xi)=\int_{\mathbb R^n}e^{-2\pi ix\cdot\xi}f(x)\,dx.
+\]</div>
+<p>This convention determines the signs of the Riesz multipliers below. Stein uses a different Fourier-sign convention in places, so the sign should not be carried over mechanically.</p>
+<p>An important elementary principle is that a bounded translation-invariant operator on <span class="math-inline">\(L^2(\mathbb R^n)\)</span> is a multiplier operator,</p>
+<div class="math-display">\[
+T=\mathcal F^{-1}M_m\mathcal F,\qquad
+\|T\|_{2\to2}=\|m\|_{L^\infty}.
+\]</div>
+<p>For <span class="math-inline">\(p\ne2\)</span>, mere boundedness of <span class="math-inline">\(m\)</span> is insufficient. The point of much of the subsequent theory is to find <em>additional structure</em> that guarantees <span class="math-inline">\(L^p\)</span> boundedness.</p>
+<h2>2. First estimate: determine Riesz transforms by symmetry</h2>
+<p>One of my favorite proofs in Chapter III does not begin by evaluating a Fourier integral. Instead, it asks what the multiplier of a geometrically natural vector-valued operator could possibly be.</p>
+<p>Suppose <span class="math-inline">\(T=(T_1,\ldots,T_n)\)</span> is a tuple of bounded <span class="math-inline">\(L^2\)</span> operators that commutes with translations and positive dilations and transforms covariantly under orthogonal changes of coordinates. Translation invariance gives a vector multiplier <span class="math-inline">\(m(\xi)\)</span>. Dilation invariance gives</p>
+<div class="math-display">\[
+m(t\xi)=m(\xi),\qquad t&gt;0,
+\]</div>
+<p>and orthogonal covariance says</p>
+<div class="math-display">\[
+m(U\xi)=Um(\xi),\qquad U\in O(n).
+\]</div>
+<p>After choosing the equivariant spherical representative of this multiplier (the original <span class="math-inline">\(L^\infty\)</span> multiplier is defined only almost everywhere), fix <span class="math-inline">\(\xi\ne0\)</span>. Every orthogonal transformation fixing <span class="math-inline">\(\xi\)</span> must also fix <span class="math-inline">\(m(\xi)\)</span>. The only vectors fixed by the entire stabilizer of <span class="math-inline">\(\xi\)</span> are multiples of <span class="math-inline">\(\xi\)</span>. Dilation invariance and rotation covariance therefore force</p>
+<div class="math-display">\[
+\boxed{m(\xi)=c\frac{\xi}{|\xi|}.}
+\]</div>
+<p>The use of the full orthogonal group is worth noting. In two dimensions, covariance only under <span class="math-inline">\(SO(2)\)</span> would also allow the tangential vector field <span class="math-inline">\(J\xi/|\xi|\)</span>; reflections remove this possibility. This is a particularly clean example of <strong>using a geometric characterization to avoid a difficult direct calculation</strong>. One then verifies that the candidate singular kernels have the required symmetries. Symmetry determines the form up to the single scalar <span class="math-inline">\(c\)</span>; the normalization can be calibrated by the Poisson-kernel identity <span class="math-inline">\(R_j\partial_tP_t=-\partial_jP_t\)</span>.</p>
+<p>The Riesz transforms are</p>
+<div class="math-display">\[
+R_jf(x)=c_n\,\operatorname{p.v.}\int_{\mathbb R^n}
+\frac{y_j}{|y|^{n+1}}f(x-y)\,dy,
+\qquad
+\widehat{R_jf}(\xi)=-i\frac{\xi_j}{|\xi|}\widehat f(\xi).
+\]</div>
+<p>By the singular-integral theorem, <span class="math-inline">\(R_j\)</span> is bounded on <span class="math-inline">\(L^p\)</span> for <span class="math-inline">\(1&lt;p&lt;\infty\)</span>. The multiplier identity <span class="math-inline">\(\sum_jR_j^2=-I\)</span> already suggests that Riesz transforms can mediate between different combinations of partial derivatives.</p>
+<p>For the Laplacian, a direct Fourier calculation yields</p>
+<div class="math-display">\[
+\partial_i\partial_jf=-R_iR_j\Delta f,
+\]</div>
+<p>hence</p>
+<div class="math-display">\[
+\boxed{\|\partial_i\partial_jf\|_p\lesssim\|\Delta f\|_p.}
+\]</div>
+<p>In two dimensions, set <span class="math-inline">\(\bar D=\partial_x+i\partial_y=2\partial_{\bar z}\)</span>. For <em>complex-valued</em> <span class="math-inline">\(f\)</span>,</p>
+<div class="math-display">\[
+\partial_jf=-R_j(R_1-iR_2)\bar Df,\qquad j=1,2,
+\]</div>
+<p>so</p>
+<div class="math-display">\[
+\boxed{\|\partial_xf\|_p+\|\partial_yf\|_p
+\lesssim\|\bar Df\|_p.}
+\]</div>
+<p>The complex-valued qualification matters: for real-valued <span class="math-inline">\(f\)</span>, the pointwise magnitude of <span class="math-inline">\(\bar Df\)</span> already contains both partial derivatives. The interest of the estimate is that one complex differential expression controls the two derivatives of a complex-valued function.</p>
+<p>Both examples have the same algebraic form:</p>
+<div class="math-display">\[
+D^\alpha f=T_m(P(D)f).
+\]</div>
+<p>Once <span class="math-inline">\(T_m\)</span> is <span class="math-inline">\(L^p\)</span>-bounded, the PDE estimate follows. Our next task is to recognize the much larger class of multipliers arising from higher-order elliptic symbols.</p>
+<h2>3. Second estimate: homogeneous elliptic operators and an operator on the sphere</h2>
+<p>Let <span class="math-inline">\(P_k\)</span> be a homogeneous elliptic polynomial of degree <span class="math-inline">\(k\)</span> on <span class="math-inline">\(\mathbb R^n\)</span>:</p>
+<div class="math-display">\[
+P_k(\xi)\ne0\quad(\xi\ne0).
+\]</div>
+<p>For <span class="math-inline">\(|\alpha|=k\)</span>, the quotient</p>
+<div class="math-display">\[
+m_\alpha(\xi)=\frac{\xi^\alpha}{P_k(\xi)}
+\]</div>
+<p>is smooth away from the origin and homogeneous of degree zero. If every such multiplier is bounded on <span class="math-inline">\(L^p\)</span>, then the Fourier identity immediately gives</p>
+<div class="math-display">\[
+\boxed{\|D^\alpha f\|_p\lesssim\|P_k(D)f\|_p,
+\qquad |\alpha|=k.}
+\]</div>
+<p>Stein's Chapter III provides exactly the missing multiplier theorem, but by a route different from the Mikhlin theorem developed later: <strong>a smooth degree-zero multiplier is a constant plus the multiplier of a smooth homogeneous singular integral</strong>.</p>
+<h3>The angular kernel-to-multiplier map</h3>
+<p>Write a singular kernel as <span class="math-inline">\(K(x)=|x|^{-n}\Omega(x/|x|)\)</span>, where <span class="math-inline">\(\Omega\)</span> is smooth and has zero spherical mean. Its multiplier depends only on <span class="math-inline">\(\theta=\xi/|\xi|\)</span> and, with the present Fourier convention and consistent choice of the kernel normalization, has the form</p>
+<div class="math-display">\[
+(A\Omega)(\theta)
+=\int_{S^{n-1}}\Gamma(\theta\cdot\omega)
+\Omega(\omega)\,d\sigma(\omega),
+\qquad
+\Gamma(t)=\log\frac1{|t|}-\frac{i\pi}{2}\operatorname{sgn}(t).
+\]</div>
+<p>Here <span class="math-inline">\(d\sigma\)</span> is the usual, unnormalized surface measure. The minus sign in the imaginary term is tied to our negative-exponent Fourier convention; the corresponding sign in Stein is positive.</p>
+<p>One can see the origin of this formula by writing the Fourier integral in polar coordinates. Inserting a radial damping factor gives the elementary identity</p>
+<div class="math-display">\[
+\int_0^\infty
+\frac{e^{-(\delta+2\pi i a)r}-e^{-r}}r\,dr
+=-\log(\delta+2\pi i a),\qquad\delta&gt;0.
+\]</div>
+<p>As <span class="math-inline">\(\delta\downarrow0\)</span>, its imaginary part is <span class="math-inline">\(-\frac\pi2\operatorname{sgn}a\)</span>. The additive constant <span class="math-inline">\(-\log(2\pi)\)</span> disappears after integration against <span class="math-inline">\(\Omega\)</span>. The radial integral contains <span class="math-inline">\(dr/r\)</span>; subtraction made possible by <span class="math-inline">\(\int\Omega=0\)</span> removes the divergent part and yields the logarithmic and sign terms. The unwanted <span class="math-inline">\(\log|\xi|\)</span> contribution disappears precisely because <span class="math-inline">\(\Omega\)</span> has mean zero. The multiplier is therefore homogeneous of degree zero.</p>
+<p>I found it helpful to stop here and study <span class="math-inline">\(A\)</span> as an actual operator on <span class="math-inline">\(L^2(S^{n-1})\)</span> (for <span class="math-inline">\(n\ge2\)</span>), rather than immediately proceed with formal spherical-harmonic series.</p>
+<p>First, the angular kernel is square-integrable:</p>
+<div class="math-display">\[
+\int_{S^{n-1}}\int_{S^{n-1}}
+|\Gamma(\theta\cdot\omega)|^2
+\,d\sigma(\theta)d\sigma(\omega)&lt;\infty,
+\]</div>
+<p>because the only singularity is logarithmic and <span class="math-inline">\(\int_0^1|\log t|^2dt&lt;\infty\)</span>. Thus <span class="math-inline">\(A\)</span> is Hilbert–Schmidt, hence compact.</p>
+<p>Second, write <span class="math-inline">\(A=B-iC\)</span>, with <span class="math-inline">\(B\)</span> the real logarithmic-kernel operator and <span class="math-inline">\(C\)</span> the real sign-kernel operator (including its factor <span class="math-inline">\(\pi/2\)</span>). Both kernels are symmetric, so <span class="math-inline">\(B\)</span> and <span class="math-inline">\(C\)</span> are self-adjoint. The logarithmic kernel is even in the inner product, and the sign kernel is odd. Thus <span class="math-inline">\(B\)</span> kills odd functions and has even output, while <span class="math-inline">\(C\)</span> kills even functions and has odd output. In particular <span class="math-inline">\(BC=CB=0\)</span>. Consequently</p>
+<div class="math-display">\[
+AA^*=A^*A:
+\qquad\boxed{A\text{ is compact and normal}.}
+\]</div>
+<h3>Spherical harmonics as an explicit spectral decomposition</h3>
+<p>The space of square-integrable spherical functions decomposes orthogonally as</p>
+<div class="math-display">\[
+L^2(S^{n-1})=\widehat{\bigoplus}_{k\ge0}\mathcal H_k,
+\]</div>
+<p>where <span class="math-inline">\(\mathcal H_k\)</span> is the restriction to the sphere of homogeneous harmonic polynomials of degree <span class="math-inline">\(k\)</span>. The spherical Laplacian has eigenvalue <span class="math-inline">\(k(k+n-2)\)</span> on <span class="math-inline">\(\mathcal H_k\)</span>, and the restrictions of polynomials are dense. This makes the decomposition both explicit and complete. The Funk–Hecke formula shows that a zonal integral kernel, depending only on <span class="math-inline">\(\theta\cdot\omega\)</span>, acts as a scalar on each <span class="math-inline">\(\mathcal H_k\)</span>. The higher-Riesz-transform calculation in Stein's Chapter III, Theorem 5 identifies these scalars for <span class="math-inline">\(k\ge1\)</span>:</p>
+<div class="math-display">\[
+A|_{\mathcal H_k}=\gamma_k I,
+\qquad
+\gamma_k=(-i)^k\pi^{n/2}
+\frac{\Gamma(k/2)}{\Gamma((n+k)/2)}.
+\]</div>
+<p>In particular,</p>
+<div class="math-display">\[
+\gamma_k\ne0,
+\qquad |\gamma_k|\asymp k^{-n/2}.
+\]</div>
+<p>This spectral information completes the correspondence. If <span class="math-inline">\(\Omega=\sum_{k\ge1}\Omega_k\)</span> has zero mean, then</p>
+<div class="math-display">\[
+A\Omega=\sum_{k\ge1}\gamma_k\Omega_k.
+\]</div>
+<p>Conversely, for a smooth zero-mean spherical multiplier <span class="math-inline">\(m=\sum_{k\ge1}m_k\)</span>, the formal inverse is</p>
+<div class="math-display">\[
+A^{-1}m=\sum_{k\ge1}\gamma_k^{-1}m_k.
+\]</div>
+<p>There is an important functional-analytic distinction here. Because <span class="math-inline">\(A\)</span> is compact and <span class="math-inline">\(\gamma_k\to0\)</span>, <strong><span class="math-inline">\(A^{-1}\)</span> is not bounded on all of mean-zero <span class="math-inline">\(L^2\)</span></strong>. But multiplication by <span class="math-inline">\(\gamma_k^{-1}=O(k^{n/2})\)</span> only loses a fixed polynomial number of angular derivatives. Smooth spherical functions have rapidly decreasing harmonic coefficients. Hence <span class="math-inline">\(A\)</span> is a continuous isomorphism on the Fréchet space of smooth mean-zero functions:</p>
+<div class="math-display">\[
+\boxed{A:C^\infty_{\mathrm{mean}=0}(S^{n-1})\overset{\sim}{\longrightarrow}
+C^\infty_{\mathrm{mean}=0}(S^{n-1}).}
+\]</div>
+<p>More precisely, writing <span class="math-inline">\(H^s_0\)</span> for the mean-zero spherical Sobolev space, we have for every real <span class="math-inline">\(s\)</span></p>
+<div class="math-display">\[
+\|A\Omega\|_{H^{s+n/2}}\asymp\|\Omega\|_{H^s},
+\qquad A:H^s_0\longrightarrow H^{s+n/2}_0.
+\]</div>
+<p>The inverse is bounded between these two different spaces. On <span class="math-inline">\(L^2_0\)</span> itself, the range is <span class="math-inline">\(H^{n/2}_0\)</span>, a dense proper subspace; a compact operator here cannot have an everywhere-defined bounded inverse. On <span class="math-inline">\(C^\infty_0=\bigcap_sH^s_0\)</span>, the loss of a fixed number of derivatives preserves continuity in the Fréchet topology.</p>
+<p>There is one last identification to check. For a prescribed smooth <span class="math-inline">\(m\)</span> with mean <span class="math-inline">\(c\)</span>, define <span class="math-inline">\(\Omega_k=\gamma_k^{-1}m_k\)</span> and <span class="math-inline">\(\Omega_N=\sum_{k=1}^N\Omega_k\)</span>. The finite sums satisfy the angular integral formula. Uniformly in <span class="math-inline">\(\theta\)</span>,</p>
+<div class="math-display">\[
+|A(\Omega-\Omega_N)(\theta)|
+\le C_\Gamma\|\Omega-\Omega_N\|_2\longrightarrow0,
+\]</div>
+<p>because the <span class="math-inline">\(L^2\)</span> norm of <span class="math-inline">\(\Gamma(\theta\cdot\omega)\)</span> is independent of <span class="math-inline">\(\theta\)</span>. Smoothness also gives uniform convergence of <span class="math-inline">\(\sum_{k=1}^Nm_k\)</span> to <span class="math-inline">\(m-c\)</span>. Thus the constructed kernel really has multiplier <span class="math-inline">\(m-c\)</span>; this is more than a formal inversion of a harmonic series.</p>
+<p>This was the useful missing functional-analytic picture behind Stein's spherical-harmonic argument: <strong>compactness on <span class="math-inline">\(L^2\)</span> is compatible with continuous invertibility on <span class="math-inline">\(C^\infty\)</span></strong>.</p>
+<p>Adding the degree-zero constant harmonic gives Stein's Chapter III, Theorem 6:</p>
+<div class="math-display">\[
+\boxed{\begin{array}{c}
+\text{smooth degree-zero homogeneous multiplier}\\[2pt]
+\Updownarrow\\[2pt]
+cI+\text{principal-value operator with smooth}\\
+\text{homogeneous, mean-zero angular kernel}.
+\end{array}}
+\]</div>
+<p>The <span class="math-inline">\(L^p\)</span> estimate for this singular integral is already available from Chapter II. Applied to <span class="math-inline">\(m_\alpha=\xi^\alpha/P_k(\xi)\)</span>, it produces the second elliptic estimate. In this way, a PDE estimate rests on an explicit compact-normal spectral problem on the unit sphere.</p>
+<h2>4. A necessary detour: Hilbert-valued singular integrals</h2>
+<p>To reach the more general Mikhlin theorem, Stein introduces Littlewood–Paley functions built from <em>all scales at once</em>. This requires singular integrals taking values in a Hilbert space. The extension is conceptually natural, but it deserves more foundations than the book gives it.</p>
+<p>Let <span class="math-inline">\(H_1,H_2\)</span> be separable Hilbert spaces and consider an operator kernel</p>
+<div class="math-display">\[
+K(x)\in\mathcal B(H_1,H_2).
+\]</div>
+<p>For <span class="math-inline">\(H_1\)</span>-valued <span class="math-inline">\(f\)</span>, the expression</p>
+<div class="math-display">\[
+Tf(x)=\int K(x-y)f(y)\,dy
+\]</div>
+<p>is an <span class="math-inline">\(H_2\)</span>-valued <strong>Bochner integral</strong>. Strong measurability, norm integrability, Bochner–Fubini, and the ability to interchange bounded operators with integrals must be justified. For separable Hilbert targets, weak and strong measurability agree under the usual hypotheses. This is one reason the separability assumption is convenient, even when it is not mathematically essential to every statement.</p>
+<h3>Scalarization and the <span class="math-inline">\(L^2\)</span> estimate</h3>
+<p>An operator-valued Fourier transform should not simply be presumed to exist as a norm-convergent integral in <span class="math-inline">\(\mathcal B(H_1,H_2)\)</span>. Instead, fix <span class="math-inline">\(u\in H_1\)</span> and <span class="math-inline">\(v\in H_2\)</span> and scalarize:</p>
+<div class="math-display">\[
+k_{u,v}(x)=\langle K(x)u,v\rangle.
+\]</div>
+<p>Suppose these scalar Fourier transforms can be realized compatibly and obey a uniform estimate</p>
+<div class="math-display">\[
+|\widehat{k_{u,v}}(\xi)|\le B\|u\|_{H_1}\|v\|_{H_2}
+\]</div>
+<p>for almost every <span class="math-inline">\(\xi\)</span>, with a common null set obtained using countable dense subsets. By Riesz representation, the scalar bilinear forms define an operator multiplier <span class="math-inline">\(M(\xi)\in\mathcal B(H_1,H_2)\)</span> satisfying</p>
+<div class="math-display">\[
+\|M(\xi)\|_{\mathrm{op}}\le B.
+\]</div>
+<p>A careful truncation and Bochner–Fubini argument identifies this multiplier with the convolution operator. Hilbert-valued Plancherel then gives</p>
+<div class="math-display">\[
+\|Tf\|_{L^2(H_2)}\le B\|f\|_{L^2(H_1)}.
+\]</div>
+<p>This <em>scalarization</em> is useful even when the target Hilbert space is infinite-dimensional. It avoids assuming more operator-norm integrability than is really available.</p>
+<h3>The derivative estimate is genuinely Banach-valued</h3>
+<p>Similarly, if <span class="math-inline">\(K\)</span> is differentiable into <span class="math-inline">\(\mathcal B(H_1,H_2)\)</span> in the Fréchet (operator-norm) sense and</p>
+<div class="math-display">\[
+\|DK(x)\|\lesssim |x|^{-n-1},
+\]</div>
+<p>then for <span class="math-inline">\(|h|\le|x|/2\)</span>,</p>
+<div class="math-display">\[
+K(x-h)-K(x)=-\int_0^1 DK(x-th)[h] \,dt,
+\qquad
+\|K(x-h)-K(x)\|\lesssim\frac{|h|}{|x|^{n+1}}.
+\]</div>
+<p>The integral along the segment is an ordinary Bochner integral of a norm-continuous operator-valued function. This supplies the kernel difference estimate required by the vector-valued Calderón–Zygmund argument.</p>
+<p>The decisive cancellation still takes place <strong>before taking norms</strong>. For a Hilbert-valued bad piece,</p>
+<div class="math-display">\[
+\int_Qb_Q(y)\,dy=0\quad\text{in }H_1,
+\]</div>
+<p>so the same kernel subtraction gives an equality in <span class="math-inline">\(H_2\)</span>. Only afterwards do we estimate with <span class="math-inline">\(\|K(x-y)-K(x-c_Q)\|_{\mathrm{op}}\|b_Q(y)\|_{H_1}\)</span>. Replacing the vector integrand by its norm at the start would destroy the information that makes the proof work.</p>
+<p>The scalar integral defining <span class="math-inline">\(g(f)^2\)</span> needs no Bochner theory by itself. Bochner integration supplies a rigorous language for the <em>linear lifted operator</em>, its convolution, and its cancellation. Hilbert geometry supplies Plancherel, polarization, and the adjoint. The real-variable estimates themselves retain the scalar proof mechanism.</p>
+<p>The proof then follows the scalar pattern: <span class="math-inline">\(L^2\)</span> boundedness, cancellation of Hilbert-valued bad pieces, weak <span class="math-inline">\((1,1)\)</span>, interpolation, and duality. These details matter because the Littlewood–Paley kernel below has a whole function of the scale variable as its value.</p>
+<h2>5. Poisson extensions and the boundary-trace picture</h2>
+<p>Before defining a continuous square function, there is a second thread in Chapter III worth recovering. The Poisson semigroup</p>
+<div class="math-display">\[
+P_t(x)=c_n\frac{t}{(t^2+|x|^2)^{(n+1)/2}},
+\qquad \widehat{P_t}(\xi)=e^{-2\pi t|\xi|}
+\]</div>
+<p>associates to boundary data <span class="math-inline">\(f\)</span> the harmonic extension <span class="math-inline">\(u(x,t)=P_t*f(x)\)</span> in the upper half-space. It is also an approximate identity.</p>
+<p>For <span class="math-inline">\(1\le p&lt;\infty\)</span>, translation continuity in <span class="math-inline">\(L^p\)</span> yields <span class="math-inline">\(P_t*f\to f\)</span> strongly in <span class="math-inline">\(L^p\)</span>. Almost-everywhere convergence is a separate matter: a radial decreasing integrable majorant gives</p>
+<div class="math-display">\[
+\sup_{t&gt;0}|P_t*f(x)|\lesssim Mf(x),
+\]</div>
+<p>and the maximal bound, together with density, gives almost-everywhere boundary recovery. This same distinction between norm convergence and pointwise convergence is important when identifying principal-value singular integrals. Smooth regularization of <span class="math-inline">\(Tf\)</span> and convergence of sharp truncations of the singular kernel are related, but not identical, problems; for the latter, a maximal-truncation estimate such as a Cotlar inequality is useful.</p>
+<p>The maximal domination has a useful general explanation. If <span class="math-inline">\(\Phi(x)=h(|x|)\)</span> is nonnegative, radially decreasing, and integrable, define the positive Stieltjes measure</p>
+<div class="math-display">\[
+d\nu(r)=|B(0,1)|r^n\,d[-h(r)],
+\qquad \nu((0,\infty))=\|\Phi\|_1.
+\]</div>
+<p>Then convolution with <span class="math-inline">\(\Phi_\varepsilon(x)=\varepsilon^{-n}\Phi(x/\varepsilon)\)</span> is a mixture of ball averages:</p>
+<div class="math-display">\[
+(\Phi_\varepsilon*|f|)(x)
+=\int_0^\infty\frac{1}{|B(x,\varepsilon r)|}
+\int_{B(x,\varepsilon r)}|f(y)|\,dy\,d\nu(r)
+\le\|\Phi\|_1Mf(x).
+\]</div>
+<p>This is the layer-cake representation behind the maximal estimate. It also works for positive measures, with ball mass in place of the inner integral. Poisson regularization therefore belongs to the same averaging framework as Lebesgue differentiation; the shape of the kernel changes, while the control by ball averages persists.</p>
+<p>I also found it illuminating to go beyond Stein's immediate needs and complete the upper-half-space <span class="math-inline">\(h^p\)</span> trace picture. Define</p>
+<div class="math-display">\[
+h^p=\bigl\{u\text{ harmonic in }\mathbb R^{n+1}_+:
+\sup_{t&gt;0}\|u(\cdot,t)\|_p&lt;\infty\bigr\}.
+\]</div>
+<p>The boundary space, and the natural mode of recovery, depend on <span class="math-inline">\(p\)</span>:</p>
+<div class="table-scroll" role="region" aria-label="Poisson boundary representations" tabindex="0"><table>
+<thead>
+<tr>
+  <th>Range</th>
+  <th>Boundary representation</th>
+  <th>Recovery as <span class="math-inline">\(t\downarrow0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><span class="math-inline">\(p=1\)</span></td>
+  <td><span class="math-inline">\(u=P_t*\mu\)</span>, <span class="math-inline">\(\mu\)</span> a finite complex Borel measure</td>
+  <td>weak-* in <span class="math-inline">\(\mathcal M(\mathbb R^n)=C_0(\mathbb R^n)^*\)</span></td>
+</tr>
+<tr>
+  <td><span class="math-inline">\(1&lt;p&lt;\infty\)</span></td>
+  <td><span class="math-inline">\(u=P_t*f\)</span>, <span class="math-inline">\(f\in L^p\)</span></td>
+  <td>strongly in <span class="math-inline">\(L^p\)</span></td>
+</tr>
+<tr>
+  <td><span class="math-inline">\(p=\infty\)</span></td>
+  <td><span class="math-inline">\(u=P_t*f\)</span>, <span class="math-inline">\(f\in L^\infty\)</span></td>
+  <td>weak-* in <span class="math-inline">\(\sigma(L^\infty,L^1)\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>Here the <span class="math-inline">\(p=1\)</span> boundary space is all finite measures, rather than just <span class="math-inline">\(L^1\)</span>. The distinction is visible in <span class="math-inline">\(u(x,t)=P_t(x)\)</span>: every slice has <span class="math-inline">\(L^1\)</span> norm one, but the trace is <span class="math-inline">\(\delta_0\)</span>. Its pointwise limit is zero for every <span class="math-inline">\(x\ne0\)</span>, while its weak-* limit as a measure is nonzero. In particular it does not converge strongly in <span class="math-inline">\(L^1\)</span> to a boundary function. If the measure is absolutely continuous, <span class="math-inline">\(d\mu=f\,dx\)</span> with <span class="math-inline">\(f\in L^1\)</span>, then strong <span class="math-inline">\(L^1\)</span> recovery does hold.</p>
+<p>The representation has a short compactness proof, but its order matters. Set <span class="math-inline">\(M=\sup_t\|u(\cdot,t)\|_p\)</span>. Interior harmonic estimates show that for <span class="math-inline">\(a&gt;0\)</span>, the shifted function <span class="math-inline">\(u(x,t+a)\)</span> is bounded on the closed half-space. Uniqueness of the bounded harmonic extension then gives</p>
+<div class="math-display">\[
+u(\cdot,t+a)=P_t*u(\cdot,a).
+\]</div>
+<p>This establishes the shifted semigroup identity <em>before</em> extracting boundary data. Choose <span class="math-inline">\(a_j\downarrow0\)</span>. Reflexivity produces a weakly convergent subsequence of <span class="math-inline">\(u(\cdot,a_j)\)</span> for <span class="math-inline">\(1&lt;p&lt;\infty\)</span>; weak-* compactness in <span class="math-inline">\(\mathcal M=C_0^*\)</span> or <span class="math-inline">\(L^\infty=(L^1)^*\)</span> handles the endpoints. For a fixed height <span class="math-inline">\(t&gt;a_j\)</span>,</p>
+<div class="math-display">\[
+u(x,t)=\int P_{t-a_j}(x-y)u(y,a_j)\,dy.
+\]</div>
+<p>The test kernels converge to <span class="math-inline">\(P_t(x-\cdot)\)</span> in <span class="math-inline">\(L^{p'}\)</span>, in <span class="math-inline">\(C_0\)</span> for <span class="math-inline">\(p=1\)</span>, or in <span class="math-inline">\(L^1\)</span> for <span class="math-inline">\(p=\infty\)</span>. Passing to the limit identifies <span class="math-inline">\(u=P_t*f\)</span> or <span class="math-inline">\(u=P_t*\mu\)</span>. Approximation-to-identity convergence makes the trace unique, so the representation is independent of the chosen subsequence.</p>
+<p>Poisson contraction gives one norm inequality; weak lower semicontinuity and boundary recovery give the other. Thus</p>
+<div class="math-display">\[
+\|u\|_{h^p}=\|f\|_p\quad(1&lt;p\le\infty),
+\qquad \|u\|_{h^1}=\|\mu\|_{\mathrm{TV}}.
+\]</div>
+<p>For <span class="math-inline">\(p=\infty\)</span>, weak-* recovery does not generally improve to uniform convergence: discontinuous boundary data already prevent it. For a bounded uniformly continuous datum it does improve to uniform convergence. In the measure case, if <span class="math-inline">\(d\mu=f\,dx+d\mu_s\)</span>, the Poisson boundary values recover <span class="math-inline">\(f\)</span> at Lebesgue-almost every point; they need not detect <span class="math-inline">\(\mu_s\)</span> through almost-everywhere numerical limits. Appropriate nontangential limits follow from corresponding maximal estimates and differentiation results.</p>
+<p>This gives a broader reason for introducing the Poisson semigroup: its harmonic extension and trace are controlled in precisely the function spaces needed for Littlewood–Paley analysis.</p>
+<h2>6. Continuous Littlewood–Paley theory and Mikhlin's theorem</h2>
+<p>Let <span class="math-inline">\(u(x,t)=P_t*f(x)\)</span>. The classical <span class="math-inline">\(g\)</span>-function is</p>
+<div class="math-display">\[
+g(f)(x)=\left(\int_0^\infty t|\nabla_{x,t}u(x,t)|^2\,dt\right)^{1/2}.
+\]</div>
+<p>There is already a frequency-localization interpretation. Since</p>
+<div class="math-display">\[
+\widehat{t^k\partial_t^k(P_t*f)}(\xi)
+=(-2\pi t|\xi|)^ke^{-2\pi t|\xi|}\widehat f(\xi),
+\]</div>
+<p>its multiplier peaks where <span class="math-inline">\(t|\xi|\)</span> is of order one (for fixed <span class="math-inline">\(k\)</span>). As <span class="math-inline">\(t\)</span> runs over all positive values, these are <em>continuous soft frequency annuli</em>. Plancherel shows why integrating their squared size over <span class="math-inline">\(dt/t\)</span> recovers a constant multiple of the energy of <span class="math-inline">\(f\)</span>.</p>
+<p>To obtain <span class="math-inline">\(L^p\)</span> estimates, treat <span class="math-inline">\(g\)</span> as the norm of a linear Hilbert-valued operator. With</p>
+<div class="math-display">\[
+H=L^2((0,\infty),t\,dt;\mathbb C^{n+1}),
+\qquad
+\mathcal Gf(x)=\{\nabla_{x,t}P_t*f(x)\}_{t&gt;0},
+\]</div>
+<p>we have <span class="math-inline">\(g(f)(x)=\|\mathcal Gf(x)\|_H\)</span>. The kernel of <span class="math-inline">\(\mathcal G\)</span> takes values in <span class="math-inline">\(H\)</span> and has precisely the operator-valued singular-integral structure prepared in the previous section.</p>
+<p>For the lifted kernel <span class="math-inline">\(K(x)=\{\nabla_{x,t}P_t(x)\}_{t&gt;0}\)</span>, direct scaling gives</p>
+<div class="math-display">\[
+\|K(x)\|_H\lesssim|x|^{-n},
+\qquad \|D_xK(x)\|_H\lesssim|x|^{-n-1}.
+\]</div>
+<p>For example <span class="math-inline">\(|\nabla P_t(x)|\lesssim(t^2+|x|^2)^{-(n+1)/2}\)</span>, and integrating its square against <span class="math-inline">\(t\,dt\)</span> gives a constant times <span class="math-inline">\(|x|^{-2n}\)</span>. The derivative estimate follows in the same way with one extra inverse power. Hilbert-valued Plancherel supplies the <span class="math-inline">\(L^2\)</span> bound.</p>
+<p>One convenient rigorous proof first replaces <span class="math-inline">\(P_t\)</span> by <span class="math-inline">\(P_{t+\varepsilon}\)</span>. The same kernel and <span class="math-inline">\(L^2\)</span> bounds hold uniformly in <span class="math-inline">\(\varepsilon\)</span>. Apply the Hilbert-valued Calderón–Zygmund theorem and then use Fatou's lemma as <span class="math-inline">\(\varepsilon\downarrow0\)</span>; the shifted integrands need not be monotone. This yields</p>
+<div class="math-display">\[
+\|g(f)\|_p\lesssim_p\|f\|_p.
+\]</div>
+<p>For the reverse inequality, use the vertical-derivative version <span class="math-inline">\(g_1\)</span> and the <span class="math-inline">\(L^2\)</span> identity. With <span class="math-inline">\(\mathcal G_1f=\{\partial_tP_t*f\}_{t&gt;0}\)</span>, one has</p>
+<div class="math-display">\[
+\mathcal G_1^*\mathcal G_1=\tfrac14 I
+\]</div>
+<p>under the normalization above. Polarization, Hölder's inequality and <span class="math-inline">\(L^p\)</span> duality therefore give</p>
+<div class="math-display">\[
+\boxed{\|g(f)\|_p\asymp_p\|f\|_p,\qquad1&lt;p&lt;\infty.}
+\]</div>
+<p>There is also a complementary PDE-based argument: for a positive harmonic function <span class="math-inline">\(u\)</span>, the identity</p>
+<div class="math-display">\[
+\Delta(u^p)=p(p-1)u^{p-2}|\nabla u|^2
+\]</div>
+<p>relates square functions to Green identities and maximal bounds. It gives a second interpretation of why the gradients of harmonic extensions control boundary norms; it is not necessary to reduce every such proof to Fourier multipliers from the outset.</p>
+<h3>Why introduce <span class="math-inline">\(g^*\)</span>?</h3>
+<p>A companion to the vertical <span class="math-inline">\(g\)</span>-function is the <strong>Lusin area function</strong>. With the cone</p>
+<div class="math-display">\[\Gamma(x)=\{(y,t):|y-x|&lt;t,\ t&gt;0\},\]</div>
+<p>set</p>
+<div class="math-display">\[
+S(f)(x)=\left(\int_{\Gamma(x)}t^{1-n}|\nabla P_t*f(y)|^2\,dy\,dt\right)^{1/2}.
+\]</div>
+<p>Its cone averages control the vertical square function locally, and the weighted <span class="math-inline">\(g^*\)</span> function below controls this conical area integral (up to dimensional constants, for appropriate parameters). These are three geometrically different ways of measuring the same harmonic extension: on a vertical ray, over a cone, or over the whole upper half-space with a decaying weight.</p>
+<p>The Fourier multiplier <span class="math-inline">\(T_m\)</span> is nonlocal. It is therefore unrealistic to bound the vertical square function of <span class="math-inline">\(T_mf\)</span> solely by a vertical square function of <span class="math-inline">\(f\)</span> at the same base point. Stein introduces the wider weighted area function</p>
+<div class="math-display">\[
+g_\lambda^*(f)(x)^2
+=\int_0^\infty\int_{\mathbb R^n}
+\left(\frac{t}{t+|x-y|}\right)^{\lambda n}
+ t^{1-n}|\nabla P_t*f(y)|^2\,dy\,dt.
+\]</div>
+<p>The function takes account of gradients over the entire upper half-space, suppressing distant contributions by a geometric weight. For <span class="math-inline">\(1&lt;p&lt;\infty\)</span>, its boundedness holds when <span class="math-inline">\(\lambda&gt;\max(1,2/p)\)</span>:</p>
+<div class="math-display">\[
+\|g_\lambda^*(f)\|_p\lesssim\|f\|_p.
+\]</div>
+<p>The pointwise comparison is <span class="math-inline">\(g\lesssim S\lesssim_\lambda g^*_\lambda\)</span>. The second inequality follows directly from the weight on a cone; the first uses the mean-value estimate for the harmonic derivatives. Together with the <span class="math-inline">\(g^*\)</span> upper bound (choose <span class="math-inline">\(\lambda&gt;\max(1,2/p)\)</span>), these give <span class="math-inline">\(\|S(f)\|_p\asymp\|f\|_p\)</span> for <span class="math-inline">\(1&lt;p&lt;\infty\)</span>.</p>
+<p>The bridge to multipliers can be made quite explicit. Write <span class="math-inline">\(U_t=P_t*T_mf\)</span>, <span class="math-inline">\(u_t=P_t*f\)</span>, and choose an integer <span class="math-inline">\(N&gt;n/2\)</span>. Define</p>
+<div class="math-display">\[
+M_t=\mathcal F^{-1}\!\left[
+m(\xi)(-2\pi|\xi|)^N e^{-\pi t|\xi|}\right].
+\]</div>
+<p>The semigroup identity gives</p>
+<div class="math-display">\[
+\partial_t^{N+1}U_t
+=M_t*\left[(\partial_su_s)\big|_{s=t/2}\right].
+\]</div>
+<p>Assuming the Mikhlin derivative bounds displayed below, Plancherel and differentiation on the Fourier side give</p>
+<div class="math-display">\[
+\|M_t\|_\infty\lesssim B t^{-n-N},
+\qquad
+\int|z|^{2N}|M_t(z)|^2\,dz\lesssim B^2t^{-n}.
+\]</div>
+<p>The factor <span class="math-inline">\(|\xi|^N\)</span> compensates for derivatives of <span class="math-inline">\(m\)</span> near zero; the exponential controls infinity. Split the convolution at <span class="math-inline">\(|z|=t\)</span>. Cauchy–Schwarz, using the first estimate near zero and the weighted second estimate outside, yields</p>
+<div class="math-display">\[
+|\partial_t^{N+1}U_t(x)|^2
+\lesssim B^2t^{-n-2N}
+\int\left(1+\frac{|z|}{t}\right)^{-2N}
+\left|(\partial_su_s)(x-z)\big|_{s=t/2}\right|^2\,dz.
+\]</div>
+<p>Define <span class="math-inline">\(g_r(F)^2=\int_0^\infty t^{2r-1}|\partial_t^rP_t*F|^2dt\)</span>. Multiplying by <span class="math-inline">\(t^{2N+1}\)</span> and integrating gives</p>
+<div class="math-display">\[
+g_{N+1}(T_mf)\lesssim B g^*_{2N/n}(f).
+\]</div>
+<p>The one-variable Hardy inequality for the successive <span class="math-inline">\(t\)</span>-derivatives gives <span class="math-inline">\(g_1(F)\lesssim_Ng_{N+1}(F)\)</span>. Since <span class="math-inline">\(2N/n&gt;1\)</span>, the <span class="math-inline">\(g^*\)</span> estimate applies for every <span class="math-inline">\(p\ge2\)</span>. The reverse <span class="math-inline">\(g_1\)</span> inequality therefore bounds <span class="math-inline">\(T_m\)</span> for <span class="math-inline">\(p\ge2\)</span>; duality, applied to <span class="math-inline">\(\overline m\)</span>, supplies <span class="math-inline">\(1&lt;p&lt;2\)</span>. One can begin with smooth frequency-localized inputs and pass by density. This is the mechanism by which symbol regularity becomes an operator bound, without using the later dyadic theorem to prove the earlier multiplier theorem.</p>
+<p>A standard convenient statement of the resulting Mikhlin theorem is: if <span class="math-inline">\(m\in C^N(\mathbb R^n\setminus\{0\})\)</span>, <span class="math-inline">\(N&gt;n/2\)</span> an integer, and</p>
+<div class="math-display">\[
+\boxed{|\partial^\alpha m(\xi)|\le B|\xi|^{-|\alpha|},
+\qquad |\alpha|\le N,}
+\]</div>
+<p>then</p>
+<div class="math-display">\[
+\boxed{\|T_mf\|_p\lesssim_{p,n,N}B\|f\|_p,
+\qquad1&lt;p&lt;\infty.}
+\]</div>
+<p>The deeper Hörmander version replaces pointwise derivative bounds by scale-invariant <span class="math-inline">\(L^2\)</span> estimates on annuli. For the elliptic application below, the displayed Mikhlin condition suffices.</p>
+<h2>7. Third estimate: general constant-coefficient elliptic operators</h2>
+<p>Let</p>
+<div class="math-display">\[
+P(D)=\sum_{|\alpha|\le k}a_\alpha D^\alpha
+\]</div>
+<p>be a constant-coefficient differential operator whose degree-<span class="math-inline">\(k\)</span> principal polynomial is elliptic. Its full Fourier symbol is</p>
+<div class="math-display">\[
+p(\xi)=\sum_{|\alpha|\le k}a_\alpha(2\pi i\xi)^\alpha.
+\]</div>
+<p>Ellipticity of the highest-degree part implies <span class="math-inline">\(|p(\xi)|\gtrsim|\xi|^k\)</span> for sufficiently large <span class="math-inline">\(|\xi|\)</span>, although <span class="math-inline">\(p\)</span> may have zeros at bounded frequencies. This is why the homogeneous argument of Section 3 cannot be applied verbatim.</p>
+<p>Choose <span class="math-inline">\(\chi\in C^\infty\)</span> equal to zero near the zero set of <span class="math-inline">\(p\)</span> and equal to one outside a sufficiently large ball. For <span class="math-inline">\(|\alpha|\le k\)</span>, decompose</p>
+<div class="math-display">\[
+(2\pi i\xi)^\alpha
+=\underbrace{\chi(\xi)\frac{(2\pi i\xi)^\alpha}{p(\xi)}}_{m_\alpha(\xi)}p(\xi)
++\underbrace{(1-\chi(\xi))(2\pi i\xi)^\alpha}_{b_\alpha(\xi)}.
+\]</div>
+<p>The high-frequency multiplier <span class="math-inline">\(m_\alpha\)</span> satisfies Mikhlin's estimates; polynomial differentiation and the elliptic lower bound give <span class="math-inline">\(|\partial^\beta m_\alpha(\xi)|\lesssim|\xi|^{-|\beta|}\)</span>. The low-frequency multiplier <span class="math-inline">\(b_\alpha\)</span> is smooth and compactly supported, so its inverse Fourier transform is Schwartz, hence integrable. Mikhlin's theorem and Young's inequality imply</p>
+<div class="math-display">\[
+\begin{aligned}
+\|D^\alpha f\|_p
+&amp;\le\|T_{m_\alpha}(P(D)f)\|_p+\|T_{b_\alpha}f\|_p\\
+&amp;\lesssim\|P(D)f\|_p+\|f\|_p.
+\end{aligned}
+\]</div>
+<p>Summing over <span class="math-inline">\(|\alpha|\le k\)</span> yields</p>
+<div class="math-display">\[
+\boxed{\|f\|_{W^{k,p}(\mathbb R^n)}
+\lesssim\|P(D)f\|_{L^p}+\|f\|_{L^p}.}
+\]</div>
+<p>The reverse inequality is immediate from the definition of <span class="math-inline">\(P(D)\)</span>, so</p>
+<div class="math-display">\[
+\|f\|_{W^{k,p}}\asymp\|P(D)f\|_p+\|f\|_p.
+\]</div>
+<p>The same identity proves an actual regularity statement: if <span class="math-inline">\(f\in L^p\)</span> and <span class="math-inline">\(P(D)f\in L^p\)</span> distributionally, then <span class="math-inline">\(f\in W^{k,p}\)</span>. To justify this without assuming the desired derivatives, convolve <span class="math-inline">\(f\)</span> with a smooth approximate identity. Each mollification lies in <span class="math-inline">\(W^{k,p}\)</span>, commutes with <span class="math-inline">\(P(D)\)</span>, and obeys the uniform estimate. Weak compactness of its derivatives identifies the distributional derivatives of <span class="math-inline">\(f\)</span> as <span class="math-inline">\(L^p\)</span> functions. Consequently the maximal <span class="math-inline">\(L^p\)</span> domain of <span class="math-inline">\(P(D)\)</span> is exactly <span class="math-inline">\(W^{k,p}\)</span>. The derivative estimate through <span class="math-inline">\(|\alpha|=k\)</span> is stated in Stein's Chapter IV, §7.9. All these statements concern the whole space and constant coefficients. Interior estimates on domains require cutoffs and lower-order error terms; boundary-value estimates and variable coefficients need additional arguments.</p>
+<p>This proof, sketched in Stein's Chapter IV, §7.9, is a particularly satisfying conclusion to the PDE thread. The second estimate uses a <em>homogeneous</em> symbol and its smoothness on the sphere. The third handles <em>nonhomogeneous</em> symbols by splitting frequencies and using a multiplier theorem that is stable under differentiation and rescaling.</p>
+<h2>8. Randomization and a general vector-valued principle</h2>
+<p>There is another reason to study dyadic Littlewood–Paley theory, beyond its role in proving Mikhlin. It makes a remarkably general use of random signs.</p>
+<p>Let <span class="math-inline">\(T:L^p(X)\to L^p(X)\)</span> be <strong>any bounded linear operator</strong>, <span class="math-inline">\(1&lt;p&lt;\infty\)</span>, and let <span class="math-inline">\((f_j)\)</span> be a finite family. If <span class="math-inline">\(\varepsilon_j\)</span> are independent Rademacher variables, Khinchine's inequality gives</p>
+<div class="math-display">\[
+\left\|\left(\sum_j|Tf_j|^2\right)^{1/2}\right\|_p^p
+\asymp_p\mathbb E\left\|\sum_j\varepsilon_jTf_j\right\|_p^p.
+\]</div>
+<p>Linearity is now decisive:</p>
+<div class="math-display">\[
+\begin{aligned}
+\mathbb E\left\|\sum_j\varepsilon_jTf_j\right\|_p^p
+&amp;=\mathbb E\left\|T\left(\sum_j\varepsilon_jf_j\right)\right\|_p^p\\
+&amp;\le\|T\|_{p\to p}^p
+\mathbb E\left\|\sum_j\varepsilon_jf_j\right\|_p^p.
+\end{aligned}
+\]</div>
+<p>Applying Khinchine again proves the Marcinkiewicz–Zygmund vector-valued inequality</p>
+<div class="math-display">\[
+\boxed{
+\left\|\left(\sum_j|Tf_j|^2\right)^{1/2}\right\|_p
+\le C_p\|T\|_{p\to p}
+\left\|\left(\sum_j|f_j|^2\right)^{1/2}\right\|_p.}
+\]</div>
+<p>No singular kernel hypothesis is needed. For complex-linear operators one can also use rotationally invariant complex Gaussian variables to obtain the same extension norm. The crucial distinction is that the <em>same scalar operator</em> acts coordinatewise. This is not the full generality of an arbitrary operator-valued singular integral kernel as in Section 4.</p>
+<p>I find this argument memorable because randomization changes the type of question being asked: a nonlinear-looking <span class="math-inline">\(\ell^2\)</span> expression becomes the expectation of a linear combination, on which the original <span class="math-inline">\(L^p\)</span> bound is immediately available.</p>
+<h2>9. Soft and hard dyadic Littlewood–Paley decompositions</h2>
+<p>We can end the four-chapter reading with two discrete square-function estimates. There is no need for my present purposes to continue to the Marcinkiewicz multiplier theorem.</p>
+<h3>Soft annular decomposition: a direct Mikhlin application</h3>
+<p>Choose <span class="math-inline">\(\varphi\in C_c^\infty(\mathbb R^n\setminus\{0\})\)</span> with support in an annulus and</p>
+<div class="math-display">\[
+\sum_{j\in\mathbb Z}\varphi(2^{-j}\xi)=1\qquad(\xi\ne0).
+\]</div>
+<p>Let <span class="math-inline">\(\widehat{\Delta_jf}(\xi)=\varphi(2^{-j}\xi)\widehat f(\xi)\)</span>. For any choices <span class="math-inline">\(\varepsilon_j\in\{-1,1\}\)</span>, the symbol</p>
+<div class="math-display">\[
+m_\varepsilon(\xi)=\sum_j\varepsilon_j\varphi(2^{-j}\xi)
+\]</div>
+<p>satisfies Mikhlin's bounds uniformly: at any nonzero frequency, only finitely many overlapping annuli contribute, and their natural scale is comparable to <span class="math-inline">\(|\xi|\)</span>. Thus</p>
+<div class="math-display">\[
+\left\|\sum_j\varepsilon_j\Delta_jf\right\|_p\lesssim\|f\|_p.
+\]</div>
+<p>For finite index sets, Khinchine's inequality and the uniform multiplier bound give the square-function upper estimate. Monotone convergence then handles all <span class="math-inline">\(j\)</span>.</p>
+<p>For the reverse bound, choose a real smooth annular cutoff <span class="math-inline">\(\widetilde\varphi\)</span> equal to one on <span class="math-inline">\(\operatorname{supp}\varphi\)</span>, and let <span class="math-inline">\(\widetilde\Delta_j\)</span> be its dilates. These cutoffs also have a square-function upper estimate, by the same randomization argument; they need not themselves form a partition. For Schwartz <span class="math-inline">\(f,h\)</span>, the reproducing identity is</p>
+<div class="math-display">\[
+\langle f,h\rangle
+=\sum_j\langle\Delta_jf,\widetilde\Delta_jh\rangle.
+\]</div>
+<p>Here <span class="math-inline">\(\langle f,h\rangle=\int f\overline h\)</span>, and the identity follows from <span class="math-inline">\(\sum_j\varphi(2^{-j}\xi)\widetilde\varphi(2^{-j}\xi)=1\)</span> away from zero. Cauchy–Schwarz in <span class="math-inline">\(j\)</span> and Hölder in <span class="math-inline">\(x\)</span> imply</p>
+<div class="math-display">\[
+|\langle f,h\rangle|
+\lesssim\left\|\left(\sum_j|\Delta_jf|^2\right)^{1/2}\right\|_p
+\|h\|_{p'}.
+\]</div>
+<p>Duality yields the reverse inequality, and density extends it to <span class="math-inline">\(L^p\)</span>. Thus</p>
+<div class="math-display">\[
+\boxed{
+\|f\|_p\asymp
+\left\|\left(\sum_{j\in\mathbb Z}|\Delta_jf|^2\right)^{1/2}\right\|_p,
+\qquad1&lt;p&lt;\infty.}
+\]</div>
+<p>This is a discrete version of the continuous frequency localization implicit in <span class="math-inline">\(t^k\partial_t^kP_t*f\)</span>: the annular index <span class="math-inline">\(j\)</span> takes the place of the continuous scale <span class="math-inline">\(t\)</span>.</p>
+<h3>Hard dyadic projections: sharp cutoffs need a separate step</h3>
+<p>In one dimension, let <span class="math-inline">\(I_j\)</span> run over the positive and negative dyadic frequency intervals, and write</p>
+<div class="math-display">\[
+\widehat{S_{I_j}f}=\mathbf1_{I_j}\widehat f.
+\]</div>
+<p>The sharp indicators <span class="math-inline">\(\mathbf1_{I_j}\)</span> do <strong>not</strong> satisfy Mikhlin's differentiability assumptions. The correct argument is to pass through smooth cutoffs, then use the boundedness of interval projections.</p>
+<p>For each <span class="math-inline">\(I_j\)</span>, choose a uniformly scaled smooth cutoff <span class="math-inline">\(\widetilde\varphi_j\)</span> equal to one on <span class="math-inline">\(I_j\)</span> and supported in a slightly larger annulus. Then</p>
+<div class="math-display">\[
+S_{I_j}f=S_{I_j}\widetilde\Delta_jf.
+\]</div>
+<p>With our Fourier convention, set</p>
+<div class="math-display">\[
+P_+=\tfrac12(I+iH),\qquad M_af(x)=e^{2\pi iax}f(x).
+\]</div>
+<p>Its symbol is <span class="math-inline">\(\mathbf1_{(0,\infty)}\)</span>, up to the irrelevant single point zero. Then</p>
+<div class="math-display">\[
+S_{(a,b)}=M_aP_+M_{-a}-M_bP_+M_{-b}.
+\]</div>
+<p>Thus the interval projection is a difference of two modulated half-line projections. Since a half-line projection is a linear combination of the identity and Hilbert transform, its <span class="math-inline">\(L^p\)</span> bound is already known. Applying the vector-valued principle of Section 8 to the same half-line projection acting on separately modulated inputs, and observing that modulation preserves pointwise <span class="math-inline">\(\ell^2\)</span> norms, yields</p>
+<div class="math-display">\[
+\left\|\left(\sum_j|S_{I_j}g_j|^2\right)^{1/2}\right\|_p
+\lesssim
+\left\|\left(\sum_j|g_j|^2\right)^{1/2}\right\|_p.
+\]</div>
+<p>Take <span class="math-inline">\(g_j=\widetilde\Delta_jf\)</span> and use the soft square-function estimate. For the lower bound, the intervals partition <span class="math-inline">\(\mathbb R\setminus\{0\}\)</span> and their <span class="math-inline">\(L^2\)</span> projections are mutually orthogonal. Hence</p>
+<div class="math-display">\[
+\langle f,h\rangle=\sum_j\langle S_{I_j}f,S_{I_j}h\rangle.
+\]</div>
+<p>The same Cauchy–Schwarz, Hölder, and <span class="math-inline">\(p'\)</span> upper-bound argument gives the reverse estimate. Therefore</p>
+<div class="math-display">\[
+\boxed{
+\|f\|_p\asymp
+\left\|\left(\sum_j|S_{I_j}f|^2\right)^{1/2}\right\|_p.}
+\]</div>
+<p>In higher dimensions the sharp pieces are dyadic <strong>rectangles</strong>, not radial shells. If <span class="math-inline">\(\rho=I_{j_1}\times\cdots\times I_{j_n}\)</span>, then</p>
+<div class="math-display">\[
+S_\rho=S_{I_{j_1}}^{(1)}\cdots S_{I_{j_n}}^{(n)},
+\qquad
+\|f\|_p\asymp
+\left\|\left(\sum_\rho|S_\rho f|^2\right)^{1/2}\right\|_p.
+\]</div>
+<p>To iterate the one-dimensional square-function estimate, its Hilbert-valued version is useful: combine the spatial coordinate with the already accumulated <span class="math-inline">\(\ell^2\)</span> indices. Khinchine's inequality holds for Hilbert-valued coefficients; the same random-sign argument, the coordinatewise Hilbert-transform bound, and Fubini supply the next coordinate. After <span class="math-inline">\(n\)</span> steps this gives Stein's Chapter IV, Theorem 5. It is important not to claim that arbitrary randomized sharp rectangle multipliers satisfy the ordinary isotropic Mikhlin condition. The proof uses one-dimensional projections and tensorization precisely because they need not.</p>
+<p>Thus hard dyadic intervals follow from Mikhlin <strong>together with</strong> the Hilbert-transform projection estimate; Mikhlin alone does not apply to their discontinuous symbols. This is a natural stopping point. Continuous Littlewood–Paley theory helped establish Mikhlin's theorem; Mikhlin and randomization now give soft annular square-function estimates; partial sum operators and their vector-valued bounds take us from soft annuli to hard dyadic pieces.</p>
+<h2>10. Closing perspective</h2>
+<p>I would summarize my reading of the first four chapters by three successive changes of perspective.</p>
+<p>First, singular kernels become manageable once one recognizes the interaction between <em>cancellation</em> and <em>regularity</em>. The kernel may be nonintegrable, but its action on oscillations can still be bounded.</p>
+<p>Second, Fourier analysis turns the algebraic nondegeneracy of an elliptic differential operator into a multiplier problem. In the simplest examples the multipliers are compositions of Riesz transforms. For general homogeneous elliptic operators, the angular multiplier–kernel correspondence is best understood through the spectral theory of a compact normal operator on the sphere. For nonhomogeneous operators, the high-/low-frequency split and Mikhlin's theorem take over.</p>
+<p>Third, Littlewood–Paley theory teaches us to analyze an operator scale by scale. Its square functions reconcile the local frequency pieces with a global <span class="math-inline">\(L^p\)</span> norm; multiplier conditions then control how the operator acts on each piece. This is the beginning of a more flexible viewpoint on regularity, and the reason the next natural topics are Sobolev and Besov spaces, pseudodifferential operators, and eventually nonlinear interactions among frequencies.</p>
+<p>There is also a recurring proof strategy that I want to remember. Rather than calculate an object directly, <strong>find a representation in which its structure becomes unavoidable</strong>: symmetries determine the Riesz multiplier; spherical harmonics diagonalize the angular correspondence; Hilbert-valued lifting linearizes the <span class="math-inline">\(g\)</span>-function; and randomization turns quadratic estimates into uniform bounds for linear operators.</p>
+<p>The limitations also point forward. Variable coefficients prevent a single Fourier transform from diagonalizing the entire operator; localization, freezing coefficients, and commutator estimates become necessary. Boundaries bring their own regularity questions. Nonlinear equations require control of interactions among frequency pieces, which is where the dyadic viewpoint begins to do work beyond linear multiplier estimates.</p>
+<p>For now, three PDE estimates are enough to see what the first four chapters have accomplished:</p>
+<div class="math-display">\[
+\boxed{
+\text{singular integrals}
+\ \longrightarrow\ \text{Fourier multipliers}
+\ \longrightarrow\ \text{elliptic regularity},
+}
+\]</div>
+<p>with Littlewood–Paley theory providing both a deeper multiplier theorem and a frequency-localized language for the next stage of analysis.</p>
+<hr />
+<p><strong>Reading references.</strong> E. M. Stein, <em>Singular Integrals and Differentiability Properties of Functions</em> (1970), especially Chapter II §§2–5, Chapter III §§1–3, and Chapter IV §§1–5 and §7.9. For the spectral framework on Hilbert spaces and distributions: W. Rudin, <em>Functional Analysis</em>; for later dyadic/Sobolev developments: L. Grafakos, <em>Fundamentals of Fourier Analysis</em>, and H. Bahouri, J.-Y. Chemin, R. Danchin, <em>Fourier Analysis and Nonlinear Partial Differential Equations</em>. The operator-theoretic reconstruction of the angular map and the expanded boundary-trace discussion are additional reading notes, not claims that Stein presents those proofs in the same form.</p>
+
+      </div>
+    </article>
+    <aside class="article-toc" aria-label="Table of contents">
+      <p class="toc-title">On this page</p>
+      <nav data-article-toc></nav>
+    </aside>
+  </main>
+</body>
+</html>
