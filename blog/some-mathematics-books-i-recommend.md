@@ -852,7 +852,10 @@ These subjects are not really independent. Taken together, the books above form 
 \swarrow
 \\
 &
-\text{PDE / Optimization / Optimal Transport}.
+\begin{gathered}
+\text{Differential Equations / Numerical Analysis}\\
+\text{Optimization / Machine Learning}.
+\end{gathered}
 &
 \end{array}
 \]
