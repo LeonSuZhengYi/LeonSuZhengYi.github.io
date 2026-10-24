@@ -824,40 +824,24 @@ I therefore like to think of Sturm–Liouville theory as a one-dimensional proto
 These subjects are not really independent. Taken together, the books above form something like the following picture:
 
 \[
-\begin{array}{ccccc}
-& \text{Real Analysis} & & \\
-\swarrow & \downarrow & \searrow & \\
-\text{Fourier Analysis}
+\begin{gathered}
+\begin{array}{cc}
+\text{Real and Functional Analysis}
 &
-\text{Functional Analysis}
-&
-\text{Probability}
-\\
-\downarrow
-&
-\downarrow
-&
-\downarrow
-\\
-\text{Harmonic / PDE}
-&
-\text{Distributions}
-&
+\text{Harmonic Analysis}
+\\[4pt]
 \text{Stochastic Analysis}
-\\
-\searrow
 &
-\downarrow
-&
-\swarrow
-\\
-&
+\text{Variational Methods and Dynamical Systems}
+\end{array}
+\\[8pt]
+\Downarrow
+\\[8pt]
 \begin{gathered}
 \text{Differential Equations / Numerical Analysis}\\
 \text{Optimization / Machine Learning}.
 \end{gathered}
-&
-\end{array}
+\end{gathered}
 \]
 
 Of course, this is only one possible route through mathematics, and it reflects my own interests very strongly.
