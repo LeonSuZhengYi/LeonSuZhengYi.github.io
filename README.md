@@ -22,6 +22,11 @@ Relative links also support deployment beneath a project path. No account name o
 
 ## Content provenance
 
+The Stein reading note is maintained in `blog/singular-integrals-elliptic-estimates.md`.
+After editing it, install `mistune` with `python3 -m pip install mistune` and run
+`python3 scripts/build_stein_blog.py` to regenerate the matching HTML. The live
+site still needs no build step; commit both the source and generated page.
+
 Profile and publication status follow the user's supplied information. The September 2026 preprint links to arXiv:2609.06947. The ICML manuscript in the project identifies the official CFG-MP repository, whose README provides arXiv:2601.21892. The ICML news item uses only the year because an acceptance month was not established. No unverified email, CV, Scholar link, or JMLR acceptance claim is included.
 
 Visual structure follows the supplied Yuepeng Yang homepage reference, with original markup, a white background, and a taller portrait.
