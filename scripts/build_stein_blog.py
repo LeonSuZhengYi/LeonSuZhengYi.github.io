@@ -34,7 +34,7 @@ for i, value in enumerate(math):
     token = f'ZMATHTOKEN{i}Z'
     rendered = rendered.replace('<p>' + token + '</p>', value).replace(token, value)
 assert not re.search(r'ZMATHTOKEN\d+Z', rendered)
-rendered = rendered.replace('<table>', '<div class="table-scroll" role="region" aria-label="Poisson boundary representations" tabindex="0"><table>')
+rendered = rendered.replace('<table>', '<div class="table-scroll" role="region" aria-label="Scrollable mathematical table" tabindex="0"><table>')
 rendered = rendered.replace('</table>', '</table></div>')
 
 page = r'''<!doctype html>
@@ -47,6 +47,8 @@ page = r'''<!doctype html>
   <link rel="stylesheet" href="../styles.css?v=20261011-1">
   <style>
     .post-body .math-display{max-width:100%;overflow-x:auto;overflow-y:hidden}
+    .post-body .math-display mjx-container[display="true"]{margin:.75em 0}
+    .post-body p{margin-bottom:.9em}
     .post-body .table-scroll{max-width:100%;overflow-x:auto;margin:1.4em 0}
     .post-body table{width:100%;border-collapse:collapse;font-size:.88em;line-height:1.55}
     .post-body th,.post-body td{padding:.6em .7em;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
