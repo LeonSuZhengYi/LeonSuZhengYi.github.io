@@ -75,7 +75,7 @@ page = r'''<!doctype html>
     .post-body th{color:var(--ink)}
   </style>
   <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
-  <script defer src="../article-toc.js?v=20261024-subsections-2"></script>
+  <script defer src="../article-toc.js?v=20261024-subsections-3"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>

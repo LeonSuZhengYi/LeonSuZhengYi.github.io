@@ -17,6 +17,9 @@
   let activeGroup = -1;
   let scheduled = false;
   let outlineNeedsReveal = false;
+  let navigationTarget;
+  let navigationTimer;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const identify = (heading) => {
     if (heading.id && document.getElementById(heading.id) === heading &&
@@ -136,10 +139,13 @@
 
   const update = () => {
     scheduled = false;
-    let current = entries[0];
-    for (const entry of entries) {
-      if (entry.heading.getBoundingClientRect().top <= 150) current = entry;
-      else break;
+    let current = navigationTarget || entries[0];
+    if (!navigationTarget) {
+      const threshold = nested ? 80 : 150;
+      for (const entry of entries) {
+        if (entry.heading.getBoundingClientRect().top <= threshold) current = entry;
+        else break;
+      }
     }
     const groupChanged = current.groupIndex !== activeGroup;
     if (nested && groupChanged) {
@@ -167,16 +173,38 @@
     scheduled = true;
     requestAnimationFrame(update);
   };
-  window.addEventListener("scroll", schedule, { passive: true });
+  const finishNavigation = () => {
+    if (!navigationTarget) return;
+    navigationTarget = undefined;
+    clearTimeout(navigationTimer);
+    outlineNeedsReveal = true;
+    schedule();
+  };
+  const armNavigationEnd = () => {
+    clearTimeout(navigationTimer);
+    navigationTimer = setTimeout(finishNavigation, 180);
+  };
+  window.addEventListener("scroll", () => {
+    if (navigationTarget) armNavigationEnd();
+    schedule();
+  }, { passive: true });
+  window.addEventListener("wheel", finishNavigation, { passive: true });
+  window.addEventListener("touchstart", finishNavigation, { passive: true });
+  window.addEventListener("keydown", (event) => {
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) finishNavigation();
+  });
   window.addEventListener("resize", () => {
     outlineNeedsReveal = true;
     schedule();
   }, { passive: true });
-  // A long smooth anchor jump would open every intermediate section. Outline
-  // navigation goes straight to its destination; ordinary scrolling stays live.
+  // Keep the chosen section open while the page moves past other sections.
   const goTo = (entry) => {
-    entry.heading.scrollIntoView({ behavior: "instant", block: "start" });
+    navigationTarget = entry;
+    outlineNeedsReveal = true;
     update();
+    entry.heading.scrollIntoView({ behavior: reducedMotion.matches ? "instant" : "smooth", block: "start" });
+    if (reducedMotion.matches) finishNavigation();
+    else armNavigationEnd();
   };
   if (nested) {
     entries.forEach((entry) => entry.link.addEventListener("click", (event) => {
