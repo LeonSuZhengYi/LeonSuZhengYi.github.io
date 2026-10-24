@@ -16,6 +16,7 @@
   let activeEntry;
   let activeGroup = -1;
   let scheduled = false;
+  let outlineNeedsReveal = false;
 
   const identify = (heading) => {
     if (heading.id && document.getElementById(heading.id) === heading &&
@@ -115,8 +116,12 @@
     toggle.setAttribute("aria-controls", group.children.id);
     toggle.setAttribute("aria-expanded", "false");
     toggle.innerHTML = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="m6 4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    toggle.addEventListener("click", () =>
-      expand(group.children.hidden ? index : -1));
+    toggle.addEventListener("click", () => {
+      const top = group.row.getBoundingClientRect().top;
+      expand(group.children.hidden ? index : -1);
+      // Keep the selected row in place when another group's children disappear.
+      toc.scrollTop += group.row.getBoundingClientRect().top - top;
+    });
     group.toggle = toggle;
     group.row.append(toggle);
   });
@@ -141,7 +146,8 @@
       activeGroup = current.groupIndex;
       expand(activeGroup);
     }
-    if (current !== activeEntry || groupChanged) {
+    const entryChanged = current !== activeEntry;
+    if (entryChanged || groupChanged) {
       entries.forEach(({ link }) => {
         if (link === current.link) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
@@ -150,7 +156,10 @@
         group.item.classList.toggle("is-current-section", index === activeGroup));
       activeEntry = current;
     }
-    if (nested && current.link.getClientRects().length) reveal(current.link);
+    if (nested && (entryChanged || groupChanged || outlineNeedsReveal)) {
+      reveal(current.link.getClientRects().length ? current.link : groups[activeGroup].link);
+    }
+    outlineNeedsReveal = false;
   };
 
   const schedule = () => {
@@ -159,8 +168,32 @@
     requestAnimationFrame(update);
   };
   window.addEventListener("scroll", schedule, { passive: true });
-  window.addEventListener("resize", schedule, { passive: true });
-  window.addEventListener("hashchange", schedule);
+  window.addEventListener("resize", () => {
+    outlineNeedsReveal = true;
+    schedule();
+  }, { passive: true });
+  // A long smooth anchor jump would open every intermediate section. Outline
+  // navigation goes straight to its destination; ordinary scrolling stays live.
+  const goTo = (entry) => {
+    entry.heading.scrollIntoView({ behavior: "instant", block: "start" });
+    update();
+  };
+  if (nested) {
+    entries.forEach((entry) => entry.link.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      if (location.hash !== entry.link.hash) history.pushState(history.state, "", entry.link.hash);
+      goTo(entry);
+    }));
+  }
+  const followFragment = () => {
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { id = ""; }
+    const entry = entries.find((item) => item.heading.id === id);
+    if (entry && nested) goTo(entry);
+    else schedule();
+  };
+  window.addEventListener("hashchange", followFragment);
   window.addEventListener("load", schedule);
   if (typeof ResizeObserver !== "undefined") new ResizeObserver(schedule).observe(body);
 
@@ -169,7 +202,7 @@
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { id = ""; }
     const target = entries.find((entry) => entry.heading.id === id)?.heading;
-    if (target) target.scrollIntoView({ block: "start" });
+    if (target) target.scrollIntoView({ behavior: "instant", block: "start" });
   }
   update();
 })();
