@@ -2474,62 +2474,64 @@ Fubini and that Hilbert-valued estimate allow one coordinate at a time:
 
 This is the dyadic-rectangle conclusion of Chapter IV, Theorem 5. It concerns rectangles, not sharp radial shells. Arbitrary random signs on rectangles need not satisfy the isotropic Mikhlin condition; tensorization is the separate ingredient.
 
-## 10. What the three estimates have in common
+## 10. Summary
 
-The part of Stein I most want to retain can be compressed into four representations:
-
-| Object that looks difficult | Representation that reveals its structure |
-|---|---|
-| Riesz multiplier | $m(U\xi)=Um(\xi)$ and $m(t\xi)=m(\xi)$ force $m=c\xi/|\xi|$ |
-| Angular inversion | $A=\sum_{\ell\ge1}\gamma_\ell\Pi_\ell$, with $|\gamma_\ell|\asymp\ell^{-n/2}$ on mean-zero functions |
-| Continuous square function | $g(f)(x)=\|\mathcal Gf(x)\|_H$ |
-| A quadratic sum | $\|(\sum|f_j|^2)^{1/2}\|_p^p\asymp_p\mathbb E\|\sum\varepsilon_jf_j\|_p^p$ |
-
-The PDE route is
+The common mechanism of the three elliptic estimates is **a Fourier identity followed by an $L^p$ multiplier bound**. For $1<p<\infty$,
 
 \[
-\begin{gathered}
-\text{cancellation + kernel regularity}
- \ \Longrightarrow\ L^p\text{ bounds},\\
-\text{ellipticity}
- \ \Longrightarrow\ D^\alpha f=T_m(P(D)f)
- \ \Longrightarrow\ \text{derivative estimates}.
-\end{gathered}
+D^\alpha f=T_m(P(D)f)
+\quad\Longrightarrow\quad
+\|D^\alpha f\|_p
+ \le\|T_m\|_{p\to p}\,\|P(D)f\|_p.
 \]
 
-The scale-analysis route is
+For **(E1)**, boundedness of the Riesz transforms turns
 
 \[
-\begin{gathered}
-g,\ S,\ g^*
- \ \Longrightarrow\ \text{Mikhlin},\\
-\text{Mikhlin + randomization}
- \ \Longrightarrow\ \text{soft dyadic LP},\\
-\text{soft LP + interval projections}
- \ \Longrightarrow\ \text{hard dyadic LP}.
-\end{gathered}
+\partial_i\partial_jf=-R_iR_j\Delta f,
+\qquad
+\partial_jf=-R_j(R_1-iR_2)\bar Df
+\quad(j=1,2)
 \]
 
-These are whole-space, constant-coefficient estimates. The next difficulties already have recognizable formulas. Localization introduces commutators,
+into the Laplacian and Cauchy–Riemann estimates. For **(E2)**, homogeneous ellipticity gives a smooth degree-zero quotient,
 
 \[
-P(D)(\chi f)=\chi P(D)f+[P(D),\chi]f,
+m_\alpha(\xi)=\frac{\xi^\alpha}{P_k(\xi)},
+\qquad |\alpha|=k.
 \]
 
-while variable coefficients prevent exact Fourier diagonalization. For $a,f\in\mathcal S$, for example,
+The spherical-harmonic argument represents this multiplier by a constant multiple of the identity plus a smooth angular singular integral. Calderón–Zygmund theory gives its $L^p$ bound. In both cases, **cancellation and kernel regularity** make the nonintegrable kernel usable.
+
+For **(E3)**, the full symbol may vanish at bounded frequencies. With the high-frequency cutoff $\chi$ from Section 7,
 
 \[
-\mathcal F[a(x)D^\alpha f]
- =\widehat a*\bigl[(2\pi i\xi)^\alpha\widehat f\bigr]
+\begin{aligned}
+D^\alpha f
+ &=T_{\chi(2\pi i\xi)^\alpha/p(\xi)}(P(D)f)
+   +\mathcal F^{-1}\!\left[(1-\chi)(2\pi i\xi)^\alpha\right]*f,\\
+\|f\|_{W^{k,p}}
+ &\asymp\|P(D)f\|_p+\|f\|_p.
+\end{aligned}
 \]
 
-so multiplication by $a$ becomes convolution in frequency. For $f,g\in\mathcal S_*$, products already mix the pieces:
+Mikhlin controls the high-frequency term; a Schwartz convolution kernel controls the low-frequency remainder, explaining the extra $\|f\|_p$. Regularization then yields $f,P(D)f\in L^p\Rightarrow f\in W^{k,p}$, with $P(D)f$ understood distributionally.
+
+Littlewood–Paley theory supplies the scale analysis behind the multiplier theorem. The decomposition
 
 \[
-fg=\sum_{j,k}(\Delta_jf)(\Delta_kg).
+T_mf=\sum_j\check m_j*f_j
 \]
 
-Those are natural entry points to localization, pseudodifferential operators, Besov spaces, and paraproducts. For this reading, I stop at the hard dyadic estimates: the three elliptic bounds and the two square-function decompositions already form a substantial closed circuit.
+separates control of the input pieces from control of the localized kernels. The continuous and smooth dyadic square functions measure the input:
+
+\[
+\|f\|_p
+ \asymp\left\|\left(\int_0^\infty|Q_tf|^2\,\frac{dt}{t}\right)^{1/2}\right\|_p
+ \asymp\left\|\left(\sum_j|\Delta_jf|^2\right)^{1/2}\right\|_p.
+\]
+
+Hilbert-valued singular integrals prove the continuous bound. Combining it with kernel estimates from symbol regularity yields Mikhlin and hence (E3). Randomization gives the smooth dyadic decomposition; interval projections from the Hilbert transform give the hard dyadic version in one dimension, followed by tensorization into rectangles.
 
 ---
 
