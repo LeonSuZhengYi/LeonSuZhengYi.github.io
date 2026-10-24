@@ -1943,69 +1943,49 @@ S_\rho=S_{I_{\nu_1}}^{(1)}\cdots S_{I_{\nu_n}}^{(n)},
 \end{aligned}
 \]</div>
 <p>This is the dyadic-rectangle conclusion of Chapter IV, Theorem 5. It concerns rectangles, not sharp radial shells. Arbitrary random signs on rectangles need not satisfy the isotropic Mikhlin condition; tensorization is the separate ingredient.</p>
-<h2>10. What the three estimates have in common</h2>
-<p>The part of Stein I most want to retain can be compressed into four representations:</p>
-<div class="table-scroll" role="region" aria-label="Scrollable mathematical table" tabindex="0"><table>
-<thead>
-<tr>
-  <th>Object that looks difficult</th>
-  <th>Representation that reveals its structure</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>Riesz multiplier</td>
-  <td><span class="math-inline">\(m(U\xi)=Um(\xi)\)</span> and <span class="math-inline">\(m(t\xi)=m(\xi)\)</span> force <span class="math-inline">\(m=c\xi/|\xi|\)</span></td>
-</tr>
-<tr>
-  <td>Angular inversion</td>
-  <td><span class="math-inline">\(A=\sum_{\ell\ge1}\gamma_\ell\Pi_\ell\)</span>, with <span class="math-inline">\(|\gamma_\ell|\asymp\ell^{-n/2}\)</span> on mean-zero functions</td>
-</tr>
-<tr>
-  <td>Continuous square function</td>
-  <td><span class="math-inline">\(g(f)(x)=\|\mathcal Gf(x)\|_H\)</span></td>
-</tr>
-<tr>
-  <td>A quadratic sum</td>
-  <td><span class="math-inline">\(\|(\sum|f_j|^2)^{1/2}\|_p^p\asymp_p\mathbb E\|\sum\varepsilon_jf_j\|_p^p\)</span></td>
-</tr>
-</tbody>
-</table></div>
-<p>The PDE route is</p>
+<h2>10. Summary</h2>
+<p>The common mechanism of the three elliptic estimates is <strong>a Fourier identity followed by an <span class="math-inline">\(L^p\)</span> multiplier bound</strong>. For <span class="math-inline">\(1&lt;p&lt;\infty\)</span>,</p>
 <div class="math-display">\[
-\begin{gathered}
-\text{cancellation + kernel regularity}
- \ \Longrightarrow\ L^p\text{ bounds},\\
-\text{ellipticity}
- \ \Longrightarrow\ D^\alpha f=T_m(P(D)f)
- \ \Longrightarrow\ \text{derivative estimates}.
-\end{gathered}
+D^\alpha f=T_m(P(D)f)
+\quad\Longrightarrow\quad
+\|D^\alpha f\|_p
+ \le\|T_m\|_{p\to p}\,\|P(D)f\|_p.
 \]</div>
-<p>The scale-analysis route is</p>
+<p>For <strong>(E1)</strong>, boundedness of the Riesz transforms turns</p>
 <div class="math-display">\[
-\begin{gathered}
-g,\ S,\ g^*
- \ \Longrightarrow\ \text{Mikhlin},\\
-\text{Mikhlin + randomization}
- \ \Longrightarrow\ \text{soft dyadic LP},\\
-\text{soft LP + interval projections}
- \ \Longrightarrow\ \text{hard dyadic LP}.
-\end{gathered}
+\partial_i\partial_jf=-R_iR_j\Delta f,
+\qquad
+\partial_jf=-R_j(R_1-iR_2)\bar Df
+\quad(j=1,2)
 \]</div>
-<p>These are whole-space, constant-coefficient estimates. The next difficulties already have recognizable formulas. Localization introduces commutators,</p>
+<p>into the Laplacian and Cauchy–Riemann estimates. For <strong>(E2)</strong>, homogeneous ellipticity gives a smooth degree-zero quotient,</p>
 <div class="math-display">\[
-P(D)(\chi f)=\chi P(D)f+[P(D),\chi]f,
+m_\alpha(\xi)=\frac{\xi^\alpha}{P_k(\xi)},
+\qquad |\alpha|=k.
 \]</div>
-<p>while variable coefficients prevent exact Fourier diagonalization. For <span class="math-inline">\(a,f\in\mathcal S\)</span>, for example,</p>
+<p>The spherical-harmonic argument represents this multiplier by a constant multiple of the identity plus a smooth angular singular integral. Calderón–Zygmund theory gives its <span class="math-inline">\(L^p\)</span> bound. In both cases, <strong>cancellation and kernel regularity</strong> make the nonintegrable kernel usable.</p>
+<p>For <strong>(E3)</strong>, the full symbol may vanish at bounded frequencies. With the high-frequency cutoff <span class="math-inline">\(\chi\)</span> from Section 7,</p>
 <div class="math-display">\[
-\mathcal F[a(x)D^\alpha f]
- =\widehat a*\bigl[(2\pi i\xi)^\alpha\widehat f\bigr]
+\begin{aligned}
+D^\alpha f
+ &amp;=T_{\chi(2\pi i\xi)^\alpha/p(\xi)}(P(D)f)
+   +\mathcal F^{-1}\!\left[(1-\chi)(2\pi i\xi)^\alpha\right]*f,\\
+\|f\|_{W^{k,p}}
+ &amp;\asymp\|P(D)f\|_p+\|f\|_p.
+\end{aligned}
 \]</div>
-<p>so multiplication by <span class="math-inline">\(a\)</span> becomes convolution in frequency. For <span class="math-inline">\(f,g\in\mathcal S_*\)</span>, products already mix the pieces:</p>
+<p>Mikhlin controls the high-frequency term; a Schwartz convolution kernel controls the low-frequency remainder, explaining the extra <span class="math-inline">\(\|f\|_p\)</span>. Regularization then yields <span class="math-inline">\(f,P(D)f\in L^p\Rightarrow f\in W^{k,p}\)</span>, with <span class="math-inline">\(P(D)f\)</span> understood distributionally.</p>
+<p>Littlewood–Paley theory supplies the scale analysis behind the multiplier theorem. The decomposition</p>
 <div class="math-display">\[
-fg=\sum_{j,k}(\Delta_jf)(\Delta_kg).
+T_mf=\sum_j\check m_j*f_j
 \]</div>
-<p>Those are natural entry points to localization, pseudodifferential operators, Besov spaces, and paraproducts. For this reading, I stop at the hard dyadic estimates: the three elliptic bounds and the two square-function decompositions already form a substantial closed circuit.</p>
+<p>separates control of the input pieces from control of the localized kernels. The continuous and smooth dyadic square functions measure the input:</p>
+<div class="math-display">\[
+\|f\|_p
+ \asymp\left\|\left(\int_0^\infty|Q_tf|^2\,\frac{dt}{t}\right)^{1/2}\right\|_p
+ \asymp\left\|\left(\sum_j|\Delta_jf|^2\right)^{1/2}\right\|_p.
+\]</div>
+<p>Hilbert-valued singular integrals prove the continuous bound. Combining it with kernel estimates from symbol regularity yields Mikhlin and hence (E3). Randomization gives the smooth dyadic decomposition; interval projections from the Hilbert transform give the hard dyadic version in one dimension, followed by tensorization into rectangles.</p>
 <hr />
 <p><strong>Reading references.</strong> E. M. Stein, <em>Singular Integrals and Differentiability Properties of Functions</em> (1970): Chapter II §§2–5 for singular integrals and their Hilbert-valued extension; Chapter III §§1–3 for Riesz transforms, harmonic extensions, and spherical harmonics; Chapter IV §§1–5 and §7.9 for continuous LP, multipliers, dyadic decompositions, and elliptic estimates. The compact-normal interpretation of <span class="math-inline">\(A\)</span> and the expanded endpoint trace discussion are additional reconstructions. For their functional-analytic background, see W. Rudin, <em>Functional Analysis</em>. For later dyadic regularity theory, see L. Grafakos, <em>Fundamentals of Fourier Analysis</em>, and H. Bahouri, J.-Y. Chemin, R. Danchin, <em>Fourier Analysis and Nonlinear Partial Differential Equations</em>.</p>
 
