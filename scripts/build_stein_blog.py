@@ -44,7 +44,7 @@ page = r'''<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>__TITLE__ | Zhengyi Su</title>
   <meta name="description" content="__DESCRIPTION__">
-  <link rel="stylesheet" href="../styles.css?v=20261011-1">
+  <link rel="stylesheet" href="../styles.css?v=20261024-c1">
   <style>
     .nested-toc [data-article-toc]{display:block;max-height:calc(100vh - 100px);max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d8e0e3 transparent;padding-right:5px}
     .nested-toc [data-article-toc]{overflow-anchor:none;scroll-behavior:auto}
