@@ -182,12 +182,17 @@
   };
   const armNavigationEnd = () => {
     clearTimeout(navigationTimer);
-    navigationTimer = setTimeout(finishNavigation, 180);
+    // Some long articles take several seconds to complete a native smooth
+    // scroll. Keep the chosen group pinned until scrolling has genuinely
+    // stopped; this timeout is only a fallback for browsers without
+    // `scrollend` support.
+    navigationTimer = setTimeout(finishNavigation, 1200);
   };
   window.addEventListener("scroll", () => {
     if (navigationTarget) armNavigationEnd();
     schedule();
   }, { passive: true });
+  window.addEventListener("scrollend", finishNavigation, { passive: true });
   window.addEventListener("wheel", finishNavigation, { passive: true });
   window.addEventListener("touchstart", finishNavigation, { passive: true });
   window.addEventListener("keydown", (event) => {
