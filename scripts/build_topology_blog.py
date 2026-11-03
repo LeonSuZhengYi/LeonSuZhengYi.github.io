@@ -87,7 +87,7 @@ page = r'''<!doctype html>
       <header class="post-header">
         <a class="back-link" href="../blog.html">← Blog</a>
         <h1>__HEADING__</h1>
-        <p class="post-subtitle">From neighborhoods and seminorms to the locally convex inductive limit of test functions.</p>
+        <p class="post-subtitle">Why must a convergent sequence of test functions have a common compact support?</p>
         <time datetime="__DATE__">__PRETTY_DATE__</time>
       </header>
       <div class="post-body">
