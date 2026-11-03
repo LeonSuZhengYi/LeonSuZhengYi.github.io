@@ -14,11 +14,13 @@ A distribution is a continuous linear functional on a space of test functions. T
 
 I wanted to understand this before returning to distribution theory. Knowing the usual convergence criterion for test functions was not quite enough. Why must a convergent sequence have a common compact support? Why can we not simply use the topology of smooth functions? And why does the correct construction involve the *finest* locally convex topology, when weak topologies are usually introduced as the *coarsest* ones satisfying a continuity requirement?
 
-Appendix B of Warnick's notes provides a useful route through these questions. My main interest is the construction problem running through it:
+The question I kept returning to while reading Appendix B of Warnick's notes was how to construct the topology in the first place:
 
 **Given a vector space and the analysis we want to do, how should we choose its topology?**
 
-The route begins with neighborhoods of zero, passes through convex geometry and seminorms, and ends with the locally convex inductive limit
+There are two stages to this question. First, how much of a vector topology can be specified by the geometry of neighborhoods of zero, or by the maps we want to make continuous? Second, when familiar constructions fail on a particular function space, what tells us how to change the topology?
+
+The space of compactly supported smooth functions brings these questions together. I will first try the topology inherited from smooth functions, then a stronger topology controlling derivatives globally. Both attempts leave a Cauchy sequence whose limit has lost compact support. Understanding what these attempts fail to detect leads to the locally convex inductive limit
 
 \[
 \mathcal D(\Omega)=C_c^\infty(\Omega)
@@ -32,6 +34,8 @@ Lecture notes: [Claude Warnick, *Fourier Analysis and Theory of Distributions* (
 ## 1. What survives when there is no single norm?
 
 A norm provides several things at once: a topology, a notion of boundedness, and a way to discuss Cauchy sequences and completeness. In spaces such as \(C^\infty(\Omega)\), the natural convergence involves all derivatives on all compact subsets. A single norm is no longer the obvious starting point.
+
+What I want to preserve is the ability to do analysis: take limits, pass continuous linear operations through them, and distinguish bounded or Cauchy families. This suggests keeping the vector operations and asking how little extra structure is needed to make these ideas meaningful. We can then choose a topology adapted to the functions under consideration, rather than first searching for a norm.
 
 A **topological vector space** retains the vector space operations and requires
 
@@ -102,7 +106,9 @@ where \(\mathcal B_0\) is an open local base at zero.
 
 There is a small convention worth keeping explicit. A neighborhood of \(x\) need only *contain* an open set containing \(x\); it need not itself be open. A local base can therefore consist of nonopen neighborhoods. The displayed formula gives an open base directly when its members \(U\) are open. With arbitrary neighborhood bases, one can first pass to interiors.
 
-This changes the construction problem. Instead of prescribing every open set, we can ask:
+This is the first useful reduction of the construction problem. A topology initially looks like an enormous collection of subsets. Local bases replace it with tests for being sufficiently close to each point, and translation reduces all those tests to the origin. If we know what it means for a difference \(x-y\) to be small, we know the local structure everywhere.
+
+Thus, instead of prescribing every open set, we can ask:
 
 **Which families of subsets of a vector space can serve as the neighborhoods of zero?**
 
@@ -129,9 +135,21 @@ Convexity makes addition particularly transparent:
 \tfrac12U+\tfrac12U\subseteq U.
 \]
 
-It also allows us to replace neighborhood geometry with numerical estimates. This is where seminorms enter.
+The geometric conditions are useful because they express the operations we want to perform on small errors: add them, shrink them, and compare their sizes. Convexity will let us turn this geometry into numerical estimates. Before doing so, there is another way to formulate the construction problem.
+
+### Choosing a topology by choosing continuous maps
+
+For a map \(f:X\to Y\), continuity asks that each inverse image \(f^{-1}(V)\), with \(V\) open in \(Y\), be open in \(X\). Consequently, refining the topology on the **domain** preserves every previously continuous map and may make additional maps continuous. Refining the topology on the **codomain** imposes additional requirements on continuity.
+
+This gives a second way to design a topology. If certain maps \(f_i:X\to Y_i\) are the observations we want to make, we can require all their inverse images of open sets to be open, then take the topology they generate. This is the initial topology: the coarsest topology making all the prescribed observations continuous.
+
+In particular, a topology can be specified through the information we want to observe continuously. Weak topologies do this with linear functionals. For spaces of smooth functions, the natural observations include sizes of derivatives on compact sets. This suggests seminorms.
+
+The direction of refinement will become important again for \(\mathcal D\). A finer vector topology has more zero-neighborhoods and therefore more ways to test smallness. A neighborhood base for it must refine the neighborhoods of the coarser topology. Here “more control” refers to these additional, potentially smaller neighborhoods; it does not mean larger sets or a larger cardinality for every possible choice of base.
 
 ## 3. Seminorms and convex neighborhoods describe the same structure
+
+A seminorm measures size without necessarily detecting every nonzero vector. That is often exactly what one observation should do. For example, \(\sup_K|f|\) deliberately ignores everything outside \(K\), while another seminorm can inspect derivatives or a different compact set. A family of such observations can jointly detect what each one misses.
 
 Given a family \(\mathcal P\) of seminorms on \(X\), use the sets
 
@@ -157,13 +175,15 @@ p(\lambda x-\lambda_0x_0)
 \le |\lambda|p(x-x_0)+|\lambda-\lambda_0|p(x_0).
 \]
 
-The reverse construction is more revealing. For a convex, balanced, absorbing set \(U\), define its **Minkowski functional**
+This provides a way to build locally convex topologies. But it leaves the geometric question from the previous section: given a suitable neighborhood, can we manufacture a seminorm for which it is a unit ball?
+
+The reverse construction answers this by measuring size through dilation. For a convex, balanced, absorbing set \(U\), ask how much we must enlarge \(U\) before it contains a given vector \(x\). This leads to its **Minkowski functional**
 
 \[
 p_U(x)=\inf\{t>0:x\in tU\}.
 \]
 
-Absorption makes this finite. Balancedness gives absolute homogeneity, and convexity gives subadditivity: if \(x\in aU\), \(y\in bU\), then
+Each geometric hypothesis now has a purpose. Absorption makes the measurement finite in every direction. Balancedness makes it compatible with scalar magnitude, giving absolute homogeneity. Convexity makes the measurement compatible with addition, giving subadditivity: if \(x\in aU\), \(y\in bU\), then
 
 \[
 \frac{x+y}{a+b}
@@ -178,7 +198,7 @@ For a convex balanced **open** zero-neighborhood, the gauge recovers the set exa
 
 One inclusion uses balancedness. For the other, openness and continuity of \(t\mapsto tx\) imply that \(x\in U\) can be moved slightly farther along its ray while remaining in \(U\). Thus \(x\in tU\) for some \(t<1\).
 
-Taking the gauges of an open convex balanced neighborhood base therefore recovers the original topology:
+This exact recovery is the crucial point. Constructing some seminorm from \(U\) would not yet explain the topology. Recovering \(U\) as its open unit ball means that replacing neighborhoods by gauges loses none of the original local information. Taking the gauges of an open convex balanced neighborhood base therefore recovers the original topology:
 
 \[
 \boxed{\text{locally convex topology}
@@ -210,7 +230,7 @@ Then \(\tau_{\mathcal P}\) is the initial topology induced by the maps \(q_p\) i
 
 ## 4. Turning topology into usable estimates
 
-Several abstract properties now become concrete.
+The equivalence with seminorms makes the earlier generalization usable. We can ask whether the chosen observations distinguish points, whether countably many suffice to test convergence, and whether continuity can be expressed as an estimate. These become concrete versions of Hausdorffness, metrizability, and continuity of linear functionals.
 
 First,
 
@@ -271,11 +291,11 @@ Hahn–Banach extends this to \(f\in X'\) with \(|f(y)|\le p(y)\). Consequently,
 X\text{ Hausdorff}\iff X'\text{ separates points}.
 \]
 
-The role of local convexity is now visible: it supplies both numerical control through seminorms and enough continuous linear functionals to detect the geometry.
+The role of local convexity is now visible: it supplies both numerical control through seminorms and enough continuous linear functionals to detect the geometry. This is why these results belong before the function-space examples. They give us a procedure: select the observations, build the topology, and translate its analytic properties back into estimates. Later, the distribution estimate will come from precisely this procedure.
 
 ## 5. Smoothness, holomorphicity, and decay
 
-Before dealing with compact support, it helps to see how well this framework handles other function spaces.
+The first test of this procedure is to start with a desired mode of convergence and ask whether it gives a satisfactory space for analysis. In \(\mathcal E\), the desired control is local smoothness; in \(\mathcal S\), it also includes decay; in \(\mathcal D_K\), the location of the support is fixed in advance. Their seminorms record these choices. Completeness and compactness then have to be proved from the chosen control.
 
 ### Smooth functions: local control of every derivative
 
@@ -373,7 +393,7 @@ q_m(f)=\max_{|\alpha|\le m}\sup_{x\in\Omega}|D^\alpha f(x)|,
 
 restricted to \(\mathcal D_K\). Since the support is fixed, global and local derivative control agree there.
 
-The difficulty begins when the compact set is allowed to vary.
+At this point the same construction method has worked repeatedly: identify the function properties we want to control and express them by countably many seminorms. It is reasonable to try it again for compactly supported functions. The new difficulty is that compact support says there exists *some* compact set containing the support, without specifying which one. We must understand what happens as that set varies along a sequence.
 
 ## 6. Two natural topologies on \(\mathcal D\), and why they fail
 
@@ -383,7 +403,7 @@ Algebraically,
 \mathcal D(\Omega)=\bigcup_{K\Subset\Omega}\mathcal D_K.
 \]
 
-The first candidate topology is simply the one inherited from \(\mathcal E(\Omega)\). But this space is not sequentially complete.
+Since these functions are smooth, the first candidate is the topology inherited from \(\mathcal E(\Omega)\). This already gives a Hausdorff metrizable locally convex space. What is uncertain is whether its notion of smallness respects the extra condition defining \(\mathcal D\): will a Cauchy sequence still have a compactly supported limit?
 
 Take \(\Omega=\mathbb R\), choose a nonzero \(\varphi\in C_c^\infty((0,1))\), and let
 
@@ -399,9 +419,11 @@ f(x)=\sum_{j=1}^\infty\frac1j\varphi(x-j).
 
 The sum is locally finite, so \(f\) is smooth. Its support is not compact, so it is not in \(\mathcal D\).
 
-The problem is **escape of support**. Local control cannot detect what is being added outside the compact set currently under observation.
+The problem is **escape of support**. Local control cannot detect what is being added outside the compact set currently under observation. A basic neighborhood inherited from \(\mathcal E\) inspects only finitely many derivative bounds on finitely many compact sets. A bump outside their union satisfies all these tests, however large it is.
 
-The next candidate is to remove the localization and use the global seminorms \(q_m\) above on all of \(\mathcal D\). Denote the resulting topology by \(\tau_{\mathcal Q}\). Now convergence means uniform convergence of every derivative on the entire domain.
+We could accept the limit by enlarging the underlying space, but then we would no longer be constructing the space of compactly supported test functions. Keeping that vector space makes us reconsider its topology. The failure points toward a finer topology, with additional neighborhoods able to detect what the local tests miss. Incompleteness motivates this change; it does not by itself prescribe a unique replacement.
+
+The most immediate repair is to remove the localization: replace bounds on each compact set by bounds on the entire domain. Use the global seminorms \(q_m\) above on all of \(\mathcal D\), and denote the resulting topology by \(\tau_{\mathcal Q}\). Now convergence means uniform convergence of every derivative on the entire domain. A bump can no longer become invisible merely by moving away.
 
 This topology is finer, but the same example still defeats completeness. Because the translated bumps have disjoint supports, for \(m>n\),
 
@@ -409,47 +431,70 @@ This topology is finer, but the same example still defeats completeness. Because
 q_k(f_m-f_n)\le\frac1{n+1}q_k(\varphi)\longrightarrow0.
 \]
 
-The bumps become small enough to escape even global derivative control.
+The bumps become small enough to escape even global derivative control. These seminorms observe their amplitudes and derivatives everywhere, but impose the same tolerances at every location. Moving a bump far away costs nothing extra, so reducing its amplitude can still make it arbitrarily small in this topology.
 
 Yet \(\tau_{\mathcal Q}\) already induces exactly the correct Fréchet topology on every \(\mathcal D_K\). This is an important obstruction:
 
 **Correct topology on every fixed-support subspace does not by itself determine the right topology on their union.**
 
-We need a topology that can detect where small pieces of a function are located, with arbitrarily strong penalties as their locations leave compact subsets.
+We need a topology that can detect where small pieces of a function are located, with arbitrarily strong penalties as their locations leave compact subsets. Such penalties can still be harmless on each fixed \(\mathcal D_K\). This suggests keeping those spaces as the constraint on how far we are allowed to refine the topology on their union.
 
-## 7. The finest compatible locally convex topology
+### The same failure seen through linear functionals
 
-The fixed-support spaces are already satisfactory. Rather than modify them, require every inclusion
+The continuity viewpoint gives another reason to refine the topology. On \(\mathbb R\), a locally finite sum of weighted point evaluations should define a distribution:
+
+\[
+T(f)=\sum_{j=1}^{\infty}j f(j+a),\qquad 0<a<1.
+\]
+
+For any compactly supported \(f\), only finitely many terms occur. On each \(\mathcal D_K\), this is a finite sum of continuous evaluations. But choose the bump above with \(\varphi(a)=1\), and put \(h_j=\varphi(\cdot-j)/j\). Then
+
+\[
+q_m(h_j)\to0\quad\text{for every }m,
+\qquad T(h_j)=1.
+\]
+
+Thus \(T\) is not continuous for \(\tau_{\mathcal Q}\). The difficulty appears both in the Cauchy sequences this topology allows and in the locally legitimate functionals it excludes. Refining the topology can address both: it strengthens the tests for convergence and makes more outgoing linear maps continuous.
+
+## 7. Why take the finest compatible locally convex topology?
+
+The two failed attempts suggest seeking more control, but we need to say which refinements are allowed. Each fixed-support space already has a satisfactory topology. We want convergence there to remain convergence in the union, so require every inclusion
 
 \[
 i_K:\mathcal D_K\hookrightarrow\mathcal D
 \]
 
-to be continuous, and choose the **finest locally convex topology** satisfying these requirements.
+to be continuous. Equivalently, if we declare a set open in \(\mathcal D\), its intersection with every \(\mathcal D_K\) must be open there. This requirement places an upper bound on how fine our topology can become.
 
-This is the locally convex inductive limit topology. The phrase “locally convex” is essential: we are taking an extremum within that class, rather than simply using the final topology in the category of arbitrary topological spaces.
+Local convexity supplies the other constraint: it retains the neighborhood geometry, seminorm descriptions, and separation results developed earlier. Within these constraints, we can ask for all the available control at once:
 
-There are several complementary ways to construct it.
+**Which is the finest locally convex topology that still makes every fixed-support inclusion continuous?**
 
-### Collect all compatible seminorms
+This is a choice motivated by the failures above, whose consequences must still be checked. In particular, the word “finest” does not establish completeness on its own. What it does give is a precise construction problem and a way to ensure that every locally legitimate seminorm is available. The bounded-set theorem below will show that this is enough to control support escape.
 
-Consider
+There is also an outgoing-map interpretation. We have just found a functional whose restrictions to all the \(\mathcal D_K\) are continuous, but which is excluded by the global-seminorm topology. We would like such piecewise continuous linear maps to be continuous on the union. The finest property will yield exactly this principle, for maps into any locally convex target.
+
+### Merge all admissible local bases
+
+The most direct topological approach I found was to collect all the local structures we are allowed to use. Let \(\mathfrak T\) be the family of Hausdorff locally convex topologies on \(\mathcal D\) making every \(i_K\) continuous. This family is nonempty: the topology inherited from \(\mathcal E\), and the topology \(\tau_{\mathcal Q}\), are already examples.
+
+For each \(\tau\in\mathfrak T\), take its family \(\mathcal C_\tau\) of all convex balanced open zero-neighborhoods, and form
 
 \[
-\mathcal P_{\mathrm{ind}}
-=\{p:p\text{ is a seminorm on }\mathcal D,
-\quad p|_{\mathcal D_K}\text{ is continuous for every }K\Subset\Omega\}.
+\mathcal B_* = \bigcup_{\tau\in\mathfrak T}\mathcal C_\tau.
 \]
 
-The topology generated by this family makes each \(i_K\) continuous. Conversely, every continuous seminorm for any admissible locally convex topology belongs to \(\mathcal P_{\mathrm{ind}}\). Since locally convex topologies are generated by their continuous seminorms, this construction is the finest admissible one.
+The intention is simple: any zero-neighborhood allowed by one admissible locally convex topology should be available in the final construction. Unlike choosing a particular local base in each topology, taking all such neighborhoods makes the compatibility easier to see.
 
-It is Hausdorff because, for example, \(q_0(f)=\|f\|_\infty\) is among these seminorms and separates points. Write the resulting topology as \(\tau_{\mathcal D}\).
+We must check that neighborhoods supplied by different topologies can be used together. Given \(\tau_1,\tau_2\in\mathfrak T\), their join is still admissible. Indeed, by the seminorm characterization, generate it using the union of their continuous seminorm families. Each of those seminorms is continuous on every \(\mathcal D_K\), so every inclusion remains continuous. If \(U\in\mathcal C_{\tau_1}\) and \(V\in\mathcal C_{\tau_2}\), then \(U\cap V\) belongs to \(\mathcal C_{\tau_1\vee\tau_2}\), hence to \(\mathcal B_*\).
 
-This construction follows the earlier seminorm theory directly: use *every* seminorm whose restriction to each fixed-support space is legitimate.
+The other local conditions are inherited within an admissible topology supplying the set in question: small dilations, refinement for addition, and an open neighborhood around each of its points. Thus \(\mathcal B_*\) generates a locally convex vector topology. Each basic neighborhood has open intersection with every \(\mathcal D_K\), so the topology is still admissible. It contains the local information of every member of \(\mathfrak T\), and therefore is the finest one. Denote it by \(\tau_{\mathcal D}\).
 
-### Collect all compatible convex neighborhoods
+This construction does not require guessing a special formula for the neighborhoods of \(\mathcal D\). It starts with the allowable topologies and combines their local bases. One can equally use the union of their full neighborhood systems. The finite-join argument is what makes this union legitimate; an ordinary union of topologies need not itself be a topology.
 
-The concrete construction in Warnick and Rudin instead starts with
+### Recognize all the possible basic neighborhoods
+
+Having constructed the extremal topology abstractly, we can ask what a convex balanced open zero-neighborhood is allowed to look like. Continuity of every \(i_K\) forces its intersection with each \(\mathcal D_K\) to be open. This gives the concrete family used by Warnick and Rudin:
 
 \[
 \mathcal B_{\mathcal D}
@@ -461,37 +506,34 @@ W\cap\mathcal D_K\text{ open in }\mathcal D_K
 \end{array}\right\}.
 \]
 
-Why does this give the same construction? Each such \(W\) is absorbing: a given \(f\) lies in some \(\mathcal D_K\), where \(W\cap\mathcal D_K\) is a zero-neighborhood. Its gauge satisfies
+At this stage of the concrete construction, these are *candidates* for neighborhoods. Calling them neighborhoods in advance would assume the topology we are trying to build. The question is whether every such candidate can actually be admitted.
+
+Here the Minkowski construction returns. Each \(W\) is absorbing, because a given \(f\) lies in some \(\mathcal D_K\), where \(W\cap\mathcal D_K\) is a zero-neighborhood. Its gauge satisfies
 
 \[
 p_W|_{\mathcal D_K}=p_{W\cap\mathcal D_K},
+\qquad W=\{f:p_W(f)<1\}.
 \]
 
-so it is continuous on every \(\mathcal D_K\). Moreover, openness on that subspace gives
+The first identity shows continuity of the gauge on every fixed-support space. The second follows by recovering the open gauge ball on whichever \(\mathcal D_K\) contains the function. Adjoining \(p_W\) to \(\tau_{\mathcal Q}\) therefore produces an admissible Hausdorff locally convex topology in which \(W\) is open. Thus \(W\in\mathcal B_*\).
+
+Conversely, every member of \(\mathcal B_*\) satisfies the displayed conditions. Hence these two neighborhood constructions agree. The concrete definition is collecting every possible convex balanced open zero-neighborhood consistent with the inclusions. This is why it has the finest property.
+
+### Express the same choice through seminorms
+
+The numerical version is now immediate. Define
 
 \[
-W=\{f:p_W(f)<1\}.
+\mathcal P_{\mathrm{ind}}
+=\{p:p\text{ is a seminorm on }\mathcal D,
+\quad p|_{\mathcal D_K}\text{ is continuous for every }K\Subset\Omega\}.
 \]
 
-Thus \(W\) is open for \(\tau_{\mathcal D}\). Conversely, every convex balanced open zero-neighborhood for \(\tau_{\mathcal D}\) has open intersections with the \(\mathcal D_K\). Hence \(\mathcal B_{\mathcal D}\) is precisely an open convex balanced local base.
+Generating a topology with this entire family preserves continuity of each \(i_K\). Conversely, every continuous seminorm for any admissible locally convex topology belongs to this family. It therefore generates \(\tau_{\mathcal D}\) as well. The seminorm \(q_0(f)=\|f\|_\infty\) separates points, so the resulting topology is Hausdorff.
 
-This makes the definition feel less arbitrary. We are collecting all convex balanced open neighborhoods allowed by the prescribed embeddings.
+The same idea has appeared in three forms: combine all admissible local bases; admit every compatible convex balanced neighborhood; or require every compatible seminorm to be continuous. The seminorm version will be convenient for estimates, while the neighborhood versions explain how the extremal construction arises from the original topological question.
 
-### Merge all admissible local structures
-
-Another viewpoint I found useful is to consider the family \(\mathfrak T\) of all Hausdorff locally convex topologies on \(\mathcal D\) making every \(i_K\) continuous, and set
-
-\[
-\mathcal N_*(0)=\bigcup_{\tau\in\mathfrak T}\mathcal N_\tau(0).
-\]
-
-At first, this seems to risk losing the neighborhood axioms. The key is that finite joins remain admissible. If \(U\) and \(V\) come from two admissible topologies, then \(U\cap V\) is a zero-neighborhood in their join, which is still locally convex and still makes every \(i_K\) continuous.
-
-Consequently the union has the finite-refinement property needed of a neighborhood system; the other vector-neighborhood conditions follow within whichever admissible topology supplies the neighborhood under consideration. It generates the same finest topology.
-
-This is a union of *neighborhood systems*, with compatibility supplied by finite joins. An ordinary union of collections of open sets is not, in general, a topology.
-
-The three constructions express the same choice: permit all local convex control compatible with the fixed-support spaces.
+This is the **locally convex inductive limit topology**. The restriction to locally convex topologies is part of the construction; the final topology in the category of arbitrary topological spaces is a different construction and need not coincide with it.
 
 ### Do the fixed-support topologies remain unchanged?
 
@@ -511,7 +553,9 @@ So the construction preserves exactly the local pieces with which we started.
 
 ## 8. Why the finest property becomes a universal property
 
-The inductive limit gives a particularly useful test for continuity. For every locally convex space \(Y\) and linear map \(T:\mathcal D\to Y\),
+We chose a finer domain topology partly to permit more outgoing linear maps. The finest property says we have included every refinement compatible with the fixed-support inclusions. Now suppose a linear map is already continuous on each of those pieces. Could it still fail to be continuous on their union?
+
+If it did, making it continuous would suggest a further refinement. But its continuity on each piece says precisely that this refinement would preserve all the inclusions. Maximality should therefore force the map to be continuous already. This is the motivation for the universal property: for every locally convex space \(Y\) and linear map \(T:\mathcal D\to Y\),
 
 \[
 \boxed{T\text{ continuous}
@@ -523,7 +567,7 @@ The forward implication follows by composition with \(i_K\).
 
 For the reverse implication, let \(r\) be a continuous seminorm on \(Y\). Then \(r\circ T\) is a seminorm on \(\mathcal D\), and all its restrictions to \(\mathcal D_K\) are continuous. Thus \(r\circ T\in\mathcal P_{\mathrm{ind}}\), so it is continuous on \(\mathcal D\). Since this holds for every continuous seminorm of \(Y\), the map \(T\) is continuous.
 
-One can also read the proof directly from maximality: adjoining the seminorms \(r\circ T\) would give a finer locally convex topology still making every \(i_K\) continuous. Since the original topology was already finest, these additions cannot change it.
+This also makes the maximality argument precise: adjoining the seminorms \(r\circ T\) would give a finer locally convex topology still making every \(i_K\) continuous. Since the original topology was already finest, these additions cannot change it. The universal property records exactly the additional continuity that no admissible refinement can create.
 
 Conversely, suppose an admissible locally convex topology has this universal property. Given any other admissible topology \(\sigma\), apply the property to
 
@@ -546,7 +590,9 @@ Having more continuous functionals is one consequence of a finer topology, but t
 
 ## 9. How the topology detects escaping support
 
-The construction would be incomplete without showing that it fixes the failure which motivated it. The decisive result is
+We can now return to the failed constructions with a more specific question. The global derivative seminorms treated all locations alike. The new topology permits any seminorm continuous on every fixed-support space. Can we use that freedom to place successively stronger restrictions at locations leaving compact subsets, while each \(\mathcal D_K\) sees only finitely many of them?
+
+This is the mechanism behind the decisive result:
 
 \[
 \boxed{\begin{aligned}
@@ -556,13 +602,15 @@ B\subseteq\mathcal D\text{ bounded}
 \end{aligned}}
 \]
 
-The common-support assertion is the important part. Suppose \(B\) is not contained in any \(\mathcal D_K\). Choose an exhaustion \((K_j)\), functions \(f_j\in B\), and points \(x_j\notin K_j\) such that
+The common-support assertion is the important part. To see how to prove it, suppose \(B\) has escaping support. We want to construct a continuous seminorm unbounded on \(B\), contradicting its boundedness. The escaping locations tell us where to measure, and the function values there tell us how severe the penalties should be.
+
+Choose an exhaustion \((K_j)\), functions \(f_j\in B\), and points \(x_j\notin K_j\) such that
 
 \[
 f_j(x_j)\ne0.
 \]
 
-Such points can be chosen because \(\operatorname{supp}f_j\not\subseteq K_j\) and \(K_j\) is closed. The points \(x_j\) leave every compact subset of \(\Omega\). Set
+Such points can be chosen because \(\operatorname{supp}f_j\not\subseteq K_j\) and \(K_j\) is closed. The points \(x_j\) leave every compact subset of \(\Omega\). We choose the tolerance at \(x_j\) small enough that \(f_j\) violates it by a factor of \(j\):
 
 \[
 \varepsilon_j=\frac{|f_j(x_j)|}{j},
@@ -667,7 +715,9 @@ T\in\mathcal D'(\Omega)
 
 The derivative order may depend on \(K\). A distribution has finite order on each fixed compact set, but there need not be one finite order valid throughout the domain.
 
-This dependence is exactly what the inductive construction was designed to permit. There is no demand for one global estimate on all test functions; there is a compatible collection of finite-order estimates on the fixed-support pieces.
+This closes the circle with the earlier continuity criterion. On a seminorm space, one continuous linear functional is controlled by finitely many seminorms. On each \(\mathcal D_K\), those become finitely many derivative bounds. The universal property then combines these local estimates into continuity on \(\mathcal D\). The order and constant may vary with \(K\), just as the weights in the locally finite point-evaluation example were allowed to grow with location.
+
+Thus the local finite-order estimate follows from our choice of topology and the general continuity criterion. It is the analytic form of the continuity that the inductive construction was chosen to preserve and permit.
 
 The construction also makes distributional operations natural. Differentiation is continuous on each \(\mathcal D_K\), since
 
@@ -746,6 +796,8 @@ Restriction of continuous functionals reverses the inclusion chain:
 
 Density makes these restriction maps injective. The three classes are compactly supported distributions, tempered distributions, and arbitrary distributions, respectively. The inclusions are strict: the constant function \(1\) defines a tempered distribution without compact support, while \(e^{|x|^2}\) defines a distribution which is not tempered. Translating a fixed nonnegative bump shows the latter: its pairing grows faster than any polynomial, whereas every fixed Schwartz seminorm of that translated bump grows at most polynomially.
 
+This gives a concrete interpretation of the refinement direction. The topology inherited from \(\mathcal E\) on \(\mathcal D\) permits exactly restrictions of compactly supported distributions: a continuous functional on that subspace extends continuously to \(\mathcal E\) by Hahn–Banach. Likewise, the topology inherited from \(\mathcal S\) permits exactly restrictions of tempered distributions. The finer inductive topology permits every distribution. The choice of topology changes which linear observations of the same compactly supported test functions count as continuous.
+
 There is a further topological distinction on the dual side. Weak-* convergence means
 
 \[
@@ -764,11 +816,9 @@ p_B(T)=\sup_{\varphi\in B}|\langle T,\varphi\rangle|,
 
 Thus the bounded-set theorem for \(\mathcal D\) also describes the families on which strong convergence of distributions is tested. The dual inclusion chain by itself does not specify a dual topology. The restriction maps are continuous for the weak-* topologies, and also for the strong dual topologies, because the original inclusions send bounded sets to bounded sets; this does not assert that they are topological embeddings.
 
-The part of this reading I most wanted to retain is the passage from an algebraic union to an analytic space. Each \(\mathcal D_K\) was already well understood. What required a new construction was the freedom to move between compact supports.
+The point of the reading, for me, is learning how to make these choices. We reduced the construction of a vector topology to a local base, used convex geometry to turn local bases into seminorms, and interpreted refinements through the maps they make continuous. When the first two topologies on \(\mathcal D\) failed, those same ideas supplied a way to search for a better one: keep the fixed-support inclusions continuous and combine all the locally convex control they allow.
 
-The inductive topology resolves that freedom in a precise way: a seminorm is allowed whenever it is continuous on every fixed-support piece. That gives enough spatial control to force bounded sets into one compact set, while preserving all the original Fréchet topologies. The resulting universal property then turns continuity on the union into continuity on its pieces, and finally into the local finite-order estimate defining a distribution.
-
-This is the point at which I would return to distribution theory itself: differentiation, localization, convolution, and Fourier analysis. The topology now explains why the test functions support those operations.
+The resulting topology then had to justify the choice. Its bounded sets have common compact support, its Cauchy sequences converge, and its continuous linear maps are exactly those continuous on every fixed-support piece. These results explain the usual definition of test-function convergence and the local estimates for distributions. They also prepare the next questions about differentiation, localization, convolution, and Fourier analysis.
 
 ## Reading references
 
