@@ -476,19 +476,31 @@ There is also an outgoing-map interpretation. We have just found a functional wh
 
 ### Merge all admissible local bases
 
-The most direct topological approach I found was to collect all the local structures we are allowed to use. Let \(\mathfrak T\) be the family of Hausdorff locally convex topologies on \(\mathcal D\) making every \(i_K\) continuous. This family is nonempty: the topology inherited from \(\mathcal E\), and the topology \(\tau_{\mathcal Q}\), are already examples.
-
-For each \(\tau\in\mathfrak T\), take its family \(\mathcal C_\tau\) of all convex balanced open zero-neighborhoods, and form
+The most direct topological approach I found was to collect all the local structures we are allowed to use. Define the family of admissible topologies by
 
 \[
-\mathcal B_* = \bigcup_{\tau\in\mathfrak T}\mathcal C_\tau.
+\Gamma=\left\{\tau:
+\begin{array}{l}
+\tau\text{ is a Hausdorff locally convex topology on }\mathcal D,\\
+i_K:(\mathcal D_K,\tau_K)\hookrightarrow(\mathcal D,\tau)
+\text{ is continuous}\\
+\text{for every }K\Subset\Omega
+\end{array}\right\}.
 \]
 
-The intention is simple: any zero-neighborhood allowed by one admissible locally convex topology should be available in the final construction. Unlike choosing a particular local base in each topology, taking all such neighborhoods makes the compatibility easier to see.
+This family is nonempty: the topology inherited from \(\mathcal E\), and the topology \(\tau_{\mathcal Q}\), are already examples.
 
-We must check that neighborhoods supplied by different topologies can be used together. Given \(\tau_1,\tau_2\in\mathfrak T\), their join is still admissible. Indeed, by the seminorm characterization, generate it using the union of their continuous seminorm families. Each of those seminorms is continuous on every \(\mathcal D_K\), so every inclusion remains continuous. If \(U\in\mathcal C_{\tau_1}\) and \(V\in\mathcal C_{\tau_2}\), then \(U\cap V\) belongs to \(\mathcal C_{\tau_1\vee\tau_2}\), hence to \(\mathcal B_*\).
+For each \(\tau\in\Gamma\), take its family \(\mathcal C_\tau\) of all convex balanced open zero-neighborhoods, and form
 
-The other local conditions are inherited within an admissible topology supplying the set in question: small dilations, refinement for addition, and an open neighborhood around each of its points. Thus \(\mathcal B_*\) generates a locally convex vector topology. Each basic neighborhood has open intersection with every \(\mathcal D_K\), so the topology is still admissible. It contains the local information of every member of \(\mathfrak T\), and therefore is the finest one. Denote it by \(\tau_{\mathcal D}\).
+\[
+\mathcal B_* = \bigcup_{\tau\in\Gamma}\mathcal C_\tau.
+\]
+
+Any convex balanced open zero-neighborhood allowed by one admissible topology should be available in the final construction. Taking all such neighborhoods lets us combine the tests supplied by different topologies.
+
+To check that two such tests can be used together, take \(\tau_1,\tau_2\in\Gamma\) and generate a topology using both of their continuous seminorm families. This topology, denoted \(\tau_1\vee\tau_2\), is still admissible: every seminorm we added is continuous on each \(\mathcal D_K\). Thus if \(U\in\mathcal C_{\tau_1}\) and \(V\in\mathcal C_{\tau_2}\), their intersection is a convex balanced open zero-neighborhood in \(\tau_1\vee\tau_2\), so \(U\cap V\in\mathcal B_*\).
+
+The other local conditions are inherited from whichever admissible topology supplies the neighborhood: small dilations, refinement for addition, and an open neighborhood around each of its points. Thus \(\mathcal B_*\) generates a locally convex vector topology. Each basic neighborhood has open intersection with every \(\mathcal D_K\), so every inclusion remains continuous. The resulting topology contains the local information of every member of \(\Gamma\), and therefore is the finest one. Denote it by \(\tau_{\mathcal D}\).
 
 This construction does not require guessing a special formula for the neighborhoods of \(\mathcal D\). It starts with the allowable topologies and combines their local bases. One can equally use the union of their full neighborhood systems. The finite-join argument is what makes this union legitimate; an ordinary union of topologies need not itself be a topology.
 
@@ -531,7 +543,22 @@ The numerical version is now immediate. Define
 
 Generating a topology with this entire family preserves continuity of each \(i_K\). Conversely, every continuous seminorm for any admissible locally convex topology belongs to this family. It therefore generates \(\tau_{\mathcal D}\) as well. The seminorm \(q_0(f)=\|f\|_\infty\) separates points, so the resulting topology is Hausdorff.
 
-The same idea has appeared in three forms: combine all admissible local bases; admit every compatible convex balanced neighborhood; or require every compatible seminorm to be continuous. The seminorm version will be convenient for estimates, while the neighborhood versions explain how the extremal construction arises from the original topological question.
+### Why an uncountable family is essential here
+
+There is an important change from the preceding examples. The topologies of \(\mathcal E\), \(\mathcal H\), \(\mathcal S\), and each \(\mathcal D_K\) admit **countable** generating families of seminorms. So does the failed topology \(\tau_{\mathcal Q}\). Finite intersections of their balls with positive rational radii give countable local bases at zero.
+
+For \(\tau_{\mathcal D}\), we collect an **uncountable** family of compatible seminorms. Moreover, this family cannot be replaced by any countable generating family: \(\mathcal D\) has no countable local base at zero. Section 10 proves this by constructing escaping bumps from any proposed countable base. In the terminology of Section 4, countability genuinely fails here; this is stronger than merely displaying an uncountable family that might contain redundant seminorms.
+
+The extra freedom is concrete. Fix distinct points \(x_j\in\Omega\) leaving every compact subset. For every sequence of positive tolerances \(\varepsilon=(\varepsilon_j)\), we may use
+
+\[
+p_\varepsilon(f)=\sup_{j\ge1}\frac{|f(x_j)|}{\varepsilon_j},
+\qquad \varepsilon\in(0,\infty)^{\mathbb N}.
+\]
+
+Each test function encounters only finitely many of these points, and each \(\mathcal D_K\) sees only finitely many evaluations. Hence every \(p_\varepsilon\) is a compatible seminorm. The uncountably many choices of \(\varepsilon\) allow independent tolerances at the escaping locations. Section 9 uses precisely this freedom to detect a proposed bounded set whose supports escape.
+
+Thus the inductive construction retains the seminorm description of a locally convex topology, while giving up the countable control available in the earlier examples.
 
 This is the **locally convex inductive limit topology**. The restriction to locally convex topologies is part of the construction; the final topology in the category of arbitrary topological spaces is a different construction and need not coincide with it.
 
@@ -567,7 +594,7 @@ The forward implication follows by composition with \(i_K\).
 
 For the reverse implication, let \(r\) be a continuous seminorm on \(Y\). Then \(r\circ T\) is a seminorm on \(\mathcal D\), and all its restrictions to \(\mathcal D_K\) are continuous. Thus \(r\circ T\in\mathcal P_{\mathrm{ind}}\), so it is continuous on \(\mathcal D\). Since this holds for every continuous seminorm of \(Y\), the map \(T\) is continuous.
 
-This also makes the maximality argument precise: adjoining the seminorms \(r\circ T\) would give a finer locally convex topology still making every \(i_K\) continuous. Since the original topology was already finest, these additions cannot change it. The universal property records exactly the additional continuity that no admissible refinement can create.
+This also makes the maximality argument precise: adjoining the seminorms \(r\circ T\) would give a finer locally convex topology still making every \(i_K\) continuous. Since the original topology was already finest, these additions cannot change it. Thus \(T\) was continuous already.
 
 Conversely, suppose an admissible locally convex topology has this universal property. Given any other admissible topology \(\sigma\), apply the property to
 
@@ -577,16 +604,7 @@ Conversely, suppose an admissible locally convex topology has this universal pro
 
 All its restrictions are continuous, so the identity is continuous. The original topology is therefore finer than \(\sigma\). This recovers the finest property.
 
-The direction of the extremum is explained by the direction of the maps:
-
-| Prescribed maps | Topology chosen on \(X\) | Basic examples |
-| --- | --- | --- |
-| Maps **out of** \(X\): \(X\to Y_i\) | Coarsest making them continuous | Weak topologies; initial topologies from normed quotients |
-| Linear maps **into** \(X\): \(X_i\to X\) | Finest locally convex topology making them continuous | Locally convex inductive limits |
-
-A finer domain topology makes continuity of maps out easier; a finer codomain topology makes continuity of maps in harder. These two extremal constructions fit that same rule.
-
-Having more continuous functionals is one consequence of a finer topology, but the dual alone need not determine the topology: weak and norm topologies on an infinite-dimensional Banach space already illustrate this. The universal property here concerns maps into **every locally convex target**, not just scalar-valued functionals.
+It helps to compare the two constructions in this essay directly. For \(\mathcal E\), we specified derivative seminorms on compact sets and took the coarsest vector topology making those measurements continuous. For \(\mathcal D\), the topologies of the pieces \(\mathcal D_K\) were already fixed. We kept their inclusions continuous and took the finest locally convex topology allowed by that requirement. Its useful consequence is the displayed test: to check a linear operation on test functions, we can check it separately on each fixed-support space.
 
 ## 9. How the topology detects escaping support
 
@@ -661,6 +679,8 @@ There is also a stronger standard conclusion. Along a compact exhaustion,
 \]
 
 is a **strict LF-space**: a countable locally convex inductive limit of Fréchet spaces whose inclusions are closed topological embeddings. The completeness theorem for strict LF-limits yields full completeness. This last conclusion uses an additional theorem; the Cauchy-sequence argument alone proves only sequential completeness.
+
+The countability here refers to the list of fixed-support spaces \(\mathcal D_{K_n}\). It does not give a countable generating family of seminorms on their union: a compatible seminorm can impose different bounds at every step, and the inductive topology includes all these choices.
 
 The cost is that \(\mathcal D\) is not metrizable. Suppose it had a countable zero-neighborhood base, made decreasing by taking finite intersections:
 
