@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topology Before Distributions: Constructing the Test Function Spaces | Zhengyi Su</title>
+  <meta name="description" content="A reading essay on locally convex spaces, seminorms, and the topology of test functions: why local smoothness is not enough, and how an inductive limit controls compact support.">
+  <link rel="stylesheet" href="../styles.css?v=20261027-c2">
+  <style>
+    .nested-toc [data-article-toc]{display:block;max-height:calc(100vh - 100px);max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d8e0e3 transparent;padding-right:5px}
+    .nested-toc [data-article-toc]{overflow-anchor:none;scroll-behavior:auto}
+    .nested-toc .toc-sections,.nested-toc .toc-subsections{list-style:none;margin:0;padding:0}
+    .nested-toc .toc-section{margin:0;padding:0}
+    .nested-toc .toc-section-row{display:flex;align-items:baseline;gap:3px}
+    .nested-toc .toc-section-row>a{flex:1;min-width:0;padding:6px 0;font-size:12.5px;line-height:1.4}
+    .nested-toc .is-current-section>.toc-section-row>a{color:var(--ink);font-weight:600}
+    .nested-toc .toc-section-row>a[aria-current=location]{color:var(--accent);font-weight:650}
+    .nested-toc .toc-toggle{flex:none;display:grid;place-items:center;width:19px;height:23px;padding:0;border:0;border-radius:3px;background:transparent;color:var(--muted);cursor:pointer}
+    .nested-toc .toc-toggle:hover{background:#f1f5f5;color:var(--ink)}
+    .nested-toc .toc-toggle:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+    .nested-toc .toc-toggle svg{transition:transform .15s ease}
+    .nested-toc .toc-toggle[aria-expanded=true] svg{transform:rotate(90deg)}
+    .nested-toc .toc-subsections{margin:1px 0 8px 3px;padding:1px 0 1px 11px;border-left:1px solid var(--line)}
+    .nested-toc .toc-subsections[hidden]{display:none}
+    .nested-toc .toc-subsections a{position:relative;padding:4px 2px;color:#74848e;font-size:11.5px;line-height:1.45}
+    .nested-toc a:hover{transform:none}
+    .nested-toc .toc-subsections a[aria-current=location]{color:var(--accent);font-weight:600}
+    .nested-toc .toc-subsections a[aria-current=location]::before{content:"";position:absolute;left:-12px;top:5px;bottom:5px;width:2px;background:var(--accent)}
+    @media(prefers-reduced-motion:reduce){.nested-toc .toc-toggle svg{transition:none}}
+    .post-body .math-display{max-width:100%;overflow-x:auto;overflow-y:hidden}
+    .post-body .math-display mjx-container[display="true"]{margin:.75em 0}
+    .post-body p{margin-bottom:.9em}
+    .post-body .table-scroll{max-width:100%;overflow-x:auto;margin:1.4em 0}
+    .post-body table{width:100%;border-collapse:collapse;font-size:.88em;line-height:1.55}
+    .post-body th,.post-body td{padding:.6em .7em;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+    .post-body th{color:var(--ink)}
+  </style>
+  <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
+  <script defer src="../article-toc.js?v=20261024-subsections-3"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar"><div class="topbar-inner"><nav aria-label="Main navigation"><a href="../">Home</a><a href="../papers.html">Papers</a><a href="../blog.html" aria-current="page">Blog</a></nav></div></header>
+  <main class="article-layout" id="main">
+    <article>
+      <header class="post-header">
+        <a class="back-link" href="../blog.html">← Blog</a>
+        <h1>Topology Before Distributions: Constructing the Test Function Spaces</h1>
+        <p class="post-subtitle">From neighborhoods and seminorms to the locally convex inductive limit of test functions.</p>
+        <time datetime="2026-11-03">November 3, 2026</time>
+      </header>
+      <div class="post-body">
+<p><em>Notes on Appendix B of Claude Warnick's Fourier Analysis and Theory of Distributions, with supplements from Rudin's Functional Analysis and Eduard A. Nigsch's Locally Convex Spaces.</em></p>
+<p>A distribution is a continuous linear functional on a space of test functions. The linearity is easy to state. The continuity hides a substantial part of the construction: <strong>which topology should the test function space carry, and why that topology?</strong></p>
+<p>I wanted to understand this before returning to distribution theory. Knowing the usual convergence criterion for test functions was not quite enough. Why must a convergent sequence have a common compact support? Why can we not simply use the topology of smooth functions? And why does the correct construction involve the <em>finest</em> locally convex topology, when weak topologies are usually introduced as the <em>coarsest</em> ones satisfying a continuity requirement?</p>
+<p>Appendix B of Warnick's notes provides a useful route through these questions. My main interest is the construction problem running through it:</p>
+<p><strong>Given a vector space and the analysis we want to do, how should we choose its topology?</strong></p>
+<p>The route begins with neighborhoods of zero, passes through convex geometry and seminorms, and ends with the locally convex inductive limit</p>
+<div class="math-display">\[
+\mathcal D(\Omega)=C_c^\infty(\Omega)
+=\underset{K\Subset\Omega}{\operatorname{ind\,lim}}\,\mathcal D_K.
+\]</div>
+<p>Here and below, <span class="math-inline">\(\Omega\subseteq\mathbb R^d\)</span> is nonempty and open, <span class="math-inline">\(d\ge1\)</span>, and <span class="math-inline">\(K\Subset\Omega\)</span> means that <span class="math-inline">\(K\)</span> is a compact subset of <span class="math-inline">\(\Omega\)</span>. The holomorphic and Schwartz spaces below are parallel examples I found helpful; they are not all developed in that appendix.</p>
+<h2>1. What survives when there is no single norm?</h2>
+<p>A norm provides several things at once: a topology, a notion of boundedness, and a way to discuss Cauchy sequences and completeness. In spaces such as <span class="math-inline">\(C^\infty(\Omega)\)</span>, the natural convergence involves all derivatives on all compact subsets. A single norm is no longer the obvious starting point.</p>
+<p>A <strong>topological vector space</strong> retains the vector space operations and requires</p>
+<div class="math-display">\[
++:X\times X\longrightarrow X,
+\qquad
+\mathbb F\times X\longrightarrow X,\quad (\lambda,x)\longmapsto\lambda x
+\]</div>
+<p>to be jointly continuous, where <span class="math-inline">\(\mathbb F=\mathbb R\)</span> or <span class="math-inline">\(\mathbb C\)</span> has its usual topology. I will not include Hausdorffness in the definition; when needed, I will state it separately.</p>
+<p>Translations and multiplication by a fixed nonzero scalar are then homeomorphisms:</p>
+<div class="math-display">\[
+x\longmapsto x+a,
+\qquad x\longmapsto\lambda x\quad(\lambda\ne0).
+\]</div>
+<p>But these homeomorphisms alone do not guarantee the TVS axioms. For example, the discrete metric on <span class="math-inline">\(\mathbb R\)</span> is translation invariant, and every nonzero scalar multiplication is a homeomorphism. Nevertheless,</p>
+<div class="math-display">\[
+\lambda_n\to0\text{ in the usual scalar topology}
+\quad\not\Longrightarrow\quad
+\lambda_n\cdot1\to0\text{ in the discrete topology}.
+\]</div>
+<p>Thus even a translation-invariant metric does not automatically produce a TVS. Compatibility must include the continuous variation of the scalar parameter. Translation invariance of a metric does ensure continuity of addition, by its triangle inequality; scalar multiplication is the missing issue in this example.</p>
+<p>The vector space structure also strengthens some general topological facts. For a TVS,</p>
+<div class="math-display">\[
+T_1\iff T_2.
+\]</div>
+<p>Indeed, if <span class="math-inline">\(x\ne0\)</span>, closedness of <span class="math-inline">\(\{x\}\)</span> gives a zero-neighborhood <span class="math-inline">\(U\)</span> avoiding <span class="math-inline">\(x\)</span>. Choose a smaller zero-neighborhood <span class="math-inline">\(V\)</span> with <span class="math-inline">\(V-V\subseteq U\)</span>. Then <span class="math-inline">\(V\)</span> and <span class="math-inline">\(x+V\)</span> are disjoint.</p>
+<p>Boundedness has an intrinsic formulation as well:</p>
+<div class="math-display">\[
+B\subseteq X\text{ is bounded}
+\iff
+\forall U\in\mathcal N(0),\ \exists R&gt;0:\
+B\subseteq tU\quad(t\ge R).
+\]</div>
+<p>The set must be absorbed uniformly by every zero-neighborhood. This is a property of the vector topology, not of a chosen compatible metric.</p>
+<p>Similarly,</p>
+<div class="math-display">\[
+(x_n)\text{ is Cauchy}
+\iff
+\forall U\in\mathcal N(0),\ \exists N:\
+x_n-x_m\in U\quad(n,m\ge N).
+\]</div>
+<p>For general TVS, completeness is formulated using Cauchy nets or filters. Convergence of all Cauchy sequences is only <em>sequential completeness</em>. The distinction will matter once <span class="math-inline">\(\mathcal D\)</span> ceases to be metrizable.</p>
+<h2>2. Why the construction reduces to neighborhoods of zero</h2>
+<p>For an ordinary topological space, open local bases at all points recover a base for the topology. In a TVS, translations supply every local base from the one at zero:</p>
+<div class="math-display">\[
+\mathcal B=\{x+U:x\in X,\ U\in\mathcal B_0\},
+\]</div>
+<p>where <span class="math-inline">\(\mathcal B_0\)</span> is an open local base at zero.</p>
+<p>There is a small convention worth keeping explicit. A neighborhood of <span class="math-inline">\(x\)</span> need only <em>contain</em> an open set containing <span class="math-inline">\(x\)</span>; it need not itself be open. A local base can therefore consist of nonopen neighborhoods. The displayed formula gives an open base directly when its members <span class="math-inline">\(U\)</span> are open. With arbitrary neighborhood bases, one can first pass to interiors.</p>
+<p>This changes the construction problem. Instead of prescribing every open set, we can ask:</p>
+<p><strong>Which families of subsets of a vector space can serve as the neighborhoods of zero?</strong></p>
+<p>The answer must encode the vector operations. Continuity of addition requires sufficiently small neighborhoods <span class="math-inline">\(V\)</span> satisfying</p>
+<div class="math-display">\[
+V+V\subseteq U.
+\]</div>
+<p>Continuity of scalar multiplication supplies two useful geometric properties:</p>
+<div class="math-display">\[
+\begin{aligned}
+U\text{ balanced}&amp;\iff \lambda U\subseteq U\quad(|\lambda|\le1),\\
+U\text{ absorbing}&amp;\iff \forall x\in X,\ \exists R&gt;0:\ x\in tU\quad(t\ge R).
+\end{aligned}
+\]</div>
+<p>Every zero-neighborhood is absorbing, and every zero-neighborhood contains a balanced open zero-neighborhood. A TVS is <strong>locally convex</strong> if zero has a base of convex neighborhoods; this base can be chosen convex, balanced, and open.</p>
+<p>Convexity makes addition particularly transparent:</p>
+<div class="math-display">\[
+\tfrac12U+\tfrac12U\subseteq U.
+\]</div>
+<p>It also allows us to replace neighborhood geometry with numerical estimates. This is where seminorms enter.</p>
+<h2>3. Seminorms and convex neighborhoods describe the same structure</h2>
+<p>Given a family <span class="math-inline">\(\mathcal P\)</span> of seminorms on <span class="math-inline">\(X\)</span>, use the sets</p>
+<div class="math-display">\[
+U(p_1,\ldots,p_m;\varepsilon_1,\ldots,\varepsilon_m)
+=\bigcap_{j=1}^m\{x:p_j(x)&lt;\varepsilon_j\}
+\]</div>
+<p>as an open local base at zero. Their translates generate a locally convex topology <span class="math-inline">\(\tau_{\mathcal P}\)</span>. The inequalities</p>
+<div class="math-display">\[
+p(x+y)\le p(x)+p(y),\qquad
+p(\lambda x)=|\lambda|p(x),\qquad
+|p(x)-p(y)|\le p(x-y)
+\]</div>
+<p>give continuity of addition, scalar multiplication, and each seminorm.</p>
+<p>For example, joint continuity of scalar multiplication follows from</p>
+<div class="math-display">\[
+p(\lambda x-\lambda_0x_0)
+\le |\lambda|p(x-x_0)+|\lambda-\lambda_0|p(x_0).
+\]</div>
+<p>The reverse construction is more revealing. For a convex, balanced, absorbing set <span class="math-inline">\(U\)</span>, define its <strong>Minkowski functional</strong></p>
+<div class="math-display">\[
+p_U(x)=\inf\{t&gt;0:x\in tU\}.
+\]</div>
+<p>Absorption makes this finite. Balancedness gives absolute homogeneity, and convexity gives subadditivity: if <span class="math-inline">\(x\in aU\)</span>, <span class="math-inline">\(y\in bU\)</span>, then</p>
+<div class="math-display">\[
+\frac{x+y}{a+b}
+=\frac a{a+b}\frac xa+\frac b{a+b}\frac yb\in U.
+\]</div>
+<p>For a convex balanced <strong>open</strong> zero-neighborhood, the gauge recovers the set exactly:</p>
+<div class="math-display">\[
+\boxed{U=\{x:p_U(x)&lt;1\}.}
+\]</div>
+<p>One inclusion uses balancedness. For the other, openness and continuity of <span class="math-inline">\(t\mapsto tx\)</span> imply that <span class="math-inline">\(x\in U\)</span> can be moved slightly farther along its ray while remaining in <span class="math-inline">\(U\)</span>. Thus <span class="math-inline">\(x\in tU\)</span> for some <span class="math-inline">\(t&lt;1\)</span>.</p>
+<p>Taking the gauges of an open convex balanced neighborhood base therefore recovers the original topology:</p>
+<div class="math-display">\[
+\boxed{\text{locally convex topology}
+\quad\longleftrightarrow\quad
+\text{topology generated by seminorms}.}
+\]</div>
+<p>This is also a constructive answer to the question in the previous section. Starting from convex balanced absorbing sets, their gauges always generate a locally convex topology. To assert that the <em>original family itself</em> is a neighborhood base, one additionally needs the appropriate refinements under finite intersections and small dilations. Geometry alone, with no compatibility between the sets, is not enough.</p>
+<h3>The connection with initial topologies</h3>
+<p>The weak topology <span class="math-inline">\(\sigma(X,F)\)</span> is the coarsest topology making a prescribed family of linear functionals <span class="math-inline">\(F\)</span> continuous. A seminorm topology has a closely related description, but one must keep the linear structure in view:</p>
+<div class="math-display">\[
+\tau_{\mathcal P}
+=\text{the coarsest TVS topology making every }p\in\mathcal P\text{ continuous}.
+\]</div>
+<p>It is not generally the ordinary initial topology of the nonlinear maps <span class="math-inline">\(p:X\to\mathbb R\)</span>. For instance, the initial topology of <span class="math-inline">\(x\mapsto|x|\)</span> on <span class="math-inline">\(\mathbb R\)</span> cannot distinguish <span class="math-inline">\(x\)</span> from <span class="math-inline">\(-x\)</span>.</p>
+<p>A precise initial-topology description uses the linear quotient maps</p>
+<div class="math-display">\[
+q_p:X\longrightarrow X/\ker p,
+\qquad \|q_p(x)\|_p=p(x).
+\]</div>
+<p>Then <span class="math-inline">\(\tau_{\mathcal P}\)</span> is the initial topology induced by the maps <span class="math-inline">\(q_p\)</span> into these normed spaces. This formulation explains why translated seminorm balls, rather than just inverse images under the seminorms at zero, describe the topology.</p>
+<h2>4. Turning topology into usable estimates</h2>
+<p>Several abstract properties now become concrete.</p>
+<p>First,</p>
+<div class="math-display">\[
+\tau_{\mathcal P}\text{ is Hausdorff}
+\iff
+\bigcap_{p\in\mathcal P}\ker p=\{0\}.
+\]</div>
+<p>Second, for a Hausdorff locally convex space,</p>
+<div class="math-display">\[
+\boxed{\begin{aligned}
+\text{metrizable}
+&amp;\iff\text{first countable}\\
+&amp;\iff\text{its topology admits a countable generating family of seminorms}.
+\end{aligned}}
+\]</div>
+<p>The last statement concerns the existence of a countable generating family, not the cardinality of any particular family initially presented. An uncountable collection may contain many redundant seminorms.</p>
+<p>For a countable separating family <span class="math-inline">\((p_n)\)</span>, one compatible translation-invariant metric is</p>
+<div class="math-display">\[
+d(x,y)=\sum_{n=1}^{\infty}2^{-n}\min\{1,p_n(x-y)\}.
+\]</div>
+<p>Boundedness also becomes a family of estimates:</p>
+<div class="math-display">\[
+B\text{ bounded}
+\iff
+\sup_{x\in B}p(x)&lt;\infty\quad\text{for every }p\in\mathcal P.
+\]</div>
+<p>Most useful for distributions is the continuity criterion for a linear functional:</p>
+<div class="math-display">\[
+\boxed{T\in X'
+\iff
+\exists p_1,\ldots,p_m\in\mathcal P,\ C&gt;0:\
+|T(x)|\le C\max_{1\le j\le m}p_j(x).}
+\]</div>
+<p>Continuity gives a basic zero-neighborhood on which <span class="math-inline">\(|T|&lt;1\)</span>, and scaling turns that neighborhood condition into the estimate. Conversely, the estimate immediately implies continuity. Infinite families define the topology, but any one continuous linear functional is controlled by finitely many of them.</p>
+<p>Hahn–Banach connects these estimates back to geometry. In its analytic form, a linear functional dominated by a seminorm on a subspace extends with the same domination. In its geometric form, continuous linear functionals separate suitable convex sets; in particular, a point outside a closed convex set can be strictly separated from it in a Hausdorff locally convex space.</p>
+<p>For example, if <span class="math-inline">\(p(x)&gt;0\)</span>, define on the line through <span class="math-inline">\(x\)</span></p>
+<div class="math-display">\[
+f_0(\lambda x)=\lambda p(x).
+\]</div>
+<p>Hahn–Banach extends this to <span class="math-inline">\(f\in X'\)</span> with <span class="math-inline">\(|f(y)|\le p(y)\)</span>. Consequently, <strong>within locally convex spaces</strong>,</p>
+<div class="math-display">\[
+X\text{ Hausdorff}\iff X'\text{ separates points}.
+\]</div>
+<p>The role of local convexity is now visible: it supplies both numerical control through seminorms and enough continuous linear functionals to detect the geometry.</p>
+<h2>5. Smoothness, holomorphicity, and decay</h2>
+<p>Before dealing with compact support, it helps to see how well this framework handles other function spaces.</p>
+<h3>Smooth functions: local control of every derivative</h3>
+<p>Choose a compact exhaustion</p>
+<div class="math-display">\[
+K_n\subseteq\operatorname{int}K_{n+1},\qquad
+\bigcup_nK_n=\Omega,
+\]</div>
+<p>and put</p>
+<div class="math-display">\[
+\mathcal E(\Omega)=C^\infty(\Omega),\qquad
+p_n(f)=\max_{|\alpha|\le n}\sup_{x\in K_n}|D^\alpha f(x)|.
+\]</div>
+<p>These seminorms generate the topology of local uniform convergence of every derivative:</p>
+<div class="math-display">\[
+f_j\to f\text{ in }\mathcal E
+\iff
+D^\alpha f_j\to D^\alpha f
+\text{ uniformly on every compact subset, for every }\alpha.
+\]</div>
+<p>Completeness requires checking that the limits of the derivatives are actually derivatives of the limiting function. If <span class="math-inline">\(D^\alpha f_j\to g_\alpha\)</span> locally uniformly, pass to the limit in</p>
+<div class="math-display">\[
+f_j(x+he_i)-f_j(x)=\int_0^h\partial_i f_j(x+te_i)\,dt
+\]</div>
+<p>on sufficiently small coordinate segments. This identifies <span class="math-inline">\(\partial_i g_0=g_{e_i}\)</span>; iteration identifies all derivatives. Thus <span class="math-inline">\(\mathcal E\)</span> is a Fréchet space: complete, metrizable, and locally convex.</p>
+<p>It also has the <strong>Heine–Borel property</strong>: closed bounded sets are compact. Boundedness controls every derivative on every compact; one further derivative supplies equicontinuity. Arzelà–Ascoli followed by a diagonal extraction gives convergence of all derivatives on all compact subsets.</p>
+<p>This is a useful form of the principle that additional regularity creates compactness. Unlike a normed space with the Heine–Borel property, <span class="math-inline">\(\mathcal E\)</span> need not be finite dimensional.</p>
+<h3>Holomorphic functions: the equation supplies derivative control</h3>
+<p>For <span class="math-inline">\(\Omega\subseteq\mathbb C\)</span>, let <span class="math-inline">\(\mathcal H(\Omega)\)</span> carry the topology of locally uniform convergence. Cauchy estimates give, for suitable <span class="math-inline">\(K\Subset\operatorname{int}L\Subset\Omega\)</span>,</p>
+<div class="math-display">\[
+\sup_K|f^{(m)}|\le C_{K,L,m}\sup_L|f|.
+\]</div>
+<p>Thus, on holomorphic functions, local control of the function already controls all derivatives. The compact-open topology agrees with the topology inherited from <span class="math-inline">\(\mathcal E(\Omega)\)</span>, and <span class="math-inline">\(\mathcal H\)</span> is a closed Fréchet subspace.</p>
+<p>Its Heine–Borel property is the functional-analytic version of Montel's theorem. Here holomorphicity supplies the extra regularity that had to be explicitly included among the seminorms of <span class="math-inline">\(\mathcal E\)</span>.</p>
+<h3>Schwartz functions: control at infinity as well</h3>
+<p>For <span class="math-inline">\(\mathcal S(\mathbb R^d)\)</span>, use the increasing seminorms</p>
+<div class="math-display">\[
+s_N(f)=\max_{|\alpha|\le N}
+\sup_{x\in\mathbb R^d}(1+|x|)^N|D^\alpha f(x)|,
+\qquad N=0,1,\ldots.
+\]</div>
+<p>They are equivalent to the usual family <span class="math-inline">\(\sup_x|x^\beta D^\alpha f(x)|\)</span>. The topology controls both smoothness and decay. The same local limit argument as for <span class="math-inline">\(\mathcal E\)</span>, together with the weighted bounds, proves completeness.</p>
+<p>The Heine–Borel argument needs an extra step. From a bounded sequence in <span class="math-inline">\(\mathcal S\)</span>, local compactness gives a subsequence converging in <span class="math-inline">\(\mathcal E\)</span>. To upgrade this to convergence in <span class="math-inline">\(\mathcal S\)</span>, split space into a ball and its complement. For the difference <span class="math-inline">\(h\)</span> of two members of the subsequence,</p>
+<div class="math-display">\[
+\max_{|\alpha|\le N}\sup_{|x|&gt;R}
+(1+|x|)^N|D^\alpha h(x)|
+\le\frac{s_{N+1}(h)}{1+R}.
+\]</div>
+<p>The right side is uniformly small for large <span class="math-inline">\(R\)</span>; inside the ball, local convergence applies. Therefore closed bounded subsets of <span class="math-inline">\(\mathcal S\)</span> are compact.</p>
+<p>The embedding <span class="math-inline">\(\mathcal S\hookrightarrow\mathcal E\)</span> alone would not prove this. It supplies local convergence, while the additional weights control the tails.</p>
+<h3>Fixed compact support</h3>
+<p>For a fixed <span class="math-inline">\(K\Subset\Omega\)</span>, set</p>
+<div class="math-display">\[
+\mathcal D_K=\{f\in\mathcal E(\Omega):\operatorname{supp}f\subseteq K\}.
+\]</div>
+<p>It is a closed subspace of <span class="math-inline">\(\mathcal E\)</span>, since</p>
+<div class="math-display">\[
+\mathcal D_K=\bigcap_{x\in\Omega\setminus K}\ker\delta_x,
+\qquad \delta_x(f)=f(x).
+\]</div>
+<p>It is therefore Fréchet and has the Heine–Borel property. Its topology can be generated by</p>
+<div class="math-display">\[
+q_m(f)=\max_{|\alpha|\le m}\sup_{x\in\Omega}|D^\alpha f(x)|,
+\]</div>
+<p>restricted to <span class="math-inline">\(\mathcal D_K\)</span>. Since the support is fixed, global and local derivative control agree there.</p>
+<p>The difficulty begins when the compact set is allowed to vary.</p>
+<h2>6. Two natural topologies on <span class="math-inline">\(\mathcal D\)</span>, and why they fail</h2>
+<p>Algebraically,</p>
+<div class="math-display">\[
+\mathcal D(\Omega)=\bigcup_{K\Subset\Omega}\mathcal D_K.
+\]</div>
+<p>The first candidate topology is simply the one inherited from <span class="math-inline">\(\mathcal E(\Omega)\)</span>. But this space is not sequentially complete.</p>
+<p>Take <span class="math-inline">\(\Omega=\mathbb R\)</span>, choose a nonzero <span class="math-inline">\(\varphi\in C_c^\infty((0,1))\)</span>, and let</p>
+<div class="math-display">\[
+f_m(x)=\sum_{j=1}^m\frac1j\varphi(x-j).
+\]</div>
+<p>On every fixed compact interval the sum eventually stops changing. Hence <span class="math-inline">\((f_m)\)</span> is Cauchy in the inherited topology and converges in <span class="math-inline">\(\mathcal E\)</span> to</p>
+<div class="math-display">\[
+f(x)=\sum_{j=1}^\infty\frac1j\varphi(x-j).
+\]</div>
+<p>The sum is locally finite, so <span class="math-inline">\(f\)</span> is smooth. Its support is not compact, so it is not in <span class="math-inline">\(\mathcal D\)</span>.</p>
+<p>The problem is <strong>escape of support</strong>. Local control cannot detect what is being added outside the compact set currently under observation.</p>
+<p>The next candidate is to remove the localization and use the global seminorms <span class="math-inline">\(q_m\)</span> above on all of <span class="math-inline">\(\mathcal D\)</span>. Denote the resulting topology by <span class="math-inline">\(\tau_{\mathcal Q}\)</span>. Now convergence means uniform convergence of every derivative on the entire domain.</p>
+<p>This topology is finer, but the same example still defeats completeness. Because the translated bumps have disjoint supports, for <span class="math-inline">\(m&gt;n\)</span>,</p>
+<div class="math-display">\[
+q_k(f_m-f_n)\le\frac1{n+1}q_k(\varphi)\longrightarrow0.
+\]</div>
+<p>The bumps become small enough to escape even global derivative control.</p>
+<p>Yet <span class="math-inline">\(\tau_{\mathcal Q}\)</span> already induces exactly the correct Fréchet topology on every <span class="math-inline">\(\mathcal D_K\)</span>. This is an important obstruction:</p>
+<p><strong>Correct topology on every fixed-support subspace does not by itself determine the right topology on their union.</strong></p>
+<p>We need a topology that can detect where small pieces of a function are located, with arbitrarily strong penalties as their locations leave compact subsets.</p>
+<h2>7. The finest compatible locally convex topology</h2>
+<p>The fixed-support spaces are already satisfactory. Rather than modify them, require every inclusion</p>
+<div class="math-display">\[
+i_K:\mathcal D_K\hookrightarrow\mathcal D
+\]</div>
+<p>to be continuous, and choose the <strong>finest locally convex topology</strong> satisfying these requirements.</p>
+<p>This is the locally convex inductive limit topology. The phrase “locally convex” is essential: we are taking an extremum within that class, rather than simply using the final topology in the category of arbitrary topological spaces.</p>
+<p>There are several complementary ways to construct it.</p>
+<h3>Collect all compatible seminorms</h3>
+<p>Consider</p>
+<div class="math-display">\[
+\mathcal P_{\mathrm{ind}}
+=\{p:p\text{ is a seminorm on }\mathcal D,
+\quad p|_{\mathcal D_K}\text{ is continuous for every }K\Subset\Omega\}.
+\]</div>
+<p>The topology generated by this family makes each <span class="math-inline">\(i_K\)</span> continuous. Conversely, every continuous seminorm for any admissible locally convex topology belongs to <span class="math-inline">\(\mathcal P_{\mathrm{ind}}\)</span>. Since locally convex topologies are generated by their continuous seminorms, this construction is the finest admissible one.</p>
+<p>It is Hausdorff because, for example, <span class="math-inline">\(q_0(f)=\|f\|_\infty\)</span> is among these seminorms and separates points. Write the resulting topology as <span class="math-inline">\(\tau_{\mathcal D}\)</span>.</p>
+<p>This construction follows the earlier seminorm theory directly: use <em>every</em> seminorm whose restriction to each fixed-support space is legitimate.</p>
+<h3>Collect all compatible convex neighborhoods</h3>
+<p>The concrete construction in Warnick and Rudin instead starts with</p>
+<div class="math-display">\[
+\mathcal B_{\mathcal D}
+=\left\{W\subseteq\mathcal D:
+\begin{array}{l}
+0\in W,\quad W\text{ convex and balanced},\\
+W\cap\mathcal D_K\text{ open in }\mathcal D_K
+\text{ for every }K\Subset\Omega
+\end{array}\right\}.
+\]</div>
+<p>Why does this give the same construction? Each such <span class="math-inline">\(W\)</span> is absorbing: a given <span class="math-inline">\(f\)</span> lies in some <span class="math-inline">\(\mathcal D_K\)</span>, where <span class="math-inline">\(W\cap\mathcal D_K\)</span> is a zero-neighborhood. Its gauge satisfies</p>
+<div class="math-display">\[
+p_W|_{\mathcal D_K}=p_{W\cap\mathcal D_K},
+\]</div>
+<p>so it is continuous on every <span class="math-inline">\(\mathcal D_K\)</span>. Moreover, openness on that subspace gives</p>
+<div class="math-display">\[
+W=\{f:p_W(f)&lt;1\}.
+\]</div>
+<p>Thus <span class="math-inline">\(W\)</span> is open for <span class="math-inline">\(\tau_{\mathcal D}\)</span>. Conversely, every convex balanced open zero-neighborhood for <span class="math-inline">\(\tau_{\mathcal D}\)</span> has open intersections with the <span class="math-inline">\(\mathcal D_K\)</span>. Hence <span class="math-inline">\(\mathcal B_{\mathcal D}\)</span> is precisely an open convex balanced local base.</p>
+<p>This makes the definition feel less arbitrary. We are collecting all convex balanced open neighborhoods allowed by the prescribed embeddings.</p>
+<h3>Merge all admissible local structures</h3>
+<p>Another viewpoint I found useful is to consider the family <span class="math-inline">\(\mathfrak T\)</span> of all Hausdorff locally convex topologies on <span class="math-inline">\(\mathcal D\)</span> making every <span class="math-inline">\(i_K\)</span> continuous, and set</p>
+<div class="math-display">\[
+\mathcal N_*(0)=\bigcup_{\tau\in\mathfrak T}\mathcal N_\tau(0).
+\]</div>
+<p>At first, this seems to risk losing the neighborhood axioms. The key is that finite joins remain admissible. If <span class="math-inline">\(U\)</span> and <span class="math-inline">\(V\)</span> come from two admissible topologies, then <span class="math-inline">\(U\cap V\)</span> is a zero-neighborhood in their join, which is still locally convex and still makes every <span class="math-inline">\(i_K\)</span> continuous.</p>
+<p>Consequently the union has the finite-refinement property needed of a neighborhood system; the other vector-neighborhood conditions follow within whichever admissible topology supplies the neighborhood under consideration. It generates the same finest topology.</p>
+<p>This is a union of <em>neighborhood systems</em>, with compatibility supplied by finite joins. An ordinary union of collections of open sets is not, in general, a topology.</p>
+<p>The three constructions express the same choice: permit all local convex control compatible with the fixed-support spaces.</p>
+<h3>Do the fixed-support topologies remain unchanged?</h3>
+<p>Continuity of <span class="math-inline">\(i_K\)</span> gives</p>
+<div class="math-display">\[
+\tau_{\mathcal D}|_{\mathcal D_K}\subseteq\tau_K.
+\]</div>
+<p>For the reverse inclusion, observe that every global derivative seminorm <span class="math-inline">\(q_m\)</span> belongs to <span class="math-inline">\(\mathcal P_{\mathrm{ind}}\)</span>. Its restriction to <span class="math-inline">\(\mathcal D_K\)</span> generates <span class="math-inline">\(\tau_K\)</span>. Therefore</p>
+<div class="math-display">\[
+\boxed{\tau_{\mathcal D}|_{\mathcal D_K}=\tau_K.}
+\]</div>
+<p>So the construction preserves exactly the local pieces with which we started.</p>
+<h2>8. Why the finest property becomes a universal property</h2>
+<p>The inductive limit gives a particularly useful test for continuity. For every locally convex space <span class="math-inline">\(Y\)</span> and linear map <span class="math-inline">\(T:\mathcal D\to Y\)</span>,</p>
+<div class="math-display">\[
+\boxed{T\text{ continuous}
+\iff
+T|_{\mathcal D_K}\text{ continuous for every }K\Subset\Omega.}
+\]</div>
+<p>The forward implication follows by composition with <span class="math-inline">\(i_K\)</span>.</p>
+<p>For the reverse implication, let <span class="math-inline">\(r\)</span> be a continuous seminorm on <span class="math-inline">\(Y\)</span>. Then <span class="math-inline">\(r\circ T\)</span> is a seminorm on <span class="math-inline">\(\mathcal D\)</span>, and all its restrictions to <span class="math-inline">\(\mathcal D_K\)</span> are continuous. Thus <span class="math-inline">\(r\circ T\in\mathcal P_{\mathrm{ind}}\)</span>, so it is continuous on <span class="math-inline">\(\mathcal D\)</span>. Since this holds for every continuous seminorm of <span class="math-inline">\(Y\)</span>, the map <span class="math-inline">\(T\)</span> is continuous.</p>
+<p>One can also read the proof directly from maximality: adjoining the seminorms <span class="math-inline">\(r\circ T\)</span> would give a finer locally convex topology still making every <span class="math-inline">\(i_K\)</span> continuous. Since the original topology was already finest, these additions cannot change it.</p>
+<p>Conversely, suppose an admissible locally convex topology has this universal property. Given any other admissible topology <span class="math-inline">\(\sigma\)</span>, apply the property to</p>
+<div class="math-display">\[
+\operatorname{id}:\mathcal D\longrightarrow(\mathcal D,\sigma).
+\]</div>
+<p>All its restrictions are continuous, so the identity is continuous. The original topology is therefore finer than <span class="math-inline">\(\sigma\)</span>. This recovers the finest property.</p>
+<p>The direction of the extremum is explained by the direction of the maps:</p>
+<div class="table-scroll" role="region" aria-label="Scrollable mathematical table" tabindex="0"><table>
+<thead>
+<tr>
+  <th>Prescribed maps</th>
+  <th>Topology chosen on <span class="math-inline">\(X\)</span></th>
+  <th>Basic examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Maps <strong>out of</strong> <span class="math-inline">\(X\)</span>: <span class="math-inline">\(X\to Y_i\)</span></td>
+  <td>Coarsest making them continuous</td>
+  <td>Weak topologies; initial topologies from normed quotients</td>
+</tr>
+<tr>
+  <td>Linear maps <strong>into</strong> <span class="math-inline">\(X\)</span>: <span class="math-inline">\(X_i\to X\)</span></td>
+  <td>Finest locally convex topology making them continuous</td>
+  <td>Locally convex inductive limits</td>
+</tr>
+</tbody>
+</table></div>
+<p>A finer domain topology makes continuity of maps out easier; a finer codomain topology makes continuity of maps in harder. These two extremal constructions fit that same rule.</p>
+<p>Having more continuous functionals is one consequence of a finer topology, but the dual alone need not determine the topology: weak and norm topologies on an infinite-dimensional Banach space already illustrate this. The universal property here concerns maps into <strong>every locally convex target</strong>, not just scalar-valued functionals.</p>
+<h2>9. How the topology detects escaping support</h2>
+<p>The construction would be incomplete without showing that it fixes the failure which motivated it. The decisive result is</p>
+<div class="math-display">\[
+\boxed{\begin{aligned}
+B\subseteq\mathcal D\text{ bounded}
+\iff\;&amp;\exists K\Subset\Omega:\ B\subseteq\mathcal D_K,\\
+&amp;\sup_{f\in B}q_m(f)&lt;\infty\quad\text{for every }m.
+\end{aligned}}
+\]</div>
+<p>The common-support assertion is the important part. Suppose <span class="math-inline">\(B\)</span> is not contained in any <span class="math-inline">\(\mathcal D_K\)</span>. Choose an exhaustion <span class="math-inline">\((K_j)\)</span>, functions <span class="math-inline">\(f_j\in B\)</span>, and points <span class="math-inline">\(x_j\notin K_j\)</span> such that</p>
+<div class="math-display">\[
+f_j(x_j)\ne0.
+\]</div>
+<p>Such points can be chosen because <span class="math-inline">\(\operatorname{supp}f_j\not\subseteq K_j\)</span> and <span class="math-inline">\(K_j\)</span> is closed. The points <span class="math-inline">\(x_j\)</span> leave every compact subset of <span class="math-inline">\(\Omega\)</span>. Set</p>
+<div class="math-display">\[
+\varepsilon_j=\frac{|f_j(x_j)|}{j},
+\qquad
+p(f)=\sup_{j\ge1}\frac{|f(x_j)|}{\varepsilon_j}.
+\]</div>
+<p>For each test function <span class="math-inline">\(f\)</span>, only finitely many terms are nonzero, so <span class="math-inline">\(p(f)&lt;\infty\)</span>. On any fixed <span class="math-inline">\(\mathcal D_K\)</span>, it is a maximum of finitely many continuous point evaluations. Thus</p>
+<div class="math-display">\[
+p\in\mathcal P_{\mathrm{ind}}.
+\]</div>
+<p>But <span class="math-inline">\(p(f_j)\ge j\)</span>, so <span class="math-inline">\(p\)</span> is unbounded on <span class="math-inline">\(B\)</span>, contradicting boundedness.</p>
+<p>Equivalently, the neighborhood</p>
+<div class="math-display">\[
+W=\{f:|f(x_j)|&lt;\varepsilon_j\text{ for every }j\}
+\]</div>
+<p>imposes arbitrarily small tolerances at locations leaving compact subsets. Every fixed-support space sees only finitely many of these restrictions, so its topology is undisturbed. Their collective effect on <span class="math-inline">\(\mathcal D\)</span> rules out support escape in bounded sets.</p>
+<p>Once <span class="math-inline">\(B\subseteq\mathcal D_K\)</span>, the remaining derivative bounds follow from boundedness and the continuous seminorms <span class="math-inline">\(q_m\)</span>. Conversely, a set satisfying those bounds is bounded in <span class="math-inline">\(\mathcal D_K\)</span>, hence bounded in <span class="math-inline">\(\mathcal D\)</span> by the continuous inclusion.</p>
+<p>This proof explains what global derivative seminorms were missing. Small amplitude can compensate for escape in each <span class="math-inline">\(q_m\)</span>; the inductive topology allows a seminorm whose spatial penalties are chosen to defeat that particular escape.</p>
+<h2>10. Convergence, compactness, and the cost of the construction</h2>
+<p>Every convergent sequence, and every Cauchy sequence, is bounded in a TVS. The bounded-set theorem therefore reduces their behavior in <span class="math-inline">\(\mathcal D\)</span> to one fixed-support Fréchet space:</p>
+<div class="math-display">\[
+\boxed{\begin{aligned}
+f_j\to f\text{ in }\mathcal D
+\iff\;&amp;\exists K\Subset\Omega:\ f_j,f\in\mathcal D_K\text{ for every }j,\\
+&amp;q_m(f_j-f)\to0\quad\text{for every }m.
+\end{aligned}}
+\]</div>
+<p>The familiar test-function convergence criterion has now been derived from a topology, rather than imposed separately.</p>
+<p>A Cauchy sequence similarly lies in a single <span class="math-inline">\(\mathcal D_K\)</span>, where it converges by completeness. Closed bounded sets lie in a single <span class="math-inline">\(\mathcal D_K\)</span> and are compact there, hence compact in <span class="math-inline">\(\mathcal D\)</span>. Thus <span class="math-inline">\(\mathcal D\)</span> is sequentially complete and has the Heine–Borel property.</p>
+<p>There is also a stronger standard conclusion. Along a compact exhaustion,</p>
+<div class="math-display">\[
+\mathcal D=\operatorname{ind\,lim}_n\mathcal D_{K_n}
+\]</div>
+<p>is a <strong>strict LF-space</strong>: a countable locally convex inductive limit of Fréchet spaces whose inclusions are closed topological embeddings. The completeness theorem for strict LF-limits yields full completeness. This last conclusion uses an additional theorem; the Cauchy-sequence argument alone proves only sequential completeness.</p>
+<p>The cost is that <span class="math-inline">\(\mathcal D\)</span> is not metrizable. Suppose it had a countable zero-neighborhood base, made decreasing by taking finite intersections:</p>
+<div class="math-display">\[
+U_1\supseteq U_2\supseteq\cdots.
+\]</div>
+<p>For each <span class="math-inline">\(n\)</span>, choose a nonzero bump <span class="math-inline">\(\psi_n\)</span> supported in <span class="math-inline">\(\Omega\setminus K_n\)</span>. Absorption lets us choose <span class="math-inline">\(a_n\ne0\)</span> sufficiently small that</p>
+<div class="math-display">\[
+a_n\psi_n\in U_n.
+\]</div>
+<p>Then <span class="math-inline">\(a_n\psi_n\to0\)</span> by the base property. Yet the sequence has no common compact support, contradicting the convergence criterion. Therefore <span class="math-inline">\(\mathcal D\)</span> is not first countable and hence not metrizable.</p>
+<p>The same support mechanism explains both outcomes: it forces bounded sets into one fixed-support space, but cannot be enforced by any countable neighborhood base.</p>
+<p>There is a useful compensation. For <strong>linear</strong> maps <span class="math-inline">\(T:\mathcal D\to Y\)</span> into a locally convex space, the following are equivalent:</p>
+<div class="math-display">\[
+\begin{gathered}
+T\text{ continuous};\qquad
+T\text{ maps bounded sets to bounded sets};\\
+T\text{ sequentially continuous};\qquad
+T|_{\mathcal D_K}\text{ continuous for every }K.
+\end{gathered}
+\]</div>
+<p>For example, sequential continuity restricts to sequential continuity on each metrizable <span class="math-inline">\(\mathcal D_K\)</span>, hence continuity there; the universal property then gives continuity on <span class="math-inline">\(\mathcal D\)</span>. For the boundedness implication, use the Fréchet-space fact that a null sequence <span class="math-inline">\(f_j\)</span> in a fixed <span class="math-inline">\(\mathcal D_K\)</span> can be rescaled by numbers <span class="math-inline">\(b_j\to\infty\)</span> slowly enough that <span class="math-inline">\(b_jf_j\to0\)</span>. Boundedness of <span class="math-inline">\(T\)</span> then gives <span class="math-inline">\(T f_j=b_j^{-1}T(b_jf_j)\to0\)</span>.</p>
+<p>This explains why distribution theory can often work with sequences despite the nonmetrizability of its test function space. It is a special fact about these linear maps, not a general replacement of topological continuity by sequential continuity.</p>
+<h2>11. The topology finally becomes a distribution estimate</h2>
+<p>Define</p>
+<div class="math-display">\[
+\mathcal D'(\Omega)=\bigl(\mathcal D(\Omega)\bigr)'.
+\]</div>
+<p>Combining the universal property with the seminorm criterion for linear functionals gives</p>
+<div class="math-display">\[
+\boxed{\begin{aligned}
+T\in\mathcal D'(\Omega)
+\iff\;&amp;\forall K\Subset\Omega,\ \exists C_K&gt;0,\ m_K\in\mathbb N_0:\\
+&amp;|\langle T,\varphi\rangle|
+\le C_K\max_{|\alpha|\le m_K}\|D^\alpha\varphi\|_\infty,
+\quad\varphi\in\mathcal D_K.
+\end{aligned}}
+\]</div>
+<p>The derivative order may depend on <span class="math-inline">\(K\)</span>. A distribution has finite order on each fixed compact set, but there need not be one finite order valid throughout the domain.</p>
+<p>This dependence is exactly what the inductive construction was designed to permit. There is no demand for one global estimate on all test functions; there is a compatible collection of finite-order estimates on the fixed-support pieces.</p>
+<p>The construction also makes distributional operations natural. Differentiation is continuous on each <span class="math-inline">\(\mathcal D_K\)</span>, since</p>
+<div class="math-display">\[
+q_m(D^\alpha\varphi)\le q_{m+|\alpha|}(\varphi).
+\]</div>
+<p>The universal property makes it continuous on <span class="math-inline">\(\mathcal D\)</span>, so transposition defines</p>
+<div class="math-display">\[
+\langle D^\alpha T,\varphi\rangle
+=(-1)^{|\alpha|}\langle T,D^\alpha\varphi\rangle.
+\]</div>
+<p>Likewise, multiplication by a fixed <span class="math-inline">\(a\in C^\infty(\Omega)\)</span> is continuous on <span class="math-inline">\(\mathcal D\)</span>, by the Leibniz rule on each <span class="math-inline">\(K\)</span>, and therefore defines multiplication of distributions:</p>
+<div class="math-display">\[
+\langle aT,\varphi\rangle=\langle T,a\varphi\rangle.
+\]</div>
+<p>These definitions work because the corresponding operations on test functions are continuous. The topology has supplied the estimates needed to extend calculus by duality.</p>
+<h2>12. Three test spaces and three distribution spaces</h2>
+<p>On <span class="math-inline">\(\mathbb R^d\)</span>, the natural inclusions are continuous and dense:</p>
+<div class="math-display">\[
+\mathcal D\hookrightarrow\mathcal S\hookrightarrow\mathcal E.
+\]</div>
+<p>Continuity of <span class="math-inline">\(\mathcal D\to\mathcal S\)</span> follows by checking each <span class="math-inline">\(\mathcal D_K\)</span>; polynomial weights are bounded on <span class="math-inline">\(K\)</span>. Density follows from smooth cutoffs. If <span class="math-inline">\(\chi\in C_c^\infty\)</span> equals one near the origin and <span class="math-inline">\(\chi_R(x)=\chi(x/R)\)</span>, then</p>
+<div class="math-display">\[
+\chi_Rf\to f\text{ in }\mathcal E\quad(f\in\mathcal E),
+\qquad
+\chi_Rf\to f\text{ in }\mathcal S\quad(f\in\mathcal S).
+\]</div>
+<div class="table-scroll" role="region" aria-label="Scrollable mathematical table" tabindex="0"><table>
+<thead>
+<tr>
+  <th>Space</th>
+  <th>What convergence controls</th>
+  <th>Structure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><span class="math-inline">\(\mathcal E=C^\infty\)</span></td>
+  <td>Every derivative on each compact subset</td>
+  <td>Fréchet; closed bounded sets compact</td>
+</tr>
+<tr>
+  <td><span class="math-inline">\(\mathcal S\)</span></td>
+  <td>Every derivative with every polynomial weight</td>
+  <td>Fréchet; closed bounded sets compact</td>
+</tr>
+<tr>
+  <td><span class="math-inline">\(\mathcal D=C_c^\infty\)</span></td>
+  <td>For sequences: a common compact support and uniform convergence of every derivative</td>
+  <td>Complete strict LF-space; nonmetrizable; closed bounded sets compact</td>
+</tr>
+</tbody>
+</table></div>
+<p>Since these spaces have different underlying sets, topology comparisons require restriction. On <span class="math-inline">\(\mathcal D(\mathbb R^d)\)</span>,</p>
+<div class="math-display">\[
+\boxed{\tau_{\mathcal E}|_{\mathcal D}
+\subsetneq\tau_{\mathcal S}|_{\mathcal D}
+\subsetneq\tau_{\mathcal D}.}
+\]</div>
+<p>Two translated bumps distinguish the three controls. Fix a nonzero bump <span class="math-inline">\(\varphi\)</span> and let <span class="math-inline">\(e_1\)</span> be the first coordinate vector. Then</p>
+<div class="math-display">\[
+\varphi(\cdot-ne_1)\to0\text{ in }\mathcal E,
+\qquad
+\varphi(\cdot-ne_1)\not\to0\text{ in }\mathcal S.
+\]</div>
+<p>If we instead set</p>
+<div class="math-display">\[
+g_n=e^{-n^2}\varphi(\cdot-ne_1),
+\]</div>
+<p>then <span class="math-inline">\(g_n\to0\)</span> in <span class="math-inline">\(\mathcal S\)</span>, since the exponential factor defeats every polynomial weight. It does not converge to zero in <span class="math-inline">\(\mathcal D\)</span>, because the supports escape.</p>
+<p>Restriction of continuous functionals reverses the inclusion chain:</p>
+<div class="math-display">\[
+\boxed{\mathcal E'(\mathbb R^d)
+\hookrightarrow\mathcal S'(\mathbb R^d)
+\hookrightarrow\mathcal D'(\mathbb R^d).}
+\]</div>
+<p>Density makes these restriction maps injective. The three classes are compactly supported distributions, tempered distributions, and arbitrary distributions, respectively. The inclusions are strict: the constant function <span class="math-inline">\(1\)</span> defines a tempered distribution without compact support, while <span class="math-inline">\(e^{|x|^2}\)</span> defines a distribution which is not tempered. Translating a fixed nonnegative bump shows the latter: its pairing grows faster than any polynomial, whereas every fixed Schwartz seminorm of that translated bump grows at most polynomially.</p>
+<p>There is a further topological distinction on the dual side. Weak-* convergence means</p>
+<div class="math-display">\[
+T_j\to T\text{ in }\sigma(X',X)
+\iff
+\langle T_j,\varphi\rangle\to\langle T,\varphi\rangle
+\quad\text{for every }\varphi\in X.
+\]</div>
+<p>The strong dual topology <span class="math-inline">\(\beta(X',X)\)</span> is instead generated by</p>
+<div class="math-display">\[
+p_B(T)=\sup_{\varphi\in B}|\langle T,\varphi\rangle|,
+\qquad B\subseteq X\text{ bounded}.
+\]</div>
+<p>Thus the bounded-set theorem for <span class="math-inline">\(\mathcal D\)</span> also describes the families on which strong convergence of distributions is tested. The dual inclusion chain by itself does not specify a dual topology. The restriction maps are continuous for the weak-* topologies, and also for the strong dual topologies, because the original inclusions send bounded sets to bounded sets; this does not assert that they are topological embeddings.</p>
+<p>The part of this reading I most wanted to retain is the passage from an algebraic union to an analytic space. Each <span class="math-inline">\(\mathcal D_K\)</span> was already well understood. What required a new construction was the freedom to move between compact supports.</p>
+<p>The inductive topology resolves that freedom in a precise way: a seminorm is allowed whenever it is continuous on every fixed-support piece. That gives enough spatial control to force bounded sets into one compact set, while preserving all the original Fréchet topologies. The resulting universal property then turns continuity on the union into continuity on its pieces, and finally into the local finite-order estimate defining a distribution.</p>
+<p>This is the point at which I would return to distribution theory itself: differentiation, localization, convolution, and Fourier analysis. The topology now explains why the test functions support those operations.</p>
+<h2>Reading references</h2>
+<ul>
+<li>Claude Warnick, <em>M3/4P18: Fourier Analysis and Theory of Distributions</em> (2016), Appendix B, especially Theorems B.20–B.23. This supplies the main route through the smooth and compactly supported test function spaces.</li>
+<li>Walter Rudin, <em>Functional Analysis</em>, second edition, Chapters 1 and 3; Chapter 6, §§6.2–6.8. The beginning of Chapter 6 contains the concrete construction of <span class="math-inline">\(\mathcal D\)</span>, its bounded-set and convergence theorems, and the continuity criterion for distributions.</li>
+<li>Eduard A. Nigsch, <em>Locally Convex Spaces</em> (2017), especially §§3, 5–7, and 9. These provide the seminorm, gauge, inductive-topology, and Hahn–Banach framework behind the construction.</li>
+</ul>
+<p>The parallel discussions of <span class="math-inline">\(\mathcal H\)</span> and <span class="math-inline">\(\mathcal S\)</span>, and the comparison between the three test spaces, are included to make explicit the different roles of local regularity, decay, and compact support.</p>
+
+      </div>
+    </article>
+    <aside class="article-toc" aria-label="Table of contents">
+      <p class="toc-title">On this page</p>
+      <nav data-article-toc="nested"></nav>
+    </aside>
+  </main>
+</body>
+</html>
