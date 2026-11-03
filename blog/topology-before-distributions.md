@@ -1,7 +1,7 @@
 ---
 title: "Topology Before Distributions: Constructing the Test Function Spaces"
 date: 2026-11-03
-description: "A reading essay on locally convex spaces, seminorms, and the topology of test functions: why local smoothness is not enough, and how an inductive limit controls compact support."
+description: "Why must a convergent sequence of test functions have a common compact support?"
 slug: topology-before-distributions
 draft: false
 ---
@@ -293,11 +293,11 @@ X\text{ Hausdorff}\iff X'\text{ separates points}.
 
 The role of local convexity is now visible: it supplies both numerical control through seminorms and enough continuous linear functionals to detect the geometry. This is why these results belong before the function-space examples. They give us a procedure: select the observations, build the topology, and translate its analytic properties back into estimates. Later, the distribution estimate will come from precisely this procedure.
 
-## 5. Smoothness, holomorphicity, and decay
+## 5. \(\mathcal E\), \(\mathcal H\), \(\mathcal S\), and \(\mathcal D_K\)
 
-The first test of this procedure is to start with a desired mode of convergence and ask whether it gives a satisfactory space for analysis. In \(\mathcal E\), the desired control is local smoothness; in \(\mathcal S\), it also includes decay; in \(\mathcal D_K\), the location of the support is fixed in advance. Their seminorms record these choices. Completeness and compactness then have to be proved from the chosen control.
+We now consider four spaces: smooth functions, holomorphic functions, rapidly decreasing smooth functions, and smooth functions supported in a fixed compact set. For each space, we specify its seminorms and convergence, then check completeness and compactness.
 
-### Smooth functions: local control of every derivative
+### \(\mathcal E(\Omega)\): smooth functions
 
 Choose a compact exhaustion
 
@@ -334,7 +334,7 @@ It also has the **Heine–Borel property**: closed bounded sets are compact. Bou
 
 This is a useful form of the principle that additional regularity creates compactness. Unlike a normed space with the Heine–Borel property, \(\mathcal E\) need not be finite dimensional.
 
-### Holomorphic functions: the equation supplies derivative control
+### \(\mathcal H(\Omega)\): holomorphic functions
 
 For \(\Omega\subseteq\mathbb C\), let \(\mathcal H(\Omega)\) carry the topology of locally uniform convergence. Cauchy estimates give, for suitable \(K\Subset\operatorname{int}L\Subset\Omega\),
 
@@ -346,7 +346,7 @@ Thus, on holomorphic functions, local control of the function already controls a
 
 Its Heine–Borel property is the functional-analytic version of Montel's theorem. Here holomorphicity supplies the extra regularity that had to be explicitly included among the seminorms of \(\mathcal E\).
 
-### Schwartz functions: control at infinity as well
+### \(\mathcal S(\mathbb R^d)\): Schwartz functions
 
 For \(\mathcal S(\mathbb R^d)\), use the increasing seminorms
 
@@ -370,7 +370,7 @@ The right side is uniformly small for large \(R\); inside the ball, local conver
 
 The embedding \(\mathcal S\hookrightarrow\mathcal E\) alone would not prove this. It supplies local convergence, while the additional weights control the tails.
 
-### Fixed compact support
+### \(\mathcal D_K\): fixed compact support
 
 For a fixed \(K\Subset\Omega\), set
 
@@ -836,9 +836,13 @@ p_B(T)=\sup_{\varphi\in B}|\langle T,\varphi\rangle|,
 
 Thus the bounded-set theorem for \(\mathcal D\) also describes the families on which strong convergence of distributions is tested. The dual inclusion chain by itself does not specify a dual topology. The restriction maps are continuous for the weak-* topologies, and also for the strong dual topologies, because the original inclusions send bounded sets to bounded sets; this does not assert that they are topological embeddings.
 
-The point of the reading, for me, is learning how to make these choices. We reduced the construction of a vector topology to a local base, used convex geometry to turn local bases into seminorms, and interpreted refinements through the maps they make continuous. When the first two topologies on \(\mathcal D\) failed, those same ideas supplied a way to search for a better one: keep the fixed-support inclusions continuous and combine all the locally convex control they allow.
+## 13. Summary
 
-The resulting topology then had to justify the choice. Its bounded sets have common compact support, its Cauchy sequences converge, and its continuous linear maps are exactly those continuous on every fixed-support piece. These results explain the usual definition of test-function convergence and the local estimates for distributions. They also prepare the next questions about differentiation, localization, convolution, and Fourier analysis.
+I began with two questions: how can we construct a topology on a vector space, and which topology should compactly supported smooth functions carry? Local bases reduce the first question to neighborhoods of zero. Minkowski functionals then turn convex balanced neighborhoods into seminorms, recovering the same topology.
+
+For \(\mathcal D\), both local and global derivative bounds allowed Cauchy sequences to lose compact support. We therefore kept every inclusion \(\mathcal D_K\hookrightarrow\mathcal D\) continuous and collected all compatible seminorms, including the uncountably many spatial tolerances that no countable family can replace. The resulting topology forces bounded sets into one fixed-support space and makes every Cauchy sequence converge there.
+
+The same construction answers the continuity question: a linear map from \(\mathcal D\) into a locally convex space is continuous exactly when its restriction to every \(\mathcal D_K\) is continuous. For a scalar-valued functional, this gives the local finite-order estimates defining a distribution. The common-support convergence criterion and the distribution estimate now follow from the topology we constructed.
 
 ## Reading references
 
