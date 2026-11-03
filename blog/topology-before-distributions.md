@@ -27,6 +27,8 @@ The route begins with neighborhoods of zero, passes through convex geometry and 
 
 Here and below, \(\Omega\subseteq\mathbb R^d\) is nonempty and open, \(d\ge1\), and \(K\Subset\Omega\) means that \(K\) is a compact subset of \(\Omega\). The holomorphic and Schwartz spaces below are parallel examples I found helpful; they are not all developed in that appendix.
 
+Lecture notes: [Claude Warnick, *Fourier Analysis and Theory of Distributions* (PDF)](https://www.dpmms.cam.ac.uk/~cmw50/resources/M3P18/M3P18.pdf), Appendix B.
+
 ## 1. What survives when there is no single norm?
 
 A norm provides several things at once: a topology, a notion of boundedness, and a way to discuss Cauchy sequences and completeness. In spaces such as \(C^\infty(\Omega)\), the natural convergence involves all derivatives on all compact subsets. A single norm is no longer the obvious starting point.
