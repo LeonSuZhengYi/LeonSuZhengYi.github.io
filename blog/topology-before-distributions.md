@@ -106,7 +106,15 @@ where \(\mathcal B_0\) is an open local base at zero.
 
 There is a small convention worth keeping explicit. A neighborhood of \(x\) need only *contain* an open set containing \(x\); it need not itself be open. A local base can therefore consist of nonopen neighborhoods. The displayed formula gives an open base directly when its members \(U\) are open. With arbitrary neighborhood bases, one can first pass to interiors.
 
-This is the first useful reduction of the construction problem. A topology initially looks like an enormous collection of subsets. Local bases replace it with tests for being sufficiently close to each point, and translation reduces all those tests to the origin. If we know what it means for a difference \(x-y\) to be small, we know the local structure everywhere.
+The topology is recovered explicitly by
+
+\[
+O\in\tau
+\iff
+\forall x\in O,\ \exists U\in\mathcal B_0:\ x+U\subseteq O.
+\]
+
+This is the first useful reduction of the construction problem. Local bases give tests for being sufficiently close to each point, and translation reduces all those tests to the origin. If we know what it means for a difference \(x-y\) to be small, we know the local structure everywhere.
 
 Thus, instead of prescribing every open set, we can ask:
 
@@ -141,7 +149,23 @@ The geometric conditions are useful because they express the operations we want 
 
 For a map \(f:X\to Y\), continuity asks that each inverse image \(f^{-1}(V)\), with \(V\) open in \(Y\), be open in \(X\). Consequently, refining the topology on the **domain** preserves every previously continuous map and may make additional maps continuous. Refining the topology on the **codomain** imposes additional requirements on continuity.
 
+For two vector topologies on the same space, this gives
+
+\[
+\tau_1\subseteq\tau_2
+\quad\Longrightarrow\quad
+\begin{cases}
+\mathcal N_{\tau_1}(0)\subseteq\mathcal N_{\tau_2}(0),\\
+(X,\tau_1)'\subseteq(X,\tau_2)'.
+\end{cases}
+\]
+
 This gives a second way to design a topology. If certain maps \(f_i:X\to Y_i\) are the observations we want to make, we can require all their inverse images of open sets to be open, then take the topology they generate. This is the initial topology: the coarsest topology making all the prescribed observations continuous.
+
+\[
+\bigl[\forall i,\ f_i:(X,\tau)\to Y_i\text{ continuous}\bigr]
+\iff \tau_{\mathrm{init}}\subseteq\tau.
+\]
 
 In particular, a topology can be specified through the information we want to observe continuously. Weak topologies do this with linear functionals. For spaces of smooth functions, the natural observations include sizes of derivatives on compact sets. This suggests seminorms.
 
@@ -183,7 +207,17 @@ The reverse construction answers this by measuring size through dilation. For a 
 p_U(x)=\inf\{t>0:x\in tU\}.
 \]
 
-Each geometric hypothesis now has a purpose. Absorption makes the measurement finite in every direction. Balancedness makes it compatible with scalar magnitude, giving absolute homogeneity. Convexity makes the measurement compatible with addition, giving subadditivity: if \(x\in aU\), \(y\in bU\), then
+Each geometric hypothesis has a role in making this a seminorm:
+
+\[
+\begin{aligned}
+U\text{ absorbing}&\ \Longrightarrow\ p_U(x)<\infty,\\
+U\text{ balanced}&\ \Longrightarrow\ p_U(\lambda x)=|\lambda|p_U(x),\\
+U\text{ convex}&\ \Longrightarrow\ p_U(x+y)\le p_U(x)+p_U(y).
+\end{aligned}
+\]
+
+For the last line, if \(x\in aU\), \(y\in bU\), then
 
 \[
 \frac{x+y}{a+b}
@@ -198,7 +232,14 @@ For a convex balanced **open** zero-neighborhood, the gauge recovers the set exa
 
 One inclusion uses balancedness. For the other, openness and continuity of \(t\mapsto tx\) imply that \(x\in U\) can be moved slightly farther along its ray while remaining in \(U\). Thus \(x\in tU\) for some \(t<1\).
 
-This exact recovery is the crucial point. Constructing some seminorm from \(U\) would not yet explain the topology. Recovering \(U\) as its open unit ball means that replacing neighborhoods by gauges loses none of the original local information. Taking the gauges of an open convex balanced neighborhood base therefore recovers the original topology:
+This exact recovery is the crucial point. Replacing neighborhoods by gauges loses none of the original local information:
+
+\[
+\mathcal P_{\mathcal B_0}=\{p_U:U\in\mathcal B_0\},
+\qquad \tau_{\mathcal P_{\mathcal B_0}}=\tau.
+\]
+
+Consequently,
 
 \[
 \boxed{\text{locally convex topology}
@@ -275,7 +316,15 @@ Most useful for distributions is the continuity criterion for a linear functiona
 |T(x)|\le C\max_{1\le j\le m}p_j(x).}
 \]
 
-Continuity gives a basic zero-neighborhood on which \(|T|<1\), and scaling turns that neighborhood condition into the estimate. Conversely, the estimate immediately implies continuity. Infinite families define the topology, but any one continuous linear functional is controlled by finitely many of them.
+To see where the estimate comes from, write \(P(x)=\max_jp_j(x)\). Continuity gives
+
+\[
+\{x:P(x)<\delta\}\subseteq\{x:|T(x)|<1\}
+\quad\Longrightarrow\quad
+|T(x)|\le\delta^{-1}P(x),
+\]
+
+where the implication uses linearity and scaling. Conversely, the estimate immediately implies continuity. Infinite families define the topology, but any one continuous linear functional is controlled by finitely many of them.
 
 Hahn–Banach connects these estimates back to geometry. In its analytic form, a linear functional dominated by a seminorm on a subspace extends with the same domination. In its geometric form, continuous linear functionals separate suitable convex sets; in particular, a point outside a closed convex set can be strictly separated from it in a Hausdorff locally convex space.
 
@@ -330,7 +379,21 @@ f_j(x+he_i)-f_j(x)=\int_0^h\partial_i f_j(x+te_i)\,dt
 
 on sufficiently small coordinate segments. This identifies \(\partial_i g_0=g_{e_i}\); iteration identifies all derivatives. Thus \(\mathcal E\) is a Fréchet space: complete, metrizable, and locally convex.
 
-It also has the **Heine–Borel property**: closed bounded sets are compact. Boundedness controls every derivative on every compact; one further derivative supplies equicontinuity. Arzelà–Ascoli followed by a diagonal extraction gives convergence of all derivatives on all compact subsets.
+It also has the **Heine–Borel property**: closed bounded sets are compact. Boundedness controls every derivative on every compact; one further derivative supplies equicontinuity. On a ball \(\overline{B(a,r)}\subseteq\Omega\), the relevant estimate is
+
+\[
+|D^\alpha f(x)-D^\alpha f(y)|
+\le |x-y|\sup_{z\in B(a,r)}|\nabla D^\alpha f(z)|,
+\qquad x,y\in B(a,r).
+\]
+
+For a bounded family the right-hand supremum is uniformly bounded. Arzelà–Ascoli and a diagonal extraction then give
+
+\[
+B\subseteq\mathcal E\text{ bounded}
+\ \Longrightarrow\ 
+\text{every sequence in }B\text{ has an }\mathcal E\text{-convergent subsequence}.
+\]
 
 This is a useful form of the principle that additional regularity creates compactness. Unlike a normed space with the Heine–Borel property, \(\mathcal E\) need not be finite dimensional.
 
@@ -344,6 +407,13 @@ For \(\Omega\subseteq\mathbb C\), let \(\mathcal H(\Omega)\) carry the topology 
 
 Thus, on holomorphic functions, local control of the function already controls all derivatives. The compact-open topology agrees with the topology inherited from \(\mathcal E(\Omega)\), and \(\mathcal H\) is a closed Fréchet subspace.
 
+The closed-subspace statement can also be read from the defining equation:
+
+\[
+\mathcal H(\Omega)
+=\ker\bigl(\partial_{\bar z}:\mathcal E(\Omega)\to\mathcal E(\Omega)\bigr).
+\]
+
 Its Heine–Borel property is the functional-analytic version of Montel's theorem. Here holomorphicity supplies the extra regularity that had to be explicitly included among the seminorms of \(\mathcal E\).
 
 ### \(\mathcal S(\mathbb R^d)\): Schwartz functions
@@ -356,7 +426,16 @@ s_N(f)=\max_{|\alpha|\le N}
 \qquad N=0,1,\ldots.
 \]
 
-They are equivalent to the usual family \(\sup_x|x^\beta D^\alpha f(x)|\). The topology controls both smoothness and decay. The same local limit argument as for \(\mathcal E\), together with the weighted bounds, proves completeness.
+They are equivalent to the usual family \(\sup_x|x^\beta D^\alpha f(x)|\). Thus
+
+\[
+f_j\to f\text{ in }\mathcal S
+\iff
+\forall N,\quad
+\max_{|\alpha|\le N}\sup_x(1+|x|)^N|D^\alpha(f_j-f)(x)|\to0.
+\]
+
+The topology controls both smoothness and decay. The same local limit argument as for \(\mathcal E\), together with the weighted bounds, proves completeness.
 
 The Heine–Borel argument needs an extra step. From a bounded sequence in \(\mathcal S\), local compactness gives a subsequence converging in \(\mathcal E\). To upgrade this to convergence in \(\mathcal S\), split space into a ball and its complement. For the difference \(h\) of two members of the subsequence,
 
@@ -433,7 +512,15 @@ q_k(f_m-f_n)\le\frac1{n+1}q_k(\varphi)\longrightarrow0.
 
 The bumps become small enough to escape even global derivative control. These seminorms observe their amplitudes and derivatives everywhere, but impose the same tolerances at every location. Moving a bump far away costs nothing extra, so reducing its amplitude can still make it arbitrarily small in this topology.
 
-Yet \(\tau_{\mathcal Q}\) already induces exactly the correct Fréchet topology on every \(\mathcal D_K\). This is an important obstruction:
+The topology is finer than the inherited one, and already agrees with every fixed-support topology:
+
+\[
+\tau_{\mathcal E}|_{\mathcal D}\subseteq\tau_{\mathcal Q},
+\qquad
+\tau_{\mathcal Q}|_{\mathcal D_K}=\tau_K\quad(\forall K\Subset\Omega).
+\]
+
+Yet it is still not sequentially complete. This is an important obstruction:
 
 **Correct topology on every fixed-support subspace does not by itself determine the right topology on their union.**
 
@@ -500,7 +587,15 @@ Any convex balanced open zero-neighborhood allowed by one admissible topology sh
 
 To check that two such tests can be used together, take \(\tau_1,\tau_2\in\Gamma\) and generate a topology using both of their continuous seminorm families. This topology, denoted \(\tau_1\vee\tau_2\), is still admissible: every seminorm we added is continuous on each \(\mathcal D_K\). Thus if \(U\in\mathcal C_{\tau_1}\) and \(V\in\mathcal C_{\tau_2}\), their intersection is a convex balanced open zero-neighborhood in \(\tau_1\vee\tau_2\), so \(U\cap V\in\mathcal B_*\).
 
-The other local conditions are inherited from whichever admissible topology supplies the neighborhood: small dilations, refinement for addition, and an open neighborhood around each of its points. Thus \(\mathcal B_*\) generates a locally convex vector topology. Each basic neighborhood has open intersection with every \(\mathcal D_K\), so every inclusion remains continuous. The resulting topology contains the local information of every member of \(\Gamma\), and therefore is the finest one. Denote it by \(\tau_{\mathcal D}\).
+The other local conditions are inherited from whichever admissible topology supplies the neighborhood: small dilations, refinement for addition, and an open neighborhood around each of its points. Thus \(\mathcal B_*\) generates a locally convex vector topology. Each basic neighborhood has open intersection with every \(\mathcal D_K\), so every inclusion remains continuous. The result is the join of all admissible topologies:
+
+\[
+\tau_{\mathcal D}=\bigvee_{\tau\in\Gamma}\tau,
+\qquad
+\tau\in\Gamma\ \Longrightarrow\ \tau\subseteq\tau_{\mathcal D}.
+\]
+
+Here the join means the smallest topology containing every \(\tau\in\Gamma\). Because it is itself admissible, it is the finest admissible topology.
 
 This construction does not require guessing a special formula for the neighborhoods of \(\mathcal D\). It starts with the allowable topologies and combines their local bases. One can equally use the union of their full neighborhood systems. The finite-join argument is what makes this union legitimate; an ordinary union of topologies need not itself be a topology.
 
@@ -542,6 +637,18 @@ The numerical version is now immediate. Define
 \]
 
 Generating a topology with this entire family preserves continuity of each \(i_K\). Conversely, every continuous seminorm for any admissible locally convex topology belongs to this family. It therefore generates \(\tau_{\mathcal D}\) as well. The seminorm \(q_0(f)=\|f\|_\infty\) separates points, so the resulting topology is Hausdorff.
+
+On each fixed-support space, compatibility is an estimate:
+
+\[
+\begin{aligned}
+p\in\mathcal P_{\mathrm{ind}}
+\iff\;&\forall K\Subset\Omega,\ \exists C_K>0,\ m_K\in\mathbb N_0:\\
+&p(f)\le C_Kq_{m_K}(f)\quad(f\in\mathcal D_K).
+\end{aligned}
+\]
+
+Both the constant and the derivative order may depend on \(K\).
 
 ### Why an uncountable family is essential here
 
@@ -594,7 +701,17 @@ The forward implication follows by composition with \(i_K\).
 
 For the reverse implication, let \(r\) be a continuous seminorm on \(Y\). Then \(r\circ T\) is a seminorm on \(\mathcal D\), and all its restrictions to \(\mathcal D_K\) are continuous. Thus \(r\circ T\in\mathcal P_{\mathrm{ind}}\), so it is continuous on \(\mathcal D\). Since this holds for every continuous seminorm of \(Y\), the map \(T\) is continuous.
 
-This also makes the maximality argument precise: adjoining the seminorms \(r\circ T\) would give a finer locally convex topology still making every \(i_K\) continuous. Since the original topology was already finest, these additions cannot change it. Thus \(T\) was continuous already.
+This also makes the maximality argument precise. If \(\mathcal P_Y\) is the family of continuous seminorms on \(Y\), adjoining their pullbacks gives
+
+\[
+\widetilde\tau
+=\tau_{\mathcal D}\vee\tau_{\{r\circ T:r\in\mathcal P_Y\}}
+\in\Gamma
+\quad\Longrightarrow\quad
+\widetilde\tau=\tau_{\mathcal D}.
+\]
+
+Thus making \(T\) continuous adds no new neighborhoods: it was continuous already.
 
 Conversely, suppose an admissible locally convex topology has this universal property. Given any other admissible topology \(\sigma\), apply the property to
 
@@ -642,7 +759,12 @@ For each test function \(f\), only finitely many terms are nonzero, so \(p(f)<\i
 p\in\mathcal P_{\mathrm{ind}}.
 \]
 
-But \(p(f_j)\ge j\), so \(p\) is unbounded on \(B\), contradicting boundedness.
+The contradiction is now explicit:
+
+\[
+B\text{ bounded}\ \Longrightarrow\ \sup_{f\in B}p(f)<\infty,
+\qquad p(f_j)\ge j\to\infty.
+\]
 
 Equivalently, the neighborhood
 
@@ -658,19 +780,102 @@ This proof explains what global derivative seminorms were missing. Small amplitu
 
 ## 10. Convergence, compactness, and the cost of the construction
 
-Every convergent sequence, and every Cauchy sequence, is bounded in a TVS. The bounded-set theorem therefore reduces their behavior in \(\mathcal D\) to one fixed-support Fréchet space:
+### Which convergent sequences survive?
+
+There is a useful way to read the construction in terms of the sequences it preserves and excludes. We initially required only continuity of the inclusions:
+
+\[
+i_K:\mathcal D_K\hookrightarrow(\mathcal D,\tau)\text{ continuous}
+\quad\Longrightarrow\quad
+\bigl[f_n\to f\text{ in }\mathcal D_K
+\ \Longrightarrow\ f_n\xrightarrow{\tau}f\bigr].
+\]
+
+Thus every convergent sequence from a fixed-support space must remain convergent in the union. This alone allows additional sequences: the topology inherited from \(\mathcal E\), for example, also allows bumps escaping every compact set to converge to zero.
+
+To record both the sequence and its limit, write
+
+\[
+\mathcal R_\tau
+=\left\{\bigl((f_n)_{n\ge1},f\bigr)\in X^{\mathbb N}\times X:
+ f_n\xrightarrow{\tau}f\right\}.
+\]
+
+Here \(\tau\) is a topology on \(X\); pairs from \(\mathcal D_K\) are viewed as pairs in \(\mathcal D\) using \(i_K\). Refining a topology can only remove such pairs:
+
+\[
+\tau_1\subseteq\tau_2
+\quad\Longrightarrow\quad
+\mathcal R_{\tau_2}\subseteq\mathcal R_{\tau_1}.
+\]
+
+Section 7 combined all admissible neighborhoods. Equivalently,
+
+\[
+\tau_{\mathcal D}=\bigvee_{\tau\in\Gamma}\tau,
+\qquad
+\mathcal R_{\tau_{\mathcal D}}
+=\bigcap_{\tau\in\Gamma}\mathcal R_\tau.
+\]
+
+Indeed, convergence in every admissible topology gives eventual membership in each finite intersection of their neighborhoods. We therefore retain all the required fixed-support sequences, while excluding any sequence-limit pair rejected by an admissible topology.
+
+**For this particular inductive limit, exactly the required pairs remain:**
+
+\[
+\boxed{\mathcal R_{\tau_{\mathcal D}}
+=\bigcup_{K\Subset\Omega}\mathcal R_{\tau_K}.}
+\]
+
+This equality is stronger than the finest property alone. It uses two results already established: bounded sets have a common compact support (Section 9), and the induced topology on each \(\mathcal D_K\) is \(\tau_K\) (Section 7). For the nontrivial inclusion, the proof is
+
+\[
+\begin{aligned}
+f_n\xrightarrow{\mathcal D}f
+&\Longrightarrow A:=\{f,f_1,f_2,\ldots\}\text{ is bounded in }\mathcal D\\
+&\Longrightarrow A\subseteq\mathcal D_K\text{ for some }K\Subset\Omega\\
+&\Longrightarrow f_n\xrightarrow{\mathcal D_K}f.
+\end{aligned}
+\]
+
+The last implication uses \(\tau_{\mathcal D}|_{\mathcal D_K}=\tau_K\). The reverse inclusion follows from continuity of \(i_K\). In this precise sense, the construction has removed every extra convergent sequence without losing any of the fixed-support convergence relations we wanted to keep.
+
+### The usual convergence criterion
+
+Convergence in \(\mathcal D_K\) means uniform convergence of every derivative. Consequently the equality above gives
 
 \[
 \boxed{\begin{aligned}
-f_j\to f\text{ in }\mathcal D
-\iff\;&\exists K\Subset\Omega:\ f_j,f\in\mathcal D_K\text{ for every }j,\\
-&q_m(f_j-f)\to0\quad\text{for every }m.
+f_n\to f\text{ in }\mathcal D
+\iff\;&\exists K\Subset\Omega:\ f_n,f\in\mathcal D_K\quad(\forall n),\\
+&q_m(f_n-f)\to0\quad(\forall m).
 \end{aligned}}
 \]
 
-The familiar test-function convergence criterion has now been derived from a topology, rather than imposed separately.
+The familiar test-function convergence criterion has now been derived from the topology, rather than imposed as a separate definition.
 
-A Cauchy sequence similarly lies in a single \(\mathcal D_K\), where it converges by completeness. Closed bounded sets lie in a single \(\mathcal D_K\) and are compact there, hence compact in \(\mathcal D\). Thus \(\mathcal D\) is sequentially complete and has the Heine–Borel property.
+### Completeness and compactness
+
+A Cauchy sequence is also bounded. The same fixed-support reduction gives
+
+\[
+\begin{aligned}
+(f_n)\text{ Cauchy in }\mathcal D
+&\Longrightarrow (f_n)\text{ Cauchy in some }\mathcal D_K\\
+&\Longrightarrow f_n\to f\text{ in }\mathcal D_K\\
+&\Longrightarrow f_n\to f\text{ in }\mathcal D.
+\end{aligned}
+\]
+
+Thus \(\mathcal D\) is sequentially complete. Similarly, a closed bounded set lies in one \(\mathcal D_K\), where it is closed and bounded, hence compact. Continuity of the inclusion then gives
+
+\[
+B\text{ compact in }\mathcal D_K
+\quad\Longrightarrow\quad
+B\text{ compact in }\mathcal D.
+\]
+
+So \(\mathcal D\) also has the Heine–Borel property.
 
 There is also a stronger standard conclusion. Along a compact exhaustion,
 
@@ -681,6 +886,8 @@ There is also a stronger standard conclusion. Along a compact exhaustion,
 is a **strict LF-space**: a countable locally convex inductive limit of Fréchet spaces whose inclusions are closed topological embeddings. The completeness theorem for strict LF-limits yields full completeness. This last conclusion uses an additional theorem; the Cauchy-sequence argument alone proves only sequential completeness.
 
 The countability here refers to the list of fixed-support spaces \(\mathcal D_{K_n}\). It does not give a countable generating family of seminorms on their union: a compatible seminorm can impose different bounds at every step, and the inductive topology includes all these choices.
+
+### Why no countable local base can work
 
 The cost is that \(\mathcal D\) is not metrizable. Suppose it had a countable zero-neighborhood base, made decreasing by taking finite intersections:
 
@@ -694,22 +901,49 @@ For each \(n\), choose a nonzero bump \(\psi_n\) supported in \(\Omega\setminus 
 a_n\psi_n\in U_n.
 \]
 
-Then \(a_n\psi_n\to0\) by the base property. Yet the sequence has no common compact support, contradicting the convergence criterion. Therefore \(\mathcal D\) is not first countable and hence not metrizable.
+The base property would give convergence, but the supports contradict the criterion:
+
+\[
+a_n\psi_n\xrightarrow{\mathcal D}0,
+\qquad
+\nexists K\Subset\Omega:\ \operatorname{supp}(a_n\psi_n)\subseteq K
+\quad(\forall n).
+\]
+
+Therefore \(\mathcal D\) is not first countable and hence not metrizable.
 
 The same support mechanism explains both outcomes: it forces bounded sets into one fixed-support space, but cannot be enforced by any countable neighborhood base.
+
+### Linear maps can still be tested on sequences
 
 There is a useful compensation. For **linear** maps \(T:\mathcal D\to Y\) into a locally convex space, the following are equivalent:
 
 \[
-\begin{gathered}
-T\text{ continuous};\qquad
-T\text{ maps bounded sets to bounded sets};\\
-T\text{ sequentially continuous};\qquad
-T|_{\mathcal D_K}\text{ continuous for every }K.
-\end{gathered}
+\begin{aligned}
+T\text{ continuous}
+&\iff T\text{ maps bounded sets to bounded sets}\\
+&\iff T\text{ sequentially continuous}\\
+&\iff T|_{\mathcal D_K}\text{ continuous for every }K.
+\end{aligned}
 \]
 
-For example, sequential continuity restricts to sequential continuity on each metrizable \(\mathcal D_K\), hence continuity there; the universal property then gives continuity on \(\mathcal D\). For the boundedness implication, use the Fréchet-space fact that a null sequence \(f_j\) in a fixed \(\mathcal D_K\) can be rescaled by numbers \(b_j\to\infty\) slowly enough that \(b_jf_j\to0\). Boundedness of \(T\) then gives \(T f_j=b_j^{-1}T(b_jf_j)\to0\).
+For example, sequential continuity restricts to sequential continuity on each metrizable \(\mathcal D_K\), hence continuity there; the universal property then gives continuity on \(\mathcal D\). For the boundedness implication, use the Fréchet-space rescaling fact
+
+\[
+f_j\xrightarrow{\mathcal D_K}0
+\quad\Longrightarrow\quad
+\exists b_j\to\infty:\ b_jf_j\xrightarrow{\mathcal D_K}0.
+\]
+
+The rescaled sequence is bounded. If \(T\) maps bounded sets to bounded sets, then for every continuous seminorm \(r\) on \(Y\),
+
+\[
+r(Tf_j)
+=\frac{r\bigl(T(b_jf_j)\bigr)}{b_j}
+\le\frac{C_r}{b_j}\longrightarrow0.
+\]
+
+Thus \(Tf_j\to0\), proving sequential continuity.
 
 This explains why distribution theory can often work with sequences despite the nonmetrizability of its test function space. It is a special fact about these linear maps, not a general replacement of topological continuity by sequential continuity.
 
@@ -752,7 +986,14 @@ The universal property makes it continuous on \(\mathcal D\), so transposition d
 =(-1)^{|\alpha|}\langle T,D^\alpha\varphi\rangle.
 \]
 
-Likewise, multiplication by a fixed \(a\in C^\infty(\Omega)\) is continuous on \(\mathcal D\), by the Leibniz rule on each \(K\), and therefore defines multiplication of distributions:
+Likewise, the Leibniz rule gives, for fixed \(a\in C^\infty(\Omega)\),
+
+\[
+q_m(a\varphi)\le C_{K,m}(a)\,q_m(\varphi),
+\qquad \varphi\in\mathcal D_K.
+\]
+
+Thus multiplication by \(a\) is continuous on every \(\mathcal D_K\), hence on \(\mathcal D\), and defines multiplication of distributions:
 
 \[
 \langle aT,\varphi\rangle=\langle T,a\varphi\rangle.
@@ -814,17 +1055,45 @@ Restriction of continuous functionals reverses the inclusion chain:
 \hookrightarrow\mathcal D'(\mathbb R^d).}
 \]
 
-Density makes these restriction maps injective. The three classes are compactly supported distributions, tempered distributions, and arbitrary distributions, respectively. The inclusions are strict: the constant function \(1\) defines a tempered distribution without compact support, while \(e^{|x|^2}\) defines a distribution which is not tempered. Translating a fixed nonnegative bump shows the latter: its pairing grows faster than any polynomial, whereas every fixed Schwartz seminorm of that translated bump grows at most polynomially.
+Density makes these restriction maps injective. The three classes are compactly supported distributions, tempered distributions, and arbitrary distributions, respectively. Two regular distributions show that both inclusions are strict:
+
+\[
+1\in\mathcal S'\setminus\mathcal E',
+\qquad
+e^{|x|^2}\in\mathcal D'\setminus\mathcal S'.
+\]
+
+The first has noncompact support. For the second, translating a fixed nonnegative bump gives pairings growing faster than any polynomial, while each fixed Schwartz seminorm of that bump grows at most polynomially.
 
 A finer topology on the test functions allows more linear functionals to be continuous.
 
 ## 13. Summary
 
-I began with two questions: how can we construct a topology on a vector space, and which topology should compactly supported smooth functions carry? Local bases reduce the first question to neighborhoods of zero. Minkowski functionals then turn convex balanced neighborhoods into seminorms, recovering the same topology.
+I began with two questions: how can we construct a topology on a vector space, and which topology should compactly supported smooth functions carry? Local bases reduce the first question to neighborhoods of zero. Minkowski functionals turn their convex geometry into seminorms without changing the topology:
 
-For \(\mathcal D\), both local and global derivative bounds allowed Cauchy sequences to lose compact support. We therefore kept every inclusion \(\mathcal D_K\hookrightarrow\mathcal D\) continuous and collected all compatible seminorms, including the uncountably many spatial tolerances that no countable family can replace. The resulting topology forces bounded sets into one fixed-support space and makes every Cauchy sequence converge there.
+\[
+\mathcal B_0\ \xrightarrow{\ U\mapsto p_U\ }\ \mathcal P,
+\qquad U=\{p_U<1\},\qquad \tau_{\mathcal P}=\tau.
+\]
 
-The same construction answers the continuity question: a linear map from \(\mathcal D\) into a locally convex space is continuous exactly when its restriction to every \(\mathcal D_K\) is continuous. For a scalar-valued functional, this gives the local finite-order estimates defining a distribution. The common-support convergence criterion and the distribution estimate now follow from the topology we constructed.
+For \(\mathcal D\), both local and global derivative bounds allowed Cauchy sequences to lose compact support. We kept every inclusion \(i_K\) continuous and collected all compatible seminorms, including arbitrary spatial tolerances. The resulting topology forces bounded sets into one fixed-support space. Starting from the one-way requirement that the \(i_K\) preserve convergence, we therefore obtained an exact equality:
+
+\[
+\tau_{\mathcal D}=\bigvee_{\tau\in\Gamma}\tau,
+\qquad
+\boxed{\mathcal R_{\tau_{\mathcal D}}
+=\bigcup_{K\Subset\Omega}\mathcal R_{\tau_K}.}
+\]
+
+The same construction answers the continuity question. For a linear map \(T:\mathcal D\to Y\) with \(Y\) locally convex,
+
+\[
+T\text{ continuous}
+\iff
+\forall K\Subset\Omega,\quad T|_{\mathcal D_K}\text{ continuous}.
+\]
+
+For a scalar-valued functional, this becomes the local finite-order distribution estimate. Both that estimate and the common-support convergence criterion follow from the topology we constructed.
 
 ## Reading references
 
