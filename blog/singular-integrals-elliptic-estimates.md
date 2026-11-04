@@ -1,13 +1,13 @@
 ---
-title: "Singular Integrals and Elliptic Estimates: Reading Stein, Chapters I–IV"
+title: "Singular Integrals and Elliptic Estimates: Reading Stein, Chapters 1–4"
 date: 2026-10-24
 description: "Three elliptic estimates through cancellation, spherical spectral theory, and Littlewood–Paley square functions, with definitions and proof calculations."
 slug: singular-integrals-elliptic-estimates
 ---
 
-# Singular Integrals and Elliptic Estimates: Reading Stein, Chapters I–IV
+# Singular Integrals and Elliptic Estimates: Reading Stein, Chapters 1–4
 
-*Reading notes on E. M. Stein, Singular Integrals and Differentiability Properties of Functions, Chapters I–IV.*
+*Reading notes on E. M. Stein, Singular Integrals and Differentiability Properties of Functions, Chapters 1–4.*
 
 What I want to remember from these chapters is **how bounds for singular integrals become estimates for derivatives**. Three estimates organize the reading. Initially, $f\in C_c^\infty$ and $1<p<\infty$:
 

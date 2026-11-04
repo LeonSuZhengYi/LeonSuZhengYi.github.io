@@ -390,9 +390,9 @@ What interests me most is how these ideas come together in the study of **ellipt
 }
 \]
 
-The book is concise, and some functional-analytic foundations are left implicit. Reconstructing those details—particularly the use of vector-valued singular integrals and spectral theory—was an important part of my reading. For me, Chapters I–IV form a coherent introduction to harmonic analysis as a theory of **operators, estimates, and regularity**, and an excellent foundation for further work in PDE.
+The book is concise, and some functional-analytic foundations are left implicit. Reconstructing those details—particularly the use of vector-valued singular integrals and spectral theory—was an important part of my reading. For me, Chapters 1–4 form a coherent introduction to harmonic analysis as a theory of **operators, estimates, and regularity**, and an excellent foundation for further work in PDE.
 
-[My reading notes (Chapters I–IV)](singular-integrals-elliptic-estimates.html)
+[My reading notes (Chapters 1–4)](singular-integrals-elliptic-estimates.html)
 
 ---
 

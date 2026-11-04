@@ -102,7 +102,7 @@ __BODY__
 </html>
 '''
 for key, value in {'TITLE': escape(title),
-                   'HEADING': escape(title).replace('Chapters I–IV', '<span style="white-space:nowrap">Chapters I–IV</span>'),
+                   'HEADING': escape(title).replace('Chapters 1–4', '<span style="white-space:nowrap">Chapters 1–4</span>'),
                    'DESCRIPTION': escape(description),
                    'DATE': published.isoformat(),
                    'PRETTY_DATE': f'{published:%B} {published.day}, {published.year}',
